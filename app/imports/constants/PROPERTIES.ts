@@ -207,7 +207,7 @@ const PROPERTIES: Record<PropertyType, PropertyTypeDetails> = Object.freeze({
     icon: '$vuetify.icons.toggle',
     name: 'Toggle',
     docsPath: 'property/toggle',
-    helpText: 'Togggles allow parts of the character sheet to be turned on and off, either manually or as the result of a calculation.',
+    helpText: 'Toggles allow parts of the character sheet to be turned on and off, either manually or as the result of a calculation.',
     suggestedParents: [],
   },
   trigger: {
