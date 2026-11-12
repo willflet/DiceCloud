@@ -2,7 +2,7 @@
 ```sh
 cd DiceCloud
 docker build --progress=plain --build-arg SOURCE_REVISION="$(git rev-parse HEAD)" -t dicecloud:runtime .
-python3 deployment/initialize.py --directory ~/.srv/dicecloud-config
+uv run deployment/initialize.py --directory ~/.srv/dicecloud-config
 ```
 
 ```sh
