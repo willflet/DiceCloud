@@ -49,7 +49,7 @@ const spellComponents = computed(() => {
         </div>
       </div>
       <div class="spell-title text-center flex-grow-1">
-        {{ model.name || propertyName }}
+        {{ model.name || model.variableName }}
       </div>
       <div class="avatar">
         <property-icon

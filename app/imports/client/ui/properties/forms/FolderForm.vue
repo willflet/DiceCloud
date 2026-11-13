@@ -18,17 +18,17 @@ function change(path: string | string[], value: any, ack?: Function) {
 const locationItems = computed(() => {
   if (props.model.tab === 'stats') {
     return [
-      { text: 'Start', value: 'start' },
-      { text: 'After events', value: 'events' },
-      { text: 'After stats', value: 'stats' },
-      { text: 'After skills', value: 'skills' },
-      { text: 'After proficiencies', value: 'proficiencies' },
-      { text: 'End', value: 'end' },
+      { title: 'Start', value: 'start' },
+      { title: 'After events', value: 'events' },
+      { title: 'After stats', value: 'stats' },
+      { title: 'After skills', value: 'skills' },
+      { title: 'After proficiencies', value: 'proficiencies' },
+      { title: 'End', value: 'end' },
     ];
   } else {
     return [
-      { text: 'Start', value: 'start' },
-      { text: 'End', value: 'end' },
+      { title: 'Start', value: 'start' },
+      { title: 'End', value: 'end' },
     ];
   }
 });
@@ -75,13 +75,13 @@ function changeTab(path: string | string[], value: any, ack?: Function) {
               clearable
               label="Tab"
               :items="[
-                { text: 'Stats Tab', value: 'stats' },
-                { text: 'Features Tab', value: 'features' },
-                { text: 'Actions Tab', value: 'actions' },
-                { text: 'Spells Tab', value: 'spells' },
-                { text: 'Inventory Tab', value: 'inventory' },
-                { text: 'Journal Tab', value: 'journal' },
-                { text: 'Build Tab', value: 'build' },
+                { title: 'Stats Tab', value: 'stats' },
+                { title: 'Features Tab', value: 'features' },
+                { title: 'Actions Tab', value: 'actions' },
+                { title: 'Spells Tab', value: 'spells' },
+                { title: 'Inventory Tab', value: 'inventory' },
+                { title: 'Journal Tab', value: 'journal' },
+                { title: 'Build Tab', value: 'build' },
               ]"
               :value="model.tab"
               :error-messages="errors.tab"

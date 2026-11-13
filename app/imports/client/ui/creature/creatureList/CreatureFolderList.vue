@@ -76,8 +76,3 @@ const openFolders = ref<Record<string, boolean>>({});
   </v-list>
 </template>
 
-<style lang="css">
-.creature-folder-list .v-list-item__icon.v-list-group__header__append-icon {
-  margin-left: 0 !important;
-}
-</style>

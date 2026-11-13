@@ -8,14 +8,14 @@ const props = defineProps<{
 }>();
 
 const items = computed(() => {
-  const items: any[] = [{ text: 'Docs', to: '/docs', exact: true }];
+  const items: any[] = [{ title: 'Docs', to: '/docs', exact: true }];
   if (!props.doc) return items;
 
   const ancestors = Docs.find({ ...getFilter.ancestors(props.doc) }).fetch();
   ancestors.forEach((a: any) => {
-    items.push({ text: a.name, to: a.href, exact: true });
+    items.push({ title: a.name, to: a.href, exact: true });
   });
-  items.push({ text: props.doc.name, to: props.doc.href, exact: true });
+  items.push({ title: props.doc.name, to: props.doc.href, exact: true });
   return items;
 });
 </script>

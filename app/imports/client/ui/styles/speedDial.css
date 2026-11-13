@@ -1,3 +1,87 @@
-.v-speed-dial__list{
+/**
+ * CharacterSheetFab.vue re-implements the Vuetify 2 `v-speed-dial` component
+ * using its class names. These rules restore the Vuetify 2 positioning
+ * behaviour (the `fixed`/`absolute` + edge props and `direction`) so the
+ * floating button and its menu land where callers expect:
+ * https://github.com/vuetifyjs/vuetify/blob/v2.7.2/packages/vuetify/src/components/VSpeedDial/VSpeedDial.sass
+ */
+
+.v-speed-dial {
+  position: relative;
+  z-index: 1;
+}
+
+.v-speed-dial--absolute {
+  position: absolute;
+}
+
+.v-speed-dial--fixed {
+  position: fixed;
+}
+
+.v-speed-dial--fixed,
+.v-speed-dial--absolute {
+  z-index: 4;
+}
+
+.v-speed-dial--top {
+  top: 16px;
+}
+
+.v-speed-dial--bottom {
+  bottom: 16px;
+}
+
+.v-speed-dial--left {
+  left: 16px;
+}
+
+.v-speed-dial--right {
+  right: 16px;
+}
+
+.v-speed-dial__list {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 16px 0;
+  position: absolute;
+}
+
+.v-speed-dial--direction-left .v-speed-dial__list,
+.v-speed-dial--direction-right .v-speed-dial__list {
+  height: 100%;
+  top: 0;
+  padding: 0 16px;
+}
+
+.v-speed-dial--direction-top .v-speed-dial__list,
+.v-speed-dial--direction-bottom .v-speed-dial__list {
+  left: 0;
+  width: 100%;
+}
+
+.v-speed-dial--direction-top .v-speed-dial__list {
+  bottom: 100%;
+  flex-direction: column-reverse;
+}
+
+.v-speed-dial--direction-right .v-speed-dial__list {
+  flex-direction: row;
+  left: 100%;
+}
+
+.v-speed-dial--direction-bottom .v-speed-dial__list {
+  flex-direction: column;
+  top: 100%;
+}
+
+.v-speed-dial--direction-left .v-speed-dial__list {
+  flex-direction: row-reverse;
+  right: 100%;
+}
+
+/* App-level tweak kept from the original speedDial.css */
+.v-speed-dial__list {
   padding-bottom: 12px;
 }

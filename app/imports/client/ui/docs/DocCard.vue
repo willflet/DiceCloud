@@ -39,7 +39,7 @@ const hovering = ref(false);
   .v-card {
     height: 240px;
   }
-  .v-card__text{
+  .v-card-text{
     overflow: hidden;
     -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 95%);
     mask-image: linear-gradient(to bottom, black 75%, transparent 95%);

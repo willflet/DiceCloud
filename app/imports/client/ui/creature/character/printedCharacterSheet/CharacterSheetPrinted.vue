@@ -395,7 +395,6 @@ onBeforeUnmount(() => {
 
   .v-main,
   .v-application,
-  .v-application--wrap,
   .character-sheet-printed {
     display: block !important;
     background-color: white !important;

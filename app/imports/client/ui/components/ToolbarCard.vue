@@ -66,7 +66,7 @@ function hoverToolbar(val: boolean) {
   overflow-wrap: anywhere;
 }
 
-.toolbar-card .v-toolbar__title {
+.toolbar-card .v-toolbar-title {
   font-size: 15px;
 }
 

@@ -21,14 +21,14 @@ function change(path: string | string[], value: any, ack?: Function) {
   emit('change', { path: pathArray, value, ack });
 }
 
-const slotTypes: Array<{ text: string; value: string }> = [];
+const slotTypes: Array<{ title: string; value: string }> = [];
 for (const key in PROPERTIES) {
-  slotTypes.push({ text: (PROPERTIES as any)[key].name, value: key });
+  slotTypes.push({ title: (PROPERTIES as any)[key].name, value: key });
 }
 
 const uniqueOptions = [
-  { text: 'Each property inside this slot should be unique', value: 'uniqueInSlot' },
-  { text: 'Properties in this slot should be unique across the whole character', value: 'uniqueInCreature' },
+  { title: 'Each property inside this slot should be unique', value: 'uniqueInSlot' },
+  { title: 'Properties in this slot should be unique across the whole character', value: 'uniqueInCreature' },
 ];
 
 function testSlot() {

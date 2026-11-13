@@ -47,7 +47,7 @@ async function updateStorageUsedFn() {
       {{ prettyBytes(storageUsed) }} / {{ prettyBytes(storageAllowed) }}
       <v-btn
         icon
-        @click="updateStorageUsed"
+        @click="updateStorageUsedFn"
       >
         <v-icon>mdi-refresh</v-icon>
       </v-btn>

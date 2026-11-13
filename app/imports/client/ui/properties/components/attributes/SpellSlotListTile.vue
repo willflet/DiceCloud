@@ -145,11 +145,6 @@ async function damageProperty({ type, value, ack }: { type: string; value: any; 
   background: inherit;
 }
 
-.v-list__tile__action {
-  width: 112px;
-  flex-shrink: 0;
-}
-
 .spell-slot-list-tile.hover {
   background: #f5f5f5 !important;
 }

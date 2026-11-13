@@ -24,7 +24,7 @@ const { result: libraryOptions } = autorun(() => {
       ]
     },
     { sort: { name: 1 } }
-  ).map((library: any) => ({ text: library.name, value: library._id }));
+  ).map((library: any) => ({ title: library.name, value: library._id }));
 });
 
 function nameChanged(val: string, ack: (error?: string) => void) {

@@ -5,12 +5,13 @@ html {
   background-color: var(--scrollbarBG);
 }
 
-html:has(#app.theme--dark) {
+/* Vuetify 3 applies the theme class to the v-application root element */
+html:has(.v-theme--dark) {
   --scrollbarBG: #212121;
   --thumbBG: #404040;
 }
 
-#app.theme--dark {
+.v-theme--dark {
   --scrollbarBG: #212121;
   --thumbBG: #404040;
 }

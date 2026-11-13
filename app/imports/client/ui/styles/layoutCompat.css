@@ -1,0 +1,59 @@
+/**
+ * Vuetify 2 grid utility classes, dropped in Vuetify 3 but still used by
+ * dozens of migrated templates (`class="layout ..."`, `class="flex"`,
+ * `class="v-sheet--outlined"`). The declarations mirror the Vuetify 2
+ * implementation exactly so those templates keep their original layout:
+ * https://github.com/vuetifyjs/vuetify/blob/v2.7.2/packages/vuetify/src/styles/generic/_grid.scss
+ *
+ * `flex-wrap` is intentionally not reset on `.layout`: the CSS initial value
+ * is already `nowrap`, and omitting it lets Vuetify 3's own `.flex-wrap`
+ * utility win on mixed classes like `class="layout d-flex flex-wrap"`.
+ */
+
+.layout {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.layout.reverse {
+  flex-direction: row-reverse;
+}
+
+.layout.column {
+  flex-direction: column;
+}
+
+.layout.column.reverse {
+  flex-direction: column-reverse;
+}
+
+.layout.wrap {
+  flex-wrap: wrap;
+}
+
+.layout.column > .flex {
+  max-width: 100%;
+}
+
+.flex {
+  flex: 1 1 auto;
+  max-width: 100%;
+}
+
+/* Lets a field opt out of `.flex` growth inside a form row */
+.no-flex {
+  flex: initial;
+}
+
+/*
+ * Outlined sheet border from Vuetify 2, used by the property viewer fieldsets
+ * in PropertyField.vue and ImageField.vue, which already carry the theme class
+ */
+.v-theme--light.v-sheet--outlined {
+  border: thin solid rgba(0, 0, 0, 0.12);
+}
+
+.v-theme--dark.v-sheet--outlined {
+  border: thin solid rgba(255, 255, 255, 0.12);
+}

@@ -16,27 +16,27 @@ function change(path: string | string[], value: any, ack?: Function) {
 }
 
 const magicSchools = [
-  { text: 'Abjuration', value: 'abjuration' },
-  { text: 'Conjuration', value: 'conjuration' },
-  { text: 'Divination', value: 'divination' },
-  { text: 'Enchantment', value: 'enchantment' },
-  { text: 'Evocation', value: 'evocation' },
-  { text: 'Illusion', value: 'illusion' },
-  { text: 'Necromancy', value: 'necromancy' },
-  { text: 'Transmutation', value: 'transmutation' },
+  { title: 'Abjuration', value: 'abjuration' },
+  { title: 'Conjuration', value: 'conjuration' },
+  { title: 'Divination', value: 'divination' },
+  { title: 'Enchantment', value: 'enchantment' },
+  { title: 'Evocation', value: 'evocation' },
+  { title: 'Illusion', value: 'illusion' },
+  { title: 'Necromancy', value: 'necromancy' },
+  { title: 'Transmutation', value: 'transmutation' },
 ];
 
 const spellLevels = [
-  { text: 'Cantrip', value: 0 },
-  { text: 'Level 1', value: 1 },
-  { text: 'Level 2', value: 2 },
-  { text: 'Level 3', value: 3 },
-  { text: 'Level 4', value: 4 },
-  { text: 'Level 5', value: 5 },
-  { text: 'Level 6', value: 6 },
-  { text: 'Level 7', value: 7 },
-  { text: 'Level 8', value: 8 },
-  { text: 'Level 9', value: 9 },
+  { title: 'Cantrip', value: 0 },
+  { title: 'Level 1', value: 1 },
+  { title: 'Level 2', value: 2 },
+  { title: 'Level 3', value: 3 },
+  { title: 'Level 4', value: 4 },
+  { title: 'Level 5', value: 5 },
+  { title: 'Level 6', value: 6 },
+  { title: 'Level 7', value: 7 },
+  { title: 'Level 8', value: 8 },
+  { title: 'Level 9', value: 9 },
 ];
 
 const attackSwitch = ref(false);
@@ -333,7 +333,7 @@ const isAttack = computed(() =>
 </template>
 
 <style lang="css" scoped>
-.v-input--checkbox {
+.v-checkbox {
   margin-top: 0;
 }
 </style>

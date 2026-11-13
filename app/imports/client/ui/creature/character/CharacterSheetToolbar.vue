@@ -297,12 +297,8 @@ async function unshareWithMe() {
 </template>
 
 <style lang="css">
-.character-sheet-toolbar .v-tabs__container--grow .v-tabs__div {
+.character-sheet-toolbar .v-tab {
   max-width: 120px !important;
-}
-
-.character-sheet-toolbar .v-tabs__bar {
-  background: none !important;
 }
 
 .character-sheet-extension-fab {

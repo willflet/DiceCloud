@@ -16,13 +16,13 @@ function change(path: string | string[], value: any, ack?: Function) {
 }
 
 const actionTypes = [
-  { text: 'Action', value: 'action' },
-  { text: 'Bonus action', value: 'bonus' },
-  { text: 'Attack action', value: 'attack', help: 'Attack actions replace a single attack when you choose to use your Action to attack' },
-  { text: 'Reaction', value: 'reaction' },
-  { text: 'Free action', value: 'free', help: 'You can take one free action on your turn without using an action or bonus action' },
-  { text: 'Long action', value: 'long', help: 'Long actions take longer than one turn to complete' },
-  { text: 'Event', value: 'event', help: 'Events are actions that happen to the character like rests or dawn' },
+  { title: 'Action', value: 'action' },
+  { title: 'Bonus action', value: 'bonus' },
+  { title: 'Attack action', value: 'attack', help: 'Attack actions replace a single attack when you choose to use your Action to attack' },
+  { title: 'Reaction', value: 'reaction' },
+  { title: 'Free action', value: 'free', help: 'You can take one free action on your turn without using an action or bonus action' },
+  { title: 'Long action', value: 'long', help: 'Long actions take longer than one turn to complete' },
+  { title: 'Event', value: 'event', help: 'Events are actions that happen to the character like rests or dawn' },
 ];
 
 const actionTypeHints: Record<string, string | undefined> = {};
@@ -31,9 +31,9 @@ actionTypes.forEach(type => {
 });
 
 const targetOptions = [
-  { text: 'Self', value: 'self' },
-  { text: 'Single target', value: 'singleTarget' },
-  { text: 'Multiple targets', value: 'multipleTargets' },
+  { title: 'Self', value: 'self' },
+  { title: 'Single target', value: 'singleTarget' },
+  { title: 'Multiple targets', value: 'multipleTargets' },
 ];
 
 const attackSwitch = ref(false);
@@ -197,14 +197,3 @@ const isAttack = computed(() =>
   </div>
 </template>
 
-<style lang="css" scoped>
-  .no-flex {
-    flex: initial;
-  }
-  .layout.row.wrap {
-    margin-right: -8px;
-  }
-  .layout.row.wrap > *{
-    margin-right: 8px;
-  }
-</style>

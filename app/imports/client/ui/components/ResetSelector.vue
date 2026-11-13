@@ -18,8 +18,8 @@ const { result: resetOptions } = autorun(() => {
     actionType: 'event',
   }, true);
   const defaultEvents = [
-    { text: 'Short rest', value: 'shortRest' },
-    { text: 'Long rest', value: 'longRest' },
+    { title: 'Short rest', value: 'shortRest' },
+    { title: 'Long rest', value: 'longRest' },
   ];
   return [...defaultEvents, ...eventActions];
 });

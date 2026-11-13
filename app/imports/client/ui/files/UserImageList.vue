@@ -3,6 +3,7 @@ import { autorun, subscribe } from 'vue-meteor-tracker';
 import prettyBytes from 'pretty-bytes';
 import UserImages from '/imports/api/files/userImages/UserImages';
 import UserImageCard from '/imports/client/ui/files/userImages/UserImageCard.vue';
+import ImageUploadInput from '/imports/client/ui/components/ImageUploadInput.vue';
 
 subscribe('userImages');
 
@@ -17,11 +18,7 @@ const { result: userImages } = autorun(() => {
 </script>
 
 <template>
-  <v-row
-    class="density"
-    @drop.prevent="addDropFile"
-    @dragover.prevent="imageDragOver"
-  >
+  <v-row class="density">
     <v-col cols="12">
       <v-list-subheader> Images </v-list-subheader>
     </v-col>
@@ -47,34 +44,9 @@ const { result: userImages } = autorun(() => {
       xl="2"
       class="d-flex flex-column justify-center"
     >
-      <input
-        ref="uploadImageInput"
-        type="file"
-        accept=".json"
-        style="display: none;"
-        @input="uploadImageFile"
-      >
-      <v-btn
-        variant="outlined"
-        style="height: 100%; width: 100%; min-height: 120px;"
-        class="archive-button"
-        :color="uploadImageError ? 'error' : undefined"
-        :disabled="uploadImageInProgress"
-        prepend-icon="mdi-file-upload-outline"
-        @click="$refs.uploadImageInput.click()"
-      >
-        <template v-if="uploadImageError">
-          {{ uploadImageError }}
-        </template>
-        <template v-else>
-          Upload archive
-        </template>
-        <v-progress-linear
-          v-if="uploadImageInProgress"
-          :model-value="imageUploadProgress"
-          :indeterminate="imageUploadIndeterminate"
-        />
-      </v-btn>
+      <image-upload-input
+        style="height: 100%; min-height: 120px;"
+      />
     </v-col>
   </v-row>
 </template>

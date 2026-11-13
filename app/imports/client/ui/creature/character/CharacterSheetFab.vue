@@ -8,7 +8,19 @@ import insertPropertyFromLibraryNode from '/imports/api/creature/creaturePropert
 import { getDocByRefAsync } from '/imports/api/parenting/reference';
 import { key } from '/imports/client/ui/vuexStore';
 
-const props = defineProps<{ editPermission?: boolean }>();
+withDefaults(defineProps<{
+  editPermission?: boolean;
+  /** Positioning modifiers from the Vuetify 2 v-speed-dial API */
+  absolute?: boolean;
+  fixed?: boolean;
+  top?: boolean;
+  bottom?: boolean;
+  left?: boolean;
+  right?: boolean;
+  direction?: 'top' | 'right' | 'bottom' | 'left';
+}>(), {
+  direction: 'top',
+});
 const store = useStore(key);
 const route = useRoute();
 
@@ -110,8 +122,16 @@ async function addProperty(forcedType: string | null) {
   <div
     v-bind="$attrs"
     class="v-speed-dial"
+    :class="{
+      'v-speed-dial--absolute': absolute,
+      'v-speed-dial--fixed': fixed,
+      'v-speed-dial--top': top,
+      'v-speed-dial--bottom': bottom,
+      'v-speed-dial--left': left,
+      'v-speed-dial--right': right,
+      [`v-speed-dial--direction-${direction}`]: true,
+    }"
     :style="!speedDials ? 'visibility: hidden;' : ''"
-    style="position: relative;"
   >
     <v-btn
       color="#7d2e3d"
@@ -180,6 +200,11 @@ async function addProperty(forcedType: string | null) {
   border: 1px solid #b99b64;
   border-radius: 8px;
   box-shadow: 0 8px 24px #00000055;
+  /* The menu is wider than the button: anchor it on the button's right edge
+   * so it never overflows the right side of the screen */
+  right: 0;
+  left: auto;
+  width: auto;
 }
 .character-add-menu-item {
   width: 100%;

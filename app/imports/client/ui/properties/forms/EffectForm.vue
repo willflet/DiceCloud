@@ -20,17 +20,17 @@ function change(path: string | string[], value: any, ack?: Function) {
 }
 
 const operations = [
-  { value: 'base', text: 'Base Value' },
-  { value: 'add', text: 'Add' },
-  { value: 'mul', text: 'Multiply' },
-  { value: 'min', text: 'Minimum' },
-  { value: 'max', text: 'Maximum' },
-  { value: 'set', text: 'Set' },
-  { value: 'advantage', text: 'Advantage' },
-  { value: 'disadvantage', text: 'Disadvantage' },
-  { value: 'passiveAdd', text: 'Passive Bonus' },
-  { value: 'fail', text: 'Fail' },
-  { value: 'conditional', text: 'Conditional Benefit' },
+  { value: 'base', title: 'Base Value' },
+  { value: 'add', title: 'Add' },
+  { value: 'mul', title: 'Multiply' },
+  { value: 'min', title: 'Minimum' },
+  { value: 'max', title: 'Maximum' },
+  { value: 'set', title: 'Set' },
+  { value: 'advantage', title: 'Advantage' },
+  { value: 'disadvantage', title: 'Disadvantage' },
+  { value: 'passiveAdd', title: 'Passive Bonus' },
+  { value: 'fail', title: 'Fail' },
+  { value: 'conditional', title: 'Conditional Benefit' },
 ];
 
 const { result: attributeList } = autorun(() =>
@@ -134,7 +134,7 @@ function changeTargetByTags(value: string, ack?: Function) {
             <v-icon class="icon mr-2">
               {{ getEffectIcon(item.item.value, 1) }}
             </v-icon>
-            {{ item.item.text }}
+            {{ item.item.title }}
           </template>
         </smart-select>
       </v-col>

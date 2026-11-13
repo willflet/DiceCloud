@@ -58,16 +58,3 @@ function change(path: string | string[], value: any, ack?: Function) {
   </div>
 </template>
 
-<style lang="css" scoped>
-.no-flex {
-  flex: initial;
-}
-
-.layout.row.wrap {
-  margin-right: -8px;
-}
-
-.layout.row.wrap>* {
-  margin-right: 8px;
-}
-</style>

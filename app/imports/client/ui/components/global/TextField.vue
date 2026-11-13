@@ -47,7 +47,7 @@ const { loading, errors, safeValue, isDisabled, focused, input } = useSmartInput
 </template>
 
 <style lang="css">
-.dc-text-field .v-input__append-inner{
+.dc-text-field .v-input__append{
   font-size: 12px;
   margin-top: 36px;
 }

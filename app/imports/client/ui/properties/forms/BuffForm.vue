@@ -5,6 +5,13 @@ withDefaults(defineProps<{
 }>(), {
   errors: () => ({}),
 });
+
+const emit = defineEmits(['change']);
+
+function change(path: string | string[], value: any, ack?: Function) {
+  const pathArray = Array.isArray(path) ? path : [path];
+  emit('change', { path: pathArray, value, ack });
+}
 </script>
 
 <template lang="html">

@@ -120,7 +120,7 @@ async function setPrepared(val: boolean, ack?: Function) {
 }
 
 .text-primary .v-icon,
-.text-primary .v-list__tile__sub-title {
+.text-primary .v-list-item-subtitle {
   color: #b71c1c
 }
 

@@ -139,8 +139,8 @@ function makeOwner(user: any) {
       <smart-select
         label="Who can view"
         :items="[
-          { text: 'Only people I share with', value: 'false' },
-          { text: 'Anyone with link', value: 'true' }
+          { title: 'Only people I share with', value: 'false' },
+          { title: 'Anyone with link', value: 'true' }
         ]"
         :value="!!model.public + ''"
         @change="(value, ack) => setSheetPublic({ value, ack })"
@@ -149,8 +149,8 @@ function makeOwner(user: any) {
         v-if="docRef.collection === 'libraries'"
         label="Who can copy from this library"
         :items="[
-          { text: 'Only people with edit permission', value: 'false' },
-          { text: 'Anyone with read permission', value: 'true' }
+          { title: 'Only people with edit permission', value: 'false' },
+          { title: 'Anyone with read permission', value: 'true' }
         ]"
         :value="!!model.readersCanCopy + ''"
         @change="(value, ack) => setReadersCanCopyFn({ value, ack })"

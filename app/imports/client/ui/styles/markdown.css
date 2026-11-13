@@ -61,7 +61,7 @@
   overflow: auto;
 }
 
-.theme--dark.v-application .markdown hr {
+.v-theme--dark .markdown hr {
   border-color: rgba(255, 255, 255, 0.2);
 }
 
@@ -93,7 +93,7 @@
   margin-bottom: 16px;
 }
 
-.theme--dark.v-application .markdown tbody>tr:nth-child(odd) {
+.v-theme--dark .markdown tbody>tr:nth-child(odd) {
   background-color: rgba(255, 255, 255, 0.03)
 }
 

@@ -36,7 +36,7 @@ function toggleDrawer() {
 }
 
 function printPage() {
-  print();
+  window.print();
 }
 </script>
 
@@ -67,7 +67,7 @@ function printPage() {
           color="accent"
           elevation="4"
           icon="mdi-printer"
-          @click="print"
+          @click="printPage"
         />
       </div>
     </template>

@@ -35,8 +35,8 @@ const damageTypeRules = [
 ];
 
 const targetOptions = computed(() => [
-  { text: 'Self', value: 'self' },
-  { text: 'Target', value: 'target' },
+  { title: 'Self', value: 'self' },
+  { title: 'Target', value: 'target' },
 ]);
 
 const targetOptionHint = computed(() => {

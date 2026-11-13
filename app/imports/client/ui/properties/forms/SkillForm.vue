@@ -17,14 +17,14 @@ function change(path: string | string[], value: any, ack?: Function) {
 }
 
 const skillTypes = [
-  { text: 'Skill', value: 'skill' },
-  { text: 'Save', value: 'save' },
-  { text: 'Check', value: 'check' },
-  { text: 'Tool', value: 'tool' },
-  { text: 'Weapon', value: 'weapon' },
-  { text: 'Armor', value: 'armor' },
-  { text: 'Language', value: 'language' },
-  { text: 'Utility', value: 'utility' },
+  { title: 'Skill', value: 'skill' },
+  { title: 'Save', value: 'save' },
+  { title: 'Check', value: 'check' },
+  { title: 'Tool', value: 'tool' },
+  { title: 'Weapon', value: 'weapon' },
+  { title: 'Armor', value: 'armor' },
+  { title: 'Language', value: 'language' },
+  { title: 'Utility', value: 'utility' },
 ];
 
 const skillTypeHints: Record<string, string> = {

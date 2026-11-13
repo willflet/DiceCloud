@@ -120,8 +120,8 @@ async function getUser({ value, ack }: { value: string; ack: Function }) {
             <smart-select
               label="Who can view"
               :items="[
-                {text: 'Only people I share with', value: 'false'},
-                {text: 'Anyone with link', value: 'true'}
+                {title: 'Only people I share with', value: 'false'},
+                {title: 'Anyone with link', value: 'true'}
               ]"
               :value="!!model.public + ''"
               @change="(value, ack) => change('public', value === 'true', ack)"
@@ -156,9 +156,9 @@ async function getUser({ value, ack }: { value: string; ack: Function }) {
             <smart-select
               label="Permission"
               :items="[
-                {text: 'Game Master', value: 'gameMaster'},
-                {text: 'Player', value: 'player'},
-                {text: 'Spectator', value: 'spectator'},
+                {title: 'Game Master', value: 'gameMaster'},
+                {title: 'Player', value: 'player'},
+                {title: 'Spectator', value: 'spectator'},
               ]"
               :value="newSharePermission"
               :disabled="!editPermission"
