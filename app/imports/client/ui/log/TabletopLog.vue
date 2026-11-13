@@ -163,8 +163,3 @@ function decrementHistory() {
   </div>
 </template>
 
-<style lang="css">
-  .log-tab p:last-child {
-    margin-bottom: 0;
-  }
-</style>

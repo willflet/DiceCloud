@@ -36,20 +36,3 @@ const textValue = computed(() => {
   </property-field>
 </template>
 
-<style lang="css">
-.computed {
-  display: inline-block;
-}
-
-.computed.symbols-are-errors .math-symbol {
-  color: red;
-}
-
-.computed.code {
-  font-family: monospace, monospace;
-}
-
-.computed .math-binary-operator {
-  margin: 0 6px;
-}
-</style>

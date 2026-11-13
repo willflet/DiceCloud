@@ -96,7 +96,7 @@ async function damageProperty({ type, value }: { type: string; value: number }) 
 <template lang="html">
   <div class="attribute-viewer">
     <v-row
-      class="density"
+      dense
       align="stretch"
       justify="center"
       justify-sm="start"
@@ -234,22 +234,6 @@ async function damageProperty({ type, value }: { type: string; value: number }) 
 </template>
 
 <style lang="css" scoped>
-.ability-value {
-  font-weight: 600;
-  font-size: 24px !important;
-  color: rgba(0, 0, 0, 0.54);
-}
-
-.mod,
-.ability-value {
-  text-align: center;
-  width: 100%;
-}
-
-.attribute-value {
-  text-align: center;
-}
-
 .mono {
   font-family: monospace !important;
 }

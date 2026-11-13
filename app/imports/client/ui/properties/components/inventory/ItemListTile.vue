@@ -73,7 +73,7 @@ async function changeQuantity({ type, value }: { type: string; value: any }) {
   >
     <template #prepend>
       <property-icon
-        class="mr-2"
+        class="item-avatar mr-2"
         :model="model"
         :color="model.color"
       />

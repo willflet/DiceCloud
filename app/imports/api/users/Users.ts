@@ -10,6 +10,7 @@ import '/imports/api/users/methods/addEmail';
 import '/imports/api/users/methods/removeEmail';
 import '/imports/api/users/methods/updateFileStorageUsed';
 import { some } from 'lodash';
+import { isAdmin } from '/imports/api/sharing/sharingPermissions';
 import { TypedSimpleSchema } from '/imports/api/utility/TypedSimpleSchema';
 const defaultLibraries = process.env.DEFAULT_LIBRARIES && process.env.DEFAULT_LIBRARIES.split(',') || [];
 const defaultLibraryCollections = process.env.DEFAULT_LIBRARY_COLLECTIONS && process.env.DEFAULT_LIBRARY_COLLECTIONS.split(',') || [];
@@ -188,7 +189,7 @@ export const sendVerificationEmail = new ValidatedMethod({
       throw new Meteor.Error('logged-out', 'you must be logged in to perform this action')
     }
     if (userId && userId !== this.userId) {
-      const isAdmin = await Roles.userIsInRoleAsync(this.userId, 'admin');
+      const isAdmin = await isAdmin(this.userId);
       if (!isAdmin) {
         throw new Meteor.Error('permission-denied',
           'Only admins may send verification emails on behalf of other users'

@@ -173,7 +173,7 @@ const highlightCards = [
         </v-col>
       </v-row>
     </section>
-    <section class="text-center grey-darken-3 text-white pa-5">
+    <section class="text-center bg-secondary text-white pa-5">
       <h1>
         Get involved in the DiceCloud community
       </h1>
@@ -207,8 +207,5 @@ const highlightCards = [
 <style scoped>
 .selling-points>* {
   max-width: 400px;
-}
-.dark-gradient {
-  background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
 }
 </style>

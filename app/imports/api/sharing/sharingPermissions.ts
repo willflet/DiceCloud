@@ -50,7 +50,7 @@ export async function assertEditPermission(doc: Shared | undefined, userId: stri
   }
 
   // Admin override
-  if (await Roles.userIsInRoleAsync(user, 'admin')) {
+  if (await isAdmin(userId)) {
     return;
   }
 
@@ -87,7 +87,7 @@ export async function assertCopyPermission(doc: Shared | undefined, userId: stri
   }
 
   // Admin override
-  if (await Roles.userIsInRoleAsync(user, 'admin')) {
+  if (await isAdmin(userId)) {
     return;
   }
 
@@ -153,7 +153,7 @@ export async function assertViewPermission(doc: Shared | undefined, userId: stri
   }
 
   // Admin override
-  if (await Roles.userIsInRoleAsync(userId, 'admin')) {
+  if (await isAdmin(userId)) {
     return;
   }
 
@@ -173,10 +173,20 @@ export async function assertDocViewPermission(doc: Shared | TreeDoc | undefined,
   await assertViewPermission(root, userId);
 }
 
+export async function isAdmin(userId: string | undefined | null): Promise<boolean> {
+  if (!userId || typeof userId !== 'string') return false;
+  try {
+    if (await Roles.userIsInRoleAsync(userId, 'admin')) return true;
+  } catch (error) {
+    // Fall through to the database-backed role check below.
+  }
+  const user = await Meteor.users.findOneAsync(userId, { fields: { roles: 1 } });
+  return Array.isArray(user?.roles) && user.roles.includes('admin');
+}
+
 export async function assertAdmin(userId: string | undefined | null): Promise<void> {
   assertIdValid(userId);
-  const isAdmin = await Roles.userIsInRoleAsync(userId, 'admin');
-  if (!isAdmin) {
+  if (!(await isAdmin(userId))) {
     throw new Meteor.Error('permission-denied',
       'User does not have the admin role');
   }

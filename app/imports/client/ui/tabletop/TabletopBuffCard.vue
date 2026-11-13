@@ -189,10 +189,6 @@ function shwing() {
   transform: scale(0.92);
 }
 
-.action-card-container {
-  transition: width .3s ease;
-}
-
 .action-title {
   font-size: 16px;
   font-weight: 400;

@@ -80,7 +80,7 @@ const passiveScore = computed(() =>
   min-width: 24px;
 }
 
-.v-icon.v-theme--light {
+.v-theme--light .v-icon {
   color: rgba(0, 0, 0, 0.7) !important;
 }
 </style>

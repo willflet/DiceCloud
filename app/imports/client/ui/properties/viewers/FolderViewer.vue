@@ -4,7 +4,7 @@ defineProps<{ model: Record<string, any> }>();
 
 <template lang="html">
   <div class="folder-viewer">
-    <v-row class="density">
+    <v-row dense>
       <property-field
         name="Name"
         :value="model.name"

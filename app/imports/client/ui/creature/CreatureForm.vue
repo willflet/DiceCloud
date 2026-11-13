@@ -300,7 +300,7 @@ function showDependencyGraph() {
         />
         <p
           v-if="libraryWriteError"
-          class="text--error"
+          class="text-error"
         >
           {{ libraryWriteError }}
         </p>

@@ -50,7 +50,7 @@ const properties = computed(() => {
   <div class="card-raised-background">
     <v-container fluid>
       <v-row
-        class="density"
+        dense
         wrap
         justify="center"
         justify-sm="start"

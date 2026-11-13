@@ -83,7 +83,7 @@ function editLibrary(_id: string) {
   >
     <v-expansion-panels
       v-model="expandedLibrary"
-      accordian
+
       flat
       multiple
     >

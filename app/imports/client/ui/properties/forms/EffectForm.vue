@@ -112,7 +112,7 @@ function changeTargetByTags(value: string, ack?: Function) {
       >
         <smart-select
           label="Operation"
-          append-icon="mdi-menu-down"
+          menu-icon="mdi-menu-down"
           :hint="operationHint"
           :error-messages="errors.operation"
           :menu-props="{transition: 'slide-y-transition', lazy: true}"

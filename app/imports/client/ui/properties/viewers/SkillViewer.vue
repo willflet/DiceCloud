@@ -101,7 +101,7 @@ function clickEffect(id: string) {
 <template lang="html">
   <div class="skill-viewer">
     <v-row
-      class="density"
+      dense
       justify="center"
       justify-sm="start"
     >
@@ -163,7 +163,7 @@ function clickEffect(id: string) {
     </v-row>
     <v-row
       v-if="ability || (effects && effects.length)"
-      class="density"
+      dense
     >
       <property-field
         :cols="{ col: 12 }"
@@ -191,7 +191,7 @@ function clickEffect(id: string) {
     </v-row>
     <v-row
       v-if="proficiencies.length"
-      class="density"
+      dense
     >
       <property-field
         :cols="{ col: 12 }"

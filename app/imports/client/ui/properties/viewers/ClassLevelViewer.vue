@@ -8,7 +8,7 @@ const context = inject<any>('context', {});
 <template lang="html">
   <div class="class-level-viewer">
     <v-row
-      class="density"
+      dense
       justify="center"
     >
       <property-field

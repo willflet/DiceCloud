@@ -21,7 +21,7 @@
   margin-top: 24px;
 }
 
-:not(:first-child) .markdown h1 {
+.markdown h1:not(:first-child) {
   font-size: 2rem;
   letter-spacing: -.0083333333em;
   font-weight: 300;

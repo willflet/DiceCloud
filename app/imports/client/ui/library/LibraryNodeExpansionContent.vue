@@ -6,6 +6,7 @@ import { Meteor } from 'meteor/meteor';
 import { docsToForest, getFilter } from '/imports/api/parenting/parentingFunctions';
 import LibraryNodes from '/imports/api/library/LibraryNodes';
 import TreeNodeList from '/imports/client/ui/components/tree/TreeNodeList.vue';
+import propertyViewerIndex from '/imports/client/ui/properties/viewers/shared/propertyViewerIndex';
 import { key } from '/imports/client/ui/vuexStore';
 
 const props = defineProps<{ id: string }>();
@@ -34,6 +35,8 @@ const { result: propertyChildren } = autorun(() => {
 
 const subsReady = computed(() => libraryNodeSubReady.value && descendantLibraryNodesSubReady.value);
 
+const viewerComponent = computed(() => (model.value ? (propertyViewerIndex as any)[model.value.type] : undefined));
+
 function clickChild(id: string) {
   store.commit('pushDialogStack', {
     component: 'library-node-dialog',
@@ -56,10 +59,18 @@ function clickChild(id: string) {
         class="pt-4"
       >
         <component
-          :is="model.type"
+          :is="viewerComponent"
+          v-if="viewerComponent"
+          :key="model._id"
           :model="model"
           class="property-viewer"
         />
+        <div
+          v-else-if="model"
+          class="text-disabled"
+        >
+          This property can't be viewed yet.
+        </div>
         <tree-node-list
           group="library-node-expansion"
           :root="{ collection: 'libraryNodes', id: id }"

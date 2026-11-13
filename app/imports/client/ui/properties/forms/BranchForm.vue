@@ -18,15 +18,15 @@ function change(path: string | string[], value: any, ack?: Function) {
 }
 
 const typeOptions = [
-  { value: 'if', text: 'If condition is true' },
-  { value: 'hit', text: 'Attack hit' },
-  { value: 'miss', text: 'Attack miss' },
-  { value: 'failedSave', text: 'Save failed' },
-  { value: 'successfulSave', text: 'Save succeeded' },
-  { value: 'eachTarget', text: 'Apply to each target' },
-  { value: 'random', text: 'Random' },
-  { value: 'index', text: 'Calculated index' },
-  { value: 'choice', text: 'User choice' },
+  { value: 'if', title: 'If condition is true' },
+  { value: 'hit', title: 'Attack hit' },
+  { value: 'miss', title: 'Attack miss' },
+  { value: 'failedSave', title: 'Save failed' },
+  { value: 'successfulSave', title: 'Save succeeded' },
+  { value: 'eachTarget', title: 'Apply to each target' },
+  { value: 'random', title: 'Random' },
+  { value: 'index', title: 'Calculated index' },
+  { value: 'choice', title: 'User choice' },
 ];
 
 const typeHint = computed(() => {

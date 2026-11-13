@@ -87,7 +87,7 @@ async function changeSubscribe(card: any, ack: (err?: string) => void) {
         <v-row
           v-if="browseReady"
           key="loaded-cards"
-          class="density"
+          dense
         >
           <v-col
             v-for="card in libraryCards"

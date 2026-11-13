@@ -13,10 +13,10 @@ const props = withDefaults(defineProps<{
 });
 
 const values = [
-  { value: 1, text: 'Proficient' },
-  { value: 0.49, text: 'Half proficiency bonus rounded down' },
-  { value: 0.5, text: 'Half proficiency bonus rounded up' },
-  { value: 2, text: 'Double proficiency bonus' },
+  { value: 1, title: 'Proficient' },
+  { value: 0.49, title: 'Half proficiency bonus rounded down' },
+  { value: 0.5, title: 'Half proficiency bonus rounded up' },
+  { value: 2, title: 'Double proficiency bonus' },
 ];
 
 const displayedIcon = ref('mdi-radiobox-blank');
@@ -37,7 +37,7 @@ watch(() => props.value, (newValue) => {
 
 <template lang="html">
   <smart-select
-    append-icon="mdi-menu-down"
+    menu-icon="mdi-menu-down"
     :clearable="clearable"
     class="ml-3"
     v-bind="$attrs"

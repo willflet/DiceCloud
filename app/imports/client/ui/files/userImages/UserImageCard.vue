@@ -52,10 +52,10 @@ function previewImage() {
       :data-id="`${model._id}-image`"
     />
     <div class="flex" />
-    <v-card-title class="text-no-wrap">
+    <v-card-title class="text-truncate">
       {{ model.name }}
     </v-card-title>
-    <v-card-subtitle class="text-no-wrap">
+    <v-card-subtitle class="text-truncate">
       {{ model.size }}
     </v-card-subtitle>
     <v-card-actions>
@@ -92,13 +92,6 @@ function previewImage() {
 </template>
 
 <style scoped>
-.no-wrap {
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .user-image-card {
   height: 100%;
 }

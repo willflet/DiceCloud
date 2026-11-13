@@ -44,6 +44,7 @@ RUN node -e 'const sharp = require("./programs/server/npm/node_modules/sharp"); 
 RUN mkdir -p /var/lib/dicecloud && chown node:node /var/lib/dicecloud
 USER node
 EXPOSE 3000
+EXPOSE 27017
 HEALTHCHECK --interval=30s --timeout=5s --start-period=90s --retries=3 \
     CMD node deployment/healthcheck.mjs
 CMD ["node", "deployment/runtime-entrypoint.mjs"]

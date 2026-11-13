@@ -135,10 +135,6 @@ function click(e: Event) {
   .icon {
     color: inherit !important;
   }
-  .net-effect {
-    flex-grow: 0;
-    flex-shrink: 0;
-  }
   .effect-value {
     min-width: 30px;
     text-align: center;

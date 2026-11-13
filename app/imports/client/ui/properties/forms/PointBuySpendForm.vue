@@ -63,7 +63,7 @@ function releaseSlider(i: number, value: any, ack?: Function) {
   <div class="point-buy-spend-form">
     <v-row
       v-if="model.values && model.values.length"
-      class="density"
+      dense
     >
       <v-col
         cols="10"
@@ -80,7 +80,7 @@ function releaseSlider(i: number, value: any, ack?: Function) {
     <v-row
       v-for="(row, i) in model.values"
       :key="row._id"
-      class="density"
+      dense
       align="center"
     >
       <v-col
@@ -130,7 +130,7 @@ function releaseSlider(i: number, value: any, ack?: Function) {
         />
       </v-col>
     </v-row>
-    <v-row class="density">
+    <v-row dense>
       <v-col
         v-if="typeof model.spent === 'number'"
         cols="12"

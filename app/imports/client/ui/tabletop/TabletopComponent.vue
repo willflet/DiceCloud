@@ -178,7 +178,8 @@ async function removeCreature(creatureId: string) {
   >
     <v-container fluid>
       <v-row
-        class="initiative-row flex-grow-0 overflow-x-auto density"
+        dense
+        class="initiative-row flex-grow-0 overflow-x-auto"
         style="flex-wrap: nowrap; padding-bottom: 64px; min-width: 200px;"
         @wheel="transformScroll($event)"
       >
@@ -287,14 +288,6 @@ async function removeCreature(creatureId: string) {
   flex-shrink: 0;
   height: 162px;
   width: 100px;
-  margin: 4px;
-}
-
-.action-row > div {
-  flex-grow: 0;
-  flex-shrink: 0;
-  height: 120px;
-  width: 200px;
   margin: 4px;
 }
 </style>

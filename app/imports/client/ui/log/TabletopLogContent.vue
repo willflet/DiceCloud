@@ -54,7 +54,7 @@ const { result: contentByTargetId } = autorun(() => {
           :class="{'full-width': !content.inline}"
         >
           <div
-            class="content-name text-body"
+            class="content-name text-body-1"
           >
             {{ content.name }}
           </div>

@@ -60,7 +60,7 @@ function clickTabletop(tabletopId: string) {
         <v-row
           v-else-if="tabletops.length"
           key="loaded-cards"
-          class="density"
+          dense
         >
           <v-col
             v-for="tabletop in tabletops"

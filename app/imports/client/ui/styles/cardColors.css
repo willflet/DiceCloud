@@ -1,28 +1,21 @@
-.theme--dark.v-sheet,
-.theme--dark.v-expansion-panels .v-expansion-panel {
-  background-color: #303030;
-}
-
-.theme--dark .card-background {
+/*
+ * Vuetify 3 applies the theme class (v-theme--dark / v-theme--light) to the
+ * v-application root element only, so dark/light variants are selected as
+ * descendants of that root. Sheets and expansion panels no longer need a
+ * hardcoded background: they take it from the active theme's surface color.
+ */
+.v-theme--dark .card-background {
   background: #151515;
 }
 
-.card-background .v-tabs-items.theme--dark {
-  background: #151515;
-}
-
-.theme--light .card-background {
+.v-theme--light .card-background {
   background: #f6f6f6;
 }
 
-.card-background .v-tabs-items.theme--light {
-  background: #f6f6f6;
-}
-
-.theme--dark .card-raised-background {
+.v-theme--dark .card-raised-background {
   background: #1d1d1d;
 }
 
-.theme--light .card-raised-background {
+.v-theme--light .card-raised-background {
   background: #fafafa;
 }

@@ -78,6 +78,7 @@ function acknowledgeChange(err?: unknown) {
 }
 
 function customChange(val: unknown) {
+  safeValue.value = val;
   debouncedChange(val);
   searchInput.value = '';
 }

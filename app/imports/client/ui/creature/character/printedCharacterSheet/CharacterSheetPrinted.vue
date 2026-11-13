@@ -171,7 +171,7 @@ onBeforeUnmount(() => {
       </div>
       <v-theme-provider
         v-else
-        light
+        theme="light"
       >
         <div class="page pa-3">
           <div
@@ -322,16 +322,6 @@ onBeforeUnmount(() => {
   page-break-inside: avoid;
 }
 
-.character-sheet-printed .span-all {
-  page-break-after: avoid;
-  break-after: avoid;
-}
-
-.span-all + div {
-  page-break-before: avoid;
-  break-before: avoid;
-}
-
 .character-sheet-printed .stats .label {
   font-size: 10pt;
   font-variant: all-small-caps
@@ -341,11 +331,6 @@ onBeforeUnmount(() => {
   font-size: 14pt;
   font-variant: all-small-caps;
   font-weight: 600;
-}
-
-.character-sheet-printed .span-all {
-  column-span: all;
-  display: block;
 }
 
 .character-sheet-printed .page-break-before {
@@ -406,7 +391,7 @@ onBeforeUnmount(() => {
 
   header,
   nav,
-  .v-snack,
+  .v-snackbar,
   .dialog-stack {
     display: none !important;
   }

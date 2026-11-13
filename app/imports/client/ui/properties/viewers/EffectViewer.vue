@@ -107,11 +107,6 @@ const displayedValue = computed(() => {
   color: inherit !important;
 }
 
-.net-effect {
-  flex-grow: 0;
-  flex-shrink: 0;
-}
-
 .value,
 .calculation {
   min-width: 80px;

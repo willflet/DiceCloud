@@ -74,7 +74,7 @@ function hoverToolbar(val: boolean) {
   transition: box-shadow .4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.toolbar-card.transparent-toolbar .v-theme--dark.v-toolbar.v-sheet {
+.v-theme--dark .toolbar-card.transparent-toolbar .v-toolbar.v-sheet {
   background-color: #303030;
 }
 </style>

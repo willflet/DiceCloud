@@ -18,7 +18,7 @@ const { result: userImages } = autorun(() => {
 </script>
 
 <template>
-  <v-row class="density">
+  <v-row dense>
     <v-col cols="12">
       <v-list-subheader> Images </v-list-subheader>
     </v-col>

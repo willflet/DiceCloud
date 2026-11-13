@@ -143,6 +143,10 @@ export function useSmartInput(
   }
 
   function change(val: unknown) {
+    // Mirror the committed value locally so controlled selects/checkboxes/toggles
+    // reflect the new selection immediately, even before the parent updates
+    // the bound prop (and regardless of focus state).
+    safeValue.value = val;
     dirty.value = true;
     if (hasChangeListener()) loading.value = true;
     emit('change', val, acknowledgeChange);

@@ -105,8 +105,3 @@ const hasClickListener = computed(() => !!(attrs as any).onClick);
   </div>
 </template>
 
-<style lang="css" scoped>
-.item-avatar {
-  min-width: 32px;
-}
-</style>

@@ -73,7 +73,7 @@ async function setPrepared(val: boolean, ack?: Function) {
   >
     <template #prepend>
       <property-icon
-        class="mr-2"
+        class="spell-avatar mr-2"
         :model="model"
         :color="model.color"
         :disabled="disabled"

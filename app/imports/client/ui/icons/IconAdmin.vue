@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { importIcons, importIconMetadata } from '/imports/client/ui/icons/importIcons';
 import IconPicker from '/imports/client/ui/components/global/IconPicker.vue';
-import UploadButton from '/imports/client/ui/components/UploadBtn.vue';
+import UploadBtn from '/imports/client/ui/components/UploadBtn.vue';
 
 const searchString = ref('');
 const testIcon = ref<string | undefined>(undefined);

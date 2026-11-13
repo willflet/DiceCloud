@@ -152,10 +152,6 @@ function selectUserImage(href: string) {
   flex-shrink: 1;
 }
 
-.user-image-list > .upload-image-button {
-  height: 250px;
-}
-
 .user-image {
   cursor: pointer;
 }

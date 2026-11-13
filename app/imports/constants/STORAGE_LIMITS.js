@@ -5,7 +5,7 @@ const STORAGE_LIMITS = Object.freeze({
   description: 49473, //the length of the Bee Movie script
   inlineCalculationField: 49473,
   errorMessage: 256,
-  icon: 10000,
+  icon: 1000000,
   name: 128,
   summary: 10000,
   tagLength: 128,

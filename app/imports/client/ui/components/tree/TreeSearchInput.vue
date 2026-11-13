@@ -123,7 +123,7 @@ watch(menu, (val) => {
           >
             <v-text-field
               v-model="fieldFilter.field"
-              class="text--mono"
+              class="text-mono"
               label="Field"
               variant="outlined"
             />

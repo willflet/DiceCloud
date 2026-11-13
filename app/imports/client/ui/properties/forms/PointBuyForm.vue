@@ -116,7 +116,7 @@ function addRow() {
           <v-row
             v-for="(row, i) in model.values"
             :key="row._id"
-            class="density"
+            dense
           >
             <v-divider
               v-if="i"
@@ -188,7 +188,8 @@ function addRow() {
           <v-row
             key="addButton"
             justify="end"
-            class="mb-4 density"
+            dense
+            class="mb-4"
           >
             <v-col
               cols="1"

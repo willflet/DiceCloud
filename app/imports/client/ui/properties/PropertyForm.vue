@@ -101,7 +101,7 @@ function selectSubProperty(_id: string) {
       >
         <v-row
           v-if="context.isLibraryForm"
-          class="density"
+          dense
         >
           <v-col
             cols="12"
@@ -213,7 +213,8 @@ function selectSubProperty(_id: string) {
       </v-col>
     </v-row>
     <v-row
-      class="mt-1 density"
+      dense
+      class="mt-1"
     >
       <v-col
         cols="12"

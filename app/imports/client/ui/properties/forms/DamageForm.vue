@@ -115,7 +115,7 @@ function saveChange({ path, value, ack }: { path: string[]; value: any; ack?: Fu
     <v-expand-transition>
       <v-row
         v-if="model.save"
-        class="density"
+        dense
       >
         <v-col
           cols="12"

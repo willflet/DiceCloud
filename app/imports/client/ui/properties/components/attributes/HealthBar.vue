@@ -196,44 +196,4 @@ function changeIncrementMenu({ type, value }: { type: string; value: any }) {
 .filled.v-theme--dark {
   background: #424242 !important;
 }
-
-.background-transition-enter-active,
-.background-transition-leave-active {
-  transition: all 0.2s;
-}
-
-.background-transition-enter,
-.background-transition-leave-to {
-  opacity: 0;
-}
-
-.transition-enter-active {
-  transition: all 0.2s;
-}
-
-.transition-leave-active {
-  transition: all 0.3s;
-}
-
-.transition-enter-to,
-.transition-leave {
-  opacity: 1;
-  transform: scaleY(1) !important;
-}
-
-.transition-enter,
-.transition-leave-to {
-  opacity: 0;
-  transform: scaleY(0) !important;
-}
-
-.page-tint {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.15);
-  z-index: 6;
-}
 </style>
