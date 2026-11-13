@@ -60,20 +60,20 @@ function librariesChanged(val: string[], ack: () => void) {
       <text-field
         label="Name"
         :value="libraryCollection.name"
-        :debounce-time="0"
+        :debounce="0"
         @change="nameChanged"
       />
       <text-area
         label="Description"
         :value="libraryCollection.description"
-        :debounce-time="0"
+        :debounce="0"
         @change="descriptionChanged"
       />
       <smart-select
         label="Libraries"
         :items="libraryOptions"
         :value="libraryCollection.libraries"
-        :debounce-time="0"
+        :debounce="0"
         multiple
         chips
         deletable-chips

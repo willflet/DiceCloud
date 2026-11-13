@@ -25,7 +25,6 @@ const { loading, errors, safeValue, isDisabled, focused, input } = useSmartInput
 
 <template lang="html">
   <v-text-field
-    ref="input"
     v-bind="$attrs"
     class="dc-text-field"
     :loading="loading"

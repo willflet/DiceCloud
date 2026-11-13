@@ -6,7 +6,7 @@
  * Emits a change event that requires acknowledgement with an optional error
  * message if something went wrong
  */
-import { ref, computed, watch, nextTick, onBeforeUnmount, inject } from 'vue';
+import { ref, computed, watch, nextTick, onBeforeUnmount, inject, getCurrentInstance } from 'vue';
 import { debounce } from 'lodash';
 
 type SmartInputProps = {
@@ -25,6 +25,7 @@ export function useSmartInput(
   attrs: Record<string, unknown>,
 ) {
   const context = inject<{ editPermission?: boolean; debounceTime?: number }>('context', {});
+  const instance = getCurrentInstance();
 
   const error = ref(false);
   const ackErrors = ref<string | null>(null);
@@ -35,6 +36,11 @@ export function useSmartInput(
   const safeValue = ref(props.value);
 
   watch(focused, (newFocus) => {
+    if (!newFocus) {
+      // Commit any pending edit as soon as focus leaves the field, so the new
+      // value is available before the form is submitted.
+      debouncedChange.flush();
+    }
     if (!newFocus && !dirty.value && !error.value) {
       forceSafeValueUpdate();
     }
@@ -94,6 +100,10 @@ export function useSmartInput(
   });
 
   function input(val: unknown) {
+    // Vuetify's inputs are fully controlled when both model-value and
+    // update:model-value are bound, so mirror the typed value locally or it
+    // will snap back to the old prop value on the next render/blur.
+    safeValue.value = val;
     emit('input', val);
     dirty.value = true;
 
@@ -139,7 +149,8 @@ export function useSmartInput(
   }
 
   function hasChangeListener(): boolean {
-    return !!(attrs && attrs.onChange);
+    // Declared emits are removed from $attrs, so check the vnode props too.
+    return !!(attrs && attrs.onChange) || !!(instance?.vnode.props?.onChange);
   }
 
   function forceSafeValueUpdate() {

@@ -93,7 +93,7 @@ function insertLibraryFn() {
           router.push({ name: 'singleLibrary', params: { id: libraryId } });
         } catch (error: any) {
           console.error(error);
-          snackbar({ text: error.reason });
+          snackbar({ text: error.reason || error.message || error.toString() });
         }
       },
     });

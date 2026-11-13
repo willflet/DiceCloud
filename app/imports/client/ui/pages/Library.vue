@@ -87,7 +87,7 @@ function insertLibraryAction() {
           });
         } catch (error: any) {
           console.error(error);
-          snackbar({ text: error.reason });
+          snackbar({ text: error.reason || error.message || error.toString() });
         }
       }
     });

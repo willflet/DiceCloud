@@ -133,7 +133,7 @@ function editLibrary(_id: string) {
       color="primary"
       style="background-color: inherit;"
       data-id="insert-library-button"
-      @click="insertLibrary"
+      @click="insertLibraryFn"
     >
       <v-icon>mdi-plus</v-icon>
       New library

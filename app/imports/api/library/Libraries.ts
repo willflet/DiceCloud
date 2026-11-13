@@ -55,7 +55,9 @@ export default Libraries;
 
 const insertLibrary = new ValidatedMethod({
   name: 'libraries.insert',
-  validate: LibrarySchema.omit('owner', '_id').validator(),
+  // Clean so the schema's defaulted sharing fields (readers, writers, public)
+  // are applied before validation instead of being reported as missing.
+  validate: LibrarySchema.omit('owner', '_id').validator({ clean: true, filter: false }),
   async run(library) {
     if (!this.userId) {
       throw new Meteor.Error('Libraries.methods.insert.denied',

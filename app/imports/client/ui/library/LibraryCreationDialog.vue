@@ -35,13 +35,13 @@ function descriptionChanged(val: string, ack: () => void) {
     <text-field
       label="Name"
       :value="library.name"
-      :debounce-time="0"
+      :debounce="0"
       @change="nameChanged"
     />
     <text-area
       label="Description"
       :value="library.description"
-      :debounce-time="0"
+      :debounce="0"
       @change="descriptionChanged"
     />
     <template #actions>
