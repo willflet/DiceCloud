@@ -72,6 +72,13 @@ onMounted(() => {
     changed: ({ name }: any) => store.commit('setPageTitle', name || 'Character Sheet'),
   });
   if (route.name === 'characterSheet') {
+    // The initial batch of logs already in the collection represents the
+    // character's history and must not trigger notifications. Record them
+    // as already notified before observing, so only logs inserted afterwards
+    // (during this session) produce a notification.
+    CreatureLogs.find({ creatureId: props.creatureId }).forEach((log) => {
+      notifiedLogs.add(log.actionId || log._id);
+    });
     logObserver = CreatureLogs.find({
       creatureId: props.creatureId,
     }).observe({
