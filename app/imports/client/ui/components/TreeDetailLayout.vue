@@ -1,7 +1,12 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, useSlots } from 'vue';
 import { useDisplay } from 'vuetify';
 
+const props = defineProps<{
+  showLeftTree?: boolean;
+}>();
+
+const slots = useSlots();
 const { smAndDown, xl } = useDisplay();
 
 const computedTreeStyle = computed(() => {
@@ -14,6 +19,8 @@ const computedTreeStyle = computed(() => {
   }
   return style;
 });
+
+const hasLeftTree = computed(() => props.showLeftTree ?? !!slots['left-tree']);
 </script>
 
 <template lang="html">
@@ -22,7 +29,7 @@ const computedTreeStyle = computed(() => {
     style="height: 100%;"
   >
     <div
-      v-if="$slots['left-tree']"
+      v-if="hasLeftTree"
       class="d-flex flex-column justify-start"
       :style="computedTreeStyle"
     >
@@ -31,7 +38,7 @@ const computedTreeStyle = computed(() => {
       />
     </div>
     <v-divider
-      v-if="$slots['left-tree']" 
+      v-if="hasLeftTree" 
       vertical
     />
     <div

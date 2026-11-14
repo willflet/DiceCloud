@@ -26,7 +26,7 @@ defineProps<{
 const store = useStore(key);
 const router = useRouter();
 
-const openCollections = ref<string[]>([]);
+const openCollections = ref<Record<string, boolean>>({});
 
 const { ready: librariesReady } = subscribe('libraries');
 
@@ -147,8 +147,9 @@ function insertLibraryCollectionFn() {
       group="library-collection"
       :data-id="`library-collection-${libraryCollection._id}`"
     >
-      <template #activator>
+      <template #activator="{ props }">
         <library-collection-header
+          v-bind="props"
           :open="!!openCollections[libraryCollection._id]"
           :model="libraryCollection"
           :selection="selection"

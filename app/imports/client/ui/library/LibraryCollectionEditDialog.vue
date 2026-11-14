@@ -125,18 +125,18 @@ function share() {
       <text-field
         label="name"
         :value="model.name"
-        @change="(name, ack) => updateLibraryCollection({ name }, ack)"
+        @change="(name, ack) => updateLibraryCollectionFn({ name }, ack)"
       />
       <text-area
         label="Description"
         :value="model.description"
-        @change="(description, ack) => updateLibraryCollection({ description }, ack)"
+        @change="(description, ack) => updateLibraryCollectionFn({ description }, ack)"
       />
       <smart-switch
         :value="model.showInMarket"
         :disabled="!isOwner"
         label="Show in community library browser"
-        @change="(showInMarket, ack) => updateLibraryCollection({ showInMarket }, ack)"
+        @change="(showInMarket, ack) => updateLibraryCollectionFn({ showInMarket }, ack)"
       />
       <smart-select
         label="Libraries"
@@ -147,7 +147,7 @@ function share() {
         chips
         deletable-chips
         no-data-text="No libraries found"
-        @change="(libraries, ack) => updateLibraryCollection({ libraries }, ack)"
+        @change="(libraries, ack) => updateLibraryCollectionFn({ libraries }, ack)"
       />
     </template>
     <template #actions>

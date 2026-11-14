@@ -103,10 +103,9 @@ function clickNode(id: string) {
 </script>
 
 <template lang="html">
-  <tree-detail-layout>
-    <template #left-tree>
+  <tree-detail-layout :show-left-tree="showSecondTree">
+    <template v-if="showSecondTree" #left-tree>
       <library-second-tree
-        v-if="showSecondTree"
         :selected-node="selectedNode"
         @close="showSecondTree = false"
         @selected="clickNode"
@@ -162,12 +161,13 @@ function clickNode(id: string) {
             v-model="organize"
             hide-details
             label="Organize"
-            class="ml-1 mr-3 mt-2"
-            style="flex-grow: 0; height: 32px;"
+            class="ml-2 mr-2"
+            style="flex-grow: 0;"
+            density="compact"
           />
           <insert-library-node-button
             v-if="libraryId && canEditLibrary"
-            style="bottom: -24px"
+            class="ml-2 mr-2"
             :library-id="libraryId"
             :selected-node-id="selectedNodeId"
             @selected="id => { if ($vuetify.display.mdAndUp) selectedNodeId = id }"

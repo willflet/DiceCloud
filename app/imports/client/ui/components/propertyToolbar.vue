@@ -216,6 +216,7 @@ function helpDialog() {
     <v-btn
       rounded="0"
       variant="outlined"
+      class="mr-2"
       @click="$emit('toggle-editing')"
     >
       <span style="width: 44px;">
