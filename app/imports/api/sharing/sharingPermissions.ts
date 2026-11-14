@@ -180,7 +180,7 @@ export async function isAdmin(userId: string | undefined | null): Promise<boolea
   } catch (error) {
     // Fall through to the database-backed role check below.
   }
-  const user = await Meteor.users.findOneAsync(userId, { fields: { roles: 1 } });
+  const user = await Meteor.users.findOneAsync(userId, { fields: { roles: 1 } }) as { roles?: string[] } | undefined;
   return Array.isArray(user?.roles) && user.roles.includes('admin');
 }
 

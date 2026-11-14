@@ -58,6 +58,13 @@ const userSchema = TypedSimpleSchema.from({
   createdAt: {
     type: Date
   },
+  roles: {
+    type: Array,
+    optional: true,
+  },
+  'roles.$': {
+    type: String,
+  },
   services: {
     type: Object,
     optional: true,
@@ -189,8 +196,8 @@ export const sendVerificationEmail = new ValidatedMethod({
       throw new Meteor.Error('logged-out', 'you must be logged in to perform this action')
     }
     if (userId && userId !== this.userId) {
-      const isAdmin = await isAdmin(this.userId);
-      if (!isAdmin) {
+      const userIsAdmin = await isAdmin(this.userId);
+      if (!userIsAdmin) {
         throw new Meteor.Error('permission-denied',
           'Only admins may send verification emails on behalf of other users'
         );

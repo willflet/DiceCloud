@@ -14,7 +14,7 @@ function exists<T>(doc: T | undefined): asserts doc is T {
 }
 function root(doc: Shared | TreeDoc | undefined): Shared {
   exists(doc);
-  if ('root' in doc) return Mongo.getCollection(doc.root.collection).findOne(doc.root.id) as Shared;
+  if ('root' in doc) return (Mongo as any).getCollection(doc.root.collection).findOne(doc.root.id) as Shared;
   return doc;
 }
 export function assertEditPermission(doc: Shared | undefined, userId: string | null | undefined) {
