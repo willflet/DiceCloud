@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useStore } from 'vuex';
-import { autorun } from 'vue-meteor-tracker';
+import { autorun, subscribe } from 'vue-meteor-tracker';
 import { Meteor } from 'meteor/meteor';
 import { docsToForest, getFilter } from '/imports/api/parenting/parentingFunctions';
 import LibraryNodes from '/imports/api/library/LibraryNodes';
@@ -12,15 +12,9 @@ import { key } from '/imports/client/ui/vuexStore';
 const props = defineProps<{ id: string }>();
 const store = useStore(key);
 
-const { result: libraryNodeSubReady } = autorun(() => {
-  const handle = Meteor.subscribe('libraryNode', props.id);
-  return handle.ready();
-});
+const { ready: libraryNodeSubReady } = subscribe(() => ['libraryNode', props.id]);
 
-const { result: descendantLibraryNodesSubReady } = autorun(() => {
-  const handle = Meteor.subscribe('descendantLibraryNodes', props.id);
-  return handle.ready();
-});
+const { ready: descendantLibraryNodesSubReady } = subscribe(() => ['descendantLibraryNodes', props.id]);
 
 const { result: model } = autorun(() => LibraryNodes.findOne(props.id));
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useStore } from 'vuex';
-import { autorun } from 'vue-meteor-tracker';
+import { autorun, subscribe } from 'vue-meteor-tracker';
 import { format } from 'date-fns';
 import DialogBase from '/imports/client/ui/dialogStack/DialogBase.vue';
 import { Meteor } from 'meteor/meteor';
@@ -17,10 +17,7 @@ const store = useStore(key);
 const experiencesRemovalLoading = ref(new Set<string>());
 const recomputeLoading = ref(false);
 
-const { result: experiencesSubReady } = autorun(() => {
-  const handle = Meteor.subscribe('experiences', props.creatureId);
-  return handle.ready();
-});
+const { ready: experiencesSubReady } = subscribe(() => ['experiences', props.creatureId]);
 
 const { result: experiences } = autorun(() =>
   Experiences.find({ creatureId: props.creatureId }, { sort: { date: 1 } }).fetch()

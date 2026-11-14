@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, reactive, watch, toRef, provide } from 'vue';
 import { useStore } from 'vuex';
-import { autorun } from 'vue-meteor-tracker';
+import { autorun, subscribe } from 'vue-meteor-tracker';
 import { Meteor } from 'meteor/meteor';
 import { CreatureVariables } from '/imports/client/localCollections/CreatureVariables';
 import CreatureProperties, { type CreaturePropertyTypes } from '/imports/api/creature/creatureProperties/CreatureProperties';
@@ -37,10 +37,7 @@ const searchValue = ref<string | undefined>(undefined);
 const showDisabled = ref(false);
 const currentLimit = ref(50);
 
-const { result: classFillerSubReady } = autorun(() => {
-  const handle = Meteor.subscribe('classFillers', props.classId, searchValue.value ?? undefined, currentLimit.value);
-  return handle.ready();
-});
+const { ready: classFillerSubReady } = subscribe(() => ['classFillers', props.classId, searchValue.value ?? undefined, currentLimit.value]);
 
 const { result: model } = autorun(() => {
   return CreatureProperties.findOne(props.classId) as CreaturePropertyTypes['class'] ?? null;

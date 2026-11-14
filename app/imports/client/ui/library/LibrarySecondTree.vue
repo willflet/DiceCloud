@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { autorun } from 'vue-meteor-tracker';
+import { autorun, subscribe } from 'vue-meteor-tracker';
 import { Meteor } from 'meteor/meteor';
 import LibraryList from '/imports/client/ui/library/LibraryList.vue';
 import LibraryContentsContainer from '/imports/client/ui/library/LibraryContentsContainer.vue';
@@ -23,11 +23,7 @@ const { result: canEditLibrary } = autorun(() => {
   }
 });
 
-autorun(() => {
-  if (libraryId.value) {
-    Meteor.subscribe('library', libraryId.value);
-  }
-});
+subscribe(() => libraryId.value ? ['library', libraryId.value] : false);
 </script>
 
 <template lang="html">

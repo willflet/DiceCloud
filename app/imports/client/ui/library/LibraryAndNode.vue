@@ -2,7 +2,7 @@
 import { ref, computed, watch } from 'vue';
 import { useStore } from 'vuex';
 import { useDisplay } from 'vuetify';
-import { autorun } from 'vue-meteor-tracker';
+import { autorun, subscribe } from 'vue-meteor-tracker';
 import TreeDetailLayout from '/imports/client/ui/components/TreeDetailLayout.vue';
 import LibraryBrowser from '/imports/client/ui/library/LibraryBrowser.vue';
 import LibraryNodeDialog from '/imports/client/ui/library/LibraryNodeDialog.vue';
@@ -34,11 +34,7 @@ const filter = ref<string | undefined>(undefined);
 const extraFields = ref<string[]>([]);
 const showSecondTree = ref(false);
 
-autorun(() => {
-  if (props.libraryId) {
-    Meteor.subscribe('library', props.libraryId);
-  }
-});
+subscribe(() => props.libraryId ? ['library', props.libraryId] : false);
 
 const { result: libraries } = autorun(() => {
   return Libraries.find({}, { sort: { name: 1 } }).fetch();

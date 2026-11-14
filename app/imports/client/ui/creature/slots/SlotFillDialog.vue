@@ -39,16 +39,13 @@ const showDisabled = ref(false);
 const autoSelectRan = ref(false);
 const currentLimit = ref(50);
 
-const { result: slotFillerSubReady } = autorun(() => {
-  const handle = Meteor.subscribe(
-    'slotFillers',
-    props.slotId || props.dummySlot?._id,
-    searchValue.value ?? undefined,
-    !!props.dummySlot,
-    currentLimit.value
-  );
-  return handle.ready();
-});
+const { ready: slotFillerSubReady } = subscribe(() => [
+  'slotFillers',
+  props.slotId || props.dummySlot?._id,
+  searchValue.value ?? undefined,
+  !!props.dummySlot,
+  currentLimit.value,
+]);
 
 subscribe(() => [
   'selectedFillers',

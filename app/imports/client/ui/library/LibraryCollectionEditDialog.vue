@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
-import { autorun } from 'vue-meteor-tracker';
+import { autorun, subscribe } from 'vue-meteor-tracker';
 import { Meteor } from 'meteor/meteor';
 import DialogBase from '/imports/client/ui/dialogStack/DialogBase.vue';
 import LibraryCollections, { updateLibraryCollection, removeLibraryCollection } from '/imports/api/library/LibraryCollections';
@@ -13,10 +13,8 @@ const props = defineProps<{ _id: string }>();
 const store = useStore(key);
 const router = useRouter();
 
-autorun(() => {
-  Meteor.subscribe('libraries');
-  Meteor.subscribe('libraryCollection', props._id);
-});
+subscribe('libraries');
+subscribe(() => ['libraryCollection', props._id]);
 
 const { result: model } = autorun(() => LibraryCollections.findOne(props._id));
 
