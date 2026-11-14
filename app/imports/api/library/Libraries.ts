@@ -140,7 +140,10 @@ const updateLibraryShowInMarket = new ValidatedMethod({
   async run({ _id, value }: { _id: string, value: boolean }) {
     const library = await Libraries.findOneAsync(_id);
     await assertEditPermission(library, this.userId);
-    await Libraries.updateAsync(_id, { $set: { showInMarket: value } });
+    const update: { showInMarket: boolean; public?: boolean } = { showInMarket: value };
+    // Showing a library in the community browser requires it to be public.
+    if (value) update.public = true;
+    await Libraries.updateAsync(_id, { $set: update });
   },
 });
 

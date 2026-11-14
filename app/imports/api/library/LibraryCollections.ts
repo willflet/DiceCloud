@@ -115,6 +115,9 @@ const updateLibraryCollection = new ValidatedMethod({
       }
     });
     await assertEditPermission(libraryCollection, this.userId);
+    if (update.showInMarket === true) {
+      (update as Record<string, unknown>).public = true;
+    }
     return await LibraryCollections.updateAsync(_id, { $set: update });
   },
 });
