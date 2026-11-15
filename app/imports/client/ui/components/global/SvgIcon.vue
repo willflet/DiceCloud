@@ -39,7 +39,7 @@ const size = computed(() => {
   if (props.medium) return SIZE_MAP['medium'];
   if (props.large) return SIZE_MAP['large'];
   if (props.xLarge) return SIZE_MAP['xLarge'];
-  return SIZE_MAP['default'];
+  return '1.5em';
 });
 
 onMounted(() => {

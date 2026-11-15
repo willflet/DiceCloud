@@ -123,7 +123,7 @@ async function doActionClick() {
         <v-btn
           icon
           variant="outlined"
-          style="font-size: 16px; letter-spacing: normal;"
+          style="font-size: 24px; letter-spacing: normal;"
           class="mr-2"
           :data-id="`${model._id}-do-action-button`"
           :color="model.color || 'primary'"
