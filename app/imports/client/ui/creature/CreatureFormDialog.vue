@@ -67,7 +67,7 @@ async function change({ path, value, ack }: { path: string[]; value: any; ack?: 
       <v-spacer />
       <v-btn
         variant="text"
-        @click="$store.dispatch('popDialogStack')"
+        @click="() => setTimeout(() => $store.dispatch('popDialogStack'), 0)"
       >
         Done
       </v-btn>

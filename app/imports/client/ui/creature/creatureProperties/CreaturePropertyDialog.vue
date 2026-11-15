@@ -295,7 +295,7 @@ function addProperty({ elementId, suggestedType }: any) {
         <v-btn
           variant="text"
           color="accent"
-          @click="$store.dispatch('popDialogStack')"
+          @click="() => setTimeout(() => $store.dispatch('popDialogStack'), 0)"
         >
           Close
         </v-btn>
