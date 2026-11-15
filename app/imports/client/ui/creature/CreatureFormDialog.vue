@@ -3,10 +3,14 @@ import { autorun } from 'vue-meteor-tracker';
 import Creatures from '/imports/api/creature/creatures/Creatures';
 import updateCreature from '/imports/api/creature/creatures/methods/updateCreature';
 import DialogBase from '/imports/client/ui/dialogStack/DialogBase.vue';
+import { useStore } from 'vuex';
+import { key } from '/imports/client/ui/vuexStore';
 import CreatureForm from '/imports/client/ui/creature/CreatureForm.vue';
 import { assertEditPermission } from '/imports/client/permissions/creaturePermissions';
 import ColorPicker from '/imports/client/ui/components/ColorPicker.vue';
 
+const store = useStore(key);
+function closeDialog() { store.dispatch('popDialogStack'); }
 const props = withDefaults(defineProps<{
   _id: string;
   startInEditTab?: boolean;
@@ -67,7 +71,7 @@ async function change({ path, value, ack }: { path: string[]; value: any; ack?: 
       <v-spacer />
       <v-btn
         variant="text"
-        @click="() => setTimeout(() => $store.dispatch('popDialogStack'), 0)"
+        @click="closeDialog"
       >
         Done
       </v-btn>

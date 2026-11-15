@@ -247,7 +247,7 @@ function addLibraryNode({ elementId, suggestedType }: { elementId: string; sugge
       const libraryNode = result;
       libraryNode.root = model.value.root;
       libraryNode.parentId = parentPropertyId;
-      const id = await insertNode.callAsync({ libraryNode });
+      const id = await insertLibraryNode.callAsync({ libraryNode });
       return `tree-node-${id}`;
     },
   });

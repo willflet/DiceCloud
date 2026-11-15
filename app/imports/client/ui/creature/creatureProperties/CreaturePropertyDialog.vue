@@ -41,6 +41,10 @@ const emit = defineEmits<{
 }>();
 
 const store = useStore(key);
+
+function closeDialog() {
+  store.dispatch('popDialogStack');
+}
 const editing = ref(!!props.startInEditTab);
 const currentId = ref<string | undefined>(undefined);
 
@@ -295,7 +299,7 @@ function addProperty({ elementId, suggestedType }: any) {
         <v-btn
           variant="text"
           color="accent"
-          @click="() => setTimeout(() => $store.dispatch('popDialogStack'), 0)"
+          @click="closeDialog"
         >
           Close
         </v-btn>
