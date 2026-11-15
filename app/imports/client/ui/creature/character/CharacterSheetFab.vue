@@ -195,15 +195,15 @@ async function addProperty(forcedType: string | null) {
 .character-add-menu {
   min-width: 240px;
   max-width: calc(100vw - 32px);
-  padding: 12px;
-  background: #25324a;
+  padding: 12px 0;
   color: #fff8e9;
-  border: 1px solid #b99b64;
-  border-radius: 8px;
-  box-shadow: 0 8px 24px #00000055;
-  right: 0;
-  left: auto;
-  width: auto;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  right: 0 !important;
+  left: auto !important;
+  width: auto !important;
   align-items: flex-end;
 }
 .character-add-menu-item {
@@ -211,9 +211,29 @@ async function addProperty(forcedType: string | null) {
   min-height: 40px;
   justify-content: flex-end;
   text-align: right;
-  color: inherit;
+  color: #fff8e9;
   font-weight: 600;
   text-transform: none;
+  background: transparent;
+}
+
+.character-add-menu-item .v-btn__content {
+  background: #25324a;
+  color: #fff8e9;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+
+.character-add-menu-item .v-icon {
+  background: #25324a;
+  color: #fff8e9;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .character-add-menu-item:focus-visible {
   outline: 2px solid currentColor;

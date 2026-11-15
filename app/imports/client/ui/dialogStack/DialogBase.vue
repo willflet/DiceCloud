@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, nextTick } from 'vue';
 import { useStore } from 'vuex';
 import getThemeColor from '/imports/client/ui/utility/getThemeColor';
 import isDarkColor from '/imports/client/ui/utility/isDarkColor';
@@ -14,8 +14,10 @@ const props = defineProps<{
 }>();
 
 onMounted(() => {
-  const body = document.getElementById('base-dialog-body');
-  if (body) body.scrollTop = 0;
+  nextTick(() => {
+    const body = document.getElementById('base-dialog-body');
+    if (body) body.scrollTop = 0;
+  });
 });
 
 const offsetTop = ref(0);

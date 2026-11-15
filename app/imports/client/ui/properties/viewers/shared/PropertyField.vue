@@ -123,7 +123,7 @@ function clickEffect(id: string) {
           :class="{
             'text-body-1': !isLarge,
             'text-h4': isLarge,
-            'justify-center': isCenter,
+            'justify-center': !end,
             'justify-end': end,
             'flex-wrap': wrap,
             'mono': isMono,

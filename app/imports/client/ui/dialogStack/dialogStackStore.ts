@@ -76,12 +76,8 @@ const dialogStackStore: Module<DialogStackStoreState, unknown> = {
   },
   actions: {
     popDialogStack(context, result) {
-      if (history && history.state && history.state.openDialogs) {
-        context.commit('setCurrentResult', result);
-        history.back();
-      } else {
-        context.commit('popDialogStackMutation', result);
-      }
+      context.commit('setCurrentResult', result);
+      context.commit('popDialogStackMutation', result);
     },
     popDialogStacks(context, quantity) {
       if (quantity <= 0) return;
@@ -128,8 +124,11 @@ const updateHistory = function (state: DialogStackStoreState) {
   if (stateDialogs > 0) {
     // On a dialog count
     if (numDialogs === 0) {
-      // but shouldn't be
-      history.back();
+      // but shouldn't be: drop the dialog count from history without
+      // navigating, which can otherwise reload the underlying page.
+      const newState = clone(history.state) || {};
+      newState.openDialogs = 0;
+      history.replaceState(newState, '');
     } else {
       // but should replace with correct count
       const newState = clone(history.state) || {};

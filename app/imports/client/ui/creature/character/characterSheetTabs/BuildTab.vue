@@ -422,7 +422,7 @@ async function unhideProp(_id: string) {
                 {{ cls.name }}
               </v-list-item-title>
               <template #prepend>
-                {{ cls.level }}
+                <span class="mr-2">{{ cls.level }}</span>
               </template>
               <template #append>
                 <v-btn

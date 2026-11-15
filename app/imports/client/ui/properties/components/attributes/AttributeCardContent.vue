@@ -51,7 +51,7 @@ async function check() {
 
 <template>
   <div
-    class="d-flex align-center"
+    class="d-flex align-baseline"
     @click="$emit('click')"
     @mouseover="$emit('mouseover')"
     @mouseleave="$emit('mouseleave')"

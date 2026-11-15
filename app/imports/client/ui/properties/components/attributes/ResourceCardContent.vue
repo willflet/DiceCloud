@@ -31,6 +31,7 @@ function increment(value: number, ack?: Function) {
     <div class="buttons layout column justify-center pl-3">
       <smart-btn
         icon
+        variant="text"
         small
         :disabled="(optimisticValue >= model.total && !model.ignoreUpperLimit) || context.editPermission === false"
         @clicks="(times, ack) => increment(times, ack)"
@@ -40,6 +41,7 @@ function increment(value: number, ack?: Function) {
       </smart-btn>
       <smart-btn
         icon
+        variant="text"
         small
         :disabled="(optimisticValue <= 0 && !model.ignoreLowerLimit) || context.editPermission === false"
         @clicks="(times, ack) => increment(-1 * times, ack)"

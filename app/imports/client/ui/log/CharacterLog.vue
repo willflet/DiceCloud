@@ -125,7 +125,7 @@ function decrementHistory() {
     class="character-log layout column justify-end"
   >
     <div
-      class="card-raised-background flex layout column reverse align-end pa-3"
+      class="card-raised-background flex layout column reverse align-stretch pa-3"
       style="overflow: auto;"
     >
       <log-entry

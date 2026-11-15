@@ -95,6 +95,8 @@ async function damageProperty({ type, value, ack }: { type: string; value: any; 
           v-for="i in model.total"
           :key="i"
           icon
+          size="x-small"
+          variant="text"
           single-click
           @click="ack => damageProperty({
             type: 'increment',
@@ -119,7 +121,7 @@ async function damageProperty({ type, value, ack }: { type: string; value: any; 
         <v-icon
           v-for="i in model.total"
           :key="i"
-          class="ma-1"
+          class="ma-0"
         >
           {{
             i > model.value ?

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, inject } from 'vue';
+import useHasEventListener from '/imports/client/ui/utility/useHasEventListener';
 import numberToSignedString from '/imports/api/utility/numberToSignedString';
 
 const props = defineProps<{
@@ -9,6 +10,7 @@ const props = defineProps<{
 const emit = defineEmits(['click', 'change']);
 const context = inject('context', {});
 
+const hasClickListener = useHasEventListener('click');
 const hover = ref(false);
 
 const signedConMod = computed(() => numberToSignedString(props.model.constitutionMod));
@@ -26,47 +28,46 @@ function increment(value: number) {
   <v-list-item
     class="hit-dice-list-tile"
     :class="{hover}"
+    v-on="hasClickListener ? { click } : {}"
   >
-    <template #prepend>
-      <div class="d-flex align-center float-left">
-        <div class="d-flex flex-column buttons justify-center">
-          <v-btn
-            icon
-            size="small"
-            :disabled="model.value >= model.total || context.editPermission === false"
-            @click="increment(1)"
-          >
-            <v-icon>mdi-chevron-up</v-icon>
-          </v-btn>
-          <v-btn
-            icon
-            size="small"
-            :disabled="model.value <= 0 || context.editPermission === false"
-            @click="increment(-1)"
-          >
-            <v-icon>mdi-chevron-down</v-icon>
-          </v-btn>
+    <div class="d-flex">
+      <div class="buttons layout column justify-center pl-3">
+        <v-btn
+          icon
+          variant="text"
+          size="small"
+          :disabled="model.value >= model.total || context.editPermission === false"
+          @click="increment(1)"
+        >
+          <v-icon>mdi-chevron-up</v-icon>
+        </v-btn>
+        <v-btn
+          icon
+          variant="text"
+          size="small"
+          :disabled="model.value <= 0 || context.editPermission === false"
+          @click="increment(-1)"
+        >
+          <v-icon>mdi-chevron-down</v-icon>
+        </v-btn>
+      </div>
+      <div class="d-flex align-center value pl-2 pr-3">
+        <div class="text-h4">
+          {{ model.value }}
         </div>
-
-        <div class="d-flex align-end">
-          <div class="text-h4">
-            {{ model.value }}
-          </div>
-          <div class="text-h6 max-value ml-2">
-            /{{ model.total }}
-          </div>
+        <div class="text-h6 ml-2 max-value">
+          /{{ model.total }}
         </div>
       </div>
-    </template>
-
-    <v-list-item-title
-      class="content"
-      @click="click"
-      @mouseover="hover = true"
-      @mouseleave="hover = false"
-    >
-      {{ model.hitDiceSize }} {{ signedConMod }}
-    </v-list-item-title>
+      <div
+        class="content layout align-center pr-3"
+        @click="click"
+      >
+        <div class="text-truncate">
+          {{ model.hitDiceSize }} {{ signedConMod }}
+        </div>
+      </div>
+    </div>
   </v-list-item>
 </template>
 
@@ -75,28 +76,14 @@ function increment(value: number) {
   background: inherit;
 }
 
-.hit-dice-list-tile :deep(.v-list-item) {
-  height: 88px;
+.buttons,
+.value {
+  flex-shrink: 0;
+  flex-grow: 0;
 }
 
-.left {
-  height: 100%;
-}
-
-.buttons {
-  height: 100%;
-}
-
-.buttons>.v-btn {
+.buttons > .v-btn {
   margin: 0;
-}
-
-.hit-dice-list-tile.hover {
-  background: #f5f5f5 !important;
-}
-
-.v-theme--dark .hit-dice-list-tile.hover {
-  background: #515151 !important;
 }
 
 .content {
@@ -108,6 +95,6 @@ function increment(value: number) {
 }
 
 .v-theme--dark .max-value {
-  color: rgba(255, 255, 255, 0.54);
+  color: rgba(255, 255, 0.54);
 }
 </style>

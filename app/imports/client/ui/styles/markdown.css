@@ -93,8 +93,13 @@
   background-color: rgba(0, 0, 0, 0.03)
 }
 
-.markdown ul {
+.markdown ul,
+.markdown ol {
   margin-bottom: 16px;
+}
+
+.markdown li {
+  margin-bottom: 4px;
 }
 
 .v-theme--dark .markdown tbody>tr:nth-child(odd) {

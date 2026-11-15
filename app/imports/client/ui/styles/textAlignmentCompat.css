@@ -5,13 +5,13 @@
  * consistently across property displays, list tiles and buttons.
  */
 .v-list-item {
-  align-items: center;
+  align-items: baseline;
 }
 
 .v-list-item-title,
 .v-list-item-subtitle {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   min-width: 0;
 }
 
@@ -25,6 +25,13 @@
 legend {
   line-height: 1;
   vertical-align: middle;
+}
+
+/* Vuetify 3 list subheaders rely on --indent-padding, which is only defined
+   inside a .v-list. Provide a fallback so subheaders outside lists (e.g. folder
+   titles) keep their 16px start padding. */
+.v-list-subheader {
+  --indent-padding: 0px;
 }
 
 /* Improve tap responsiveness on mobile for clickable non-button elements */
