@@ -77,9 +77,16 @@ const shade = computed({
 });
 
 const kebabColor = computed(() => camelToKebabCase(color.value) as string);
-const kebabShade = computed(() => camelToKebabCase(shade.value) as string);
 
-function isDark(kebabColorVal: string | undefined, kebabShadeVal: string | undefined): boolean | null{
+// Vuetify 3 stores shade keys without a hyphen (e.g. "lighten4"), but the
+// picker uses the hyphenated form (e.g. "lighten-4") for display/comparison.
+const kebabShade = computed(() => {
+  const s = shade.value;
+  if (!s) return undefined;
+  return s.replace(/(lighten|darken|accent)(\d)/, '$1-$2');
+});
+
+function isDark(kebabColorVal: string | undefined, kebabShadeVal: string | undefined): boolean | null {
   const hex = colorToHex(kebabColorVal, kebabShadeVal);
   return isDarkColor(hex);
 }
@@ -117,14 +124,14 @@ function isDark(kebabColorVal: string | undefined, kebabShadeVal: string | undef
           <div
             v-for="colorOption in colors"
             :key="colorOption"
-            :class="[colorOption, shade]"
             class="color-swatch d-flex align-center"
+            :style="{ backgroundColor: colorToHex(colorOption, shade || 'base') }"
             @click="color = colorOption"
           >
             <v-scroll-y-transition>
               <v-icon
                 v-if="kebabColor === colorOption"
-                :class="{dark: isDark(colorOption, shade)}"
+                :class="{dark: isDark(colorOption, shade || 'base')}"
               >
                 mdi-check
               </v-icon>
@@ -144,8 +151,8 @@ function isDark(kebabColorVal: string | undefined, kebabShadeVal: string | undef
             <div
               v-for="shadeOption in shades"
               :key="shadeOption"
-              :class="[kebabColor, shadeOption]"
               class="shade-swatch d-flex align-center"
+              :style="{ backgroundColor: colorToHex(color, shadeOption) }"
               @click="shade = shadeOption"
             >
               <v-scroll-y-transition>

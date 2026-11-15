@@ -1,0 +1,25 @@
+/*
+ * Vuetify 3 changed the built-in v-icon size scale (e.g. `large` is now
+ * 28px instead of Vuetify 2's 36px). Restore the Vuetify 2 scale so migrated
+ * templates keep their original icon sizes. Values mirror the repo's
+ * SvgIcon SIZE_MAP where applicable.
+ */
+.v-icon--size-x-small {
+  font-size: 16px;
+}
+
+.v-icon--size-small {
+  font-size: 20px;
+}
+
+.v-icon--size-default {
+  font-size: 24px;
+}
+
+.v-icon--size-large {
+  font-size: 36px;
+}
+
+.v-icon--size-x-large {
+  font-size: 40px;
+}
