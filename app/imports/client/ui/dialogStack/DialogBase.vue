@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import getThemeColor from '/imports/client/ui/utility/getThemeColor';
 import isDarkColor from '/imports/client/ui/utility/isDarkColor';
@@ -12,6 +12,11 @@ const props = defineProps<{
   overrideBackButton?: () => void;
   darkBody?: boolean;
 }>();
+
+onMounted(() => {
+  const body = document.getElementById('base-dialog-body');
+  if (body) body.scrollTop = 0;
+});
 
 const offsetTop = ref(0);
 
