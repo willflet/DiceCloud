@@ -219,14 +219,14 @@ function addProperty({ elementId, suggestedType }: any) {
     },
     async callback(result: any) {
       if (!result) return;
-      const parentRef = { id: parentPropertyId, collection: 'creatureProperties' };
+      const root = model.value.root;
       if (Array.isArray(result)) {
         const nodeIds = result;
-        const id = await insertPropertyFromLibraryNode.callAsync({ nodeIds, parentRef });
+        const id = await insertPropertyFromLibraryNode.callAsync({ nodeIds, root, parentId: parentPropertyId });
         return `tree-node-${id}`;
       } else {
-        const creatureProperty = result;
-        const id = await insertProperty.callAsync({ creatureProperty, parentRef });
+        const creatureProperty = { ...result, root, parentId: parentPropertyId };
+        const id = await insertProperty.callAsync({ creatureProperty });
         return `tree-node-${id}`;
       }
     },

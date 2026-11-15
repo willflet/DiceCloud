@@ -31,13 +31,21 @@ const copyLibraryNodeTo = new ValidatedMethod({
     rootId: {
       type: String,
       max: 32,
+      optional: true,
+    },
+    parent: {
+      type: Object,
+      optional: true,
+      blackbox: true,
     },
     parentId: {
       type: String,
       max: 32,
+      optional: true,
     },
     left: {
       type: Number,
+      optional: true,
     },
   }).validator(),
   mixins: [RateLimiterMixin],
@@ -45,13 +53,29 @@ const copyLibraryNodeTo = new ValidatedMethod({
     numRequests: 1,
     timeInterval: 10000,
   },
-  async run({ _id, rootId, parentId, left }) {
+  async run({ _id, rootId, parent, parentId, left }) {
     const libraryNode = await LibraryNodes.findOneAsync(_id);
     if (!libraryNode) throw new Meteor.Error('not-found', 'Library node was not found');
-    const destinationLibrary = await Libraries.findOneAsync(rootId);
+
+    // Derive rootId/parentId from parent ref when provided (V3 client convention)
+    let resolvedRootId = rootId;
+    let resolvedParentId = parentId;
+    if (parent && parent.collection === 'libraryNodes') {
+      const parentNode = await LibraryNodes.findOneAsync(parent.id);
+      assertDocExists(parentNode);
+      resolvedRootId = resolvedRootId || (parentNode as any).root?.id;
+      resolvedParentId = resolvedParentId || parent.id;
+    } else if (parent && parent.collection === 'libraries') {
+      resolvedRootId = resolvedRootId || parent.id;
+    }
+    if (!resolvedRootId) throw new Meteor.Error('no-destination', 'A destination library is required');
+
+    const destinationLibrary = await Libraries.findOneAsync(resolvedRootId);
     assertDocExists(destinationLibrary);
     await assertDocCopyPermission(libraryNode, this.userId);
     await assertEditPermission(destinationLibrary, this.userId);
+
+    const resolvedLeft = left ?? 0.5;
 
     const decendants = await LibraryNodes.find({
       ...getFilter.descendants(libraryNode),
@@ -74,9 +98,9 @@ const copyLibraryNodeTo = new ValidatedMethod({
     renewDocIds({ docArray: nodes });
 
     // Order the root node
-    libraryNode.left = left;
-    libraryNode.right = left;
-    libraryNode.parentId = parentId;
+    libraryNode.left = resolvedLeft;
+    libraryNode.right = resolvedLeft;
+    libraryNode.parentId = resolvedParentId;
 
     for (const node of nodes) {
       await LibraryNodes.insertAsync(node);

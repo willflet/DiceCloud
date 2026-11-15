@@ -62,7 +62,7 @@ function addExtraTags() {
           :value="model.variableName"
           hint="Use this name in calculations to reference this class"
           :error-messages="errors.variableName"
-          @change="change('variableName', ...arguments)"
+          @change="(value, ack) => change('variableName', value, ack)"
         />
       </v-col>
     </v-row>

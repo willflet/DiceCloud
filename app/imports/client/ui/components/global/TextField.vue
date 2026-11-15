@@ -33,8 +33,7 @@ const { loading, errors, safeValue, isDisabled, focused, input } = useSmartInput
     :disabled="isDisabled"
     :variant="regular ? 'filled' : 'outlined'"
     @update:model-value="input"
-    @focus="focused = true"
-    @blur="focused = false"
+    @update:focused="focused = $event"
     @keyup="e => $emit('keyup', e)"
   >
     <template #append>

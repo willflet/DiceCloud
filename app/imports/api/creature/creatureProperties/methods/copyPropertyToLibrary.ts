@@ -27,6 +27,12 @@ const copyPropertyToLibrary = new ValidatedMethod({
     libraryId: {
       type: String,
       max: 32,
+      optional: true,
+    },
+    parentRef: {
+      type: Object,
+      optional: true,
+      blackbox: true,
     },
     parentId: {
       type: String,
@@ -43,15 +49,30 @@ const copyPropertyToLibrary = new ValidatedMethod({
     numRequests: 1,
     timeInterval: 5000,
   },
-  async run({ propId, libraryId, parentId, left }: { propId: string, libraryId: string, parentId?: string, left: number }) {
+  async run({ propId, libraryId, parentRef, parentId, left }: { propId: string, libraryId?: string, parentRef?: { collection: string, id: string }, parentId?: string, left?: number }) {
     const property = await CreatureProperties.findOneAsync(propId);
     assertDocExists(property);
     await assertDocEditPermission(property, this.userId);
 
-    const newLibrary = await Libraries.findOneAsync(libraryId);
+    // Derive libraryId/parentId from parentRef when provided (V3 client convention)
+    let resolvedLibraryId = libraryId;
+    let resolvedParentId = parentId;
+    if (parentRef && parentRef.collection === 'libraryNodes') {
+      const parentNode = await LibraryNodes.findOneAsync(parentRef.id);
+      assertDocExists(parentNode);
+      resolvedLibraryId = resolvedLibraryId || (parentNode as any).root?.id;
+      resolvedParentId = resolvedParentId || parentRef.id;
+    } else if (parentRef && parentRef.collection === 'libraries') {
+      resolvedLibraryId = resolvedLibraryId || parentRef.id;
+    }
+    if (!resolvedLibraryId) {
+      throw new Meteor.Error('no-library', 'A destination library is required');
+    }
+
+    const newLibrary = await Libraries.findOneAsync(resolvedLibraryId);
     await assertEditPermission(newLibrary, this.userId);
 
-    const insertedRootNode = await insertNodeFromProperty({ propId, libraryId, parentId, left, method: this });
+    const insertedRootNode = await insertNodeFromProperty({ propId, libraryId: resolvedLibraryId, parentId: resolvedParentId, left: left ?? 0.5, method: this });
 
     // Tree structure changed by inserts, reorder the tree
     await rebuildNestedSets(LibraryNodes, libraryId);

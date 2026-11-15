@@ -59,7 +59,7 @@ const isAttack = computed(() =>
           label="Always prepared"
           :value="model.alwaysPrepared"
           :error-messages="errors.alwaysPrepared"
-          @change="change('alwaysPrepared', ...arguments)"
+          @change="(value, ack) => change('alwaysPrepared', value, ack)"
         />
       </v-col>
       <v-col
@@ -73,7 +73,7 @@ const isAttack = computed(() =>
           label="Prepared"
           :value="model.prepared"
           :error-messages="errors.prepared"
-          @change="change('prepared', ...arguments)"
+          @change="(value, ack) => change('prepared', value, ack)"
         />
       </v-col>
       <v-col
@@ -87,7 +87,7 @@ const isAttack = computed(() =>
           label="Cast without spell slots"
           :value="model.castWithoutSpellSlots"
           :error-messages="errors.castWithoutSpellSlots"
-          @change="change('castWithoutSpellSlots', ...arguments)"
+          @change="(value, ack) => change('castWithoutSpellSlots', value, ack)"
         />
       </v-col>
     </v-row>
@@ -102,7 +102,7 @@ const isAttack = computed(() =>
           :items="spellLevels"
           :value="model.level"
           :error-messages="errors.level"
-          @change="change('level', ...arguments)"
+          @change="(value, ack) => change('level', value, ack)"
         />
       </v-col>
       <v-col
@@ -114,7 +114,7 @@ const isAttack = computed(() =>
           :items="magicSchools"
           :value="model.school"
           :error-messages="errors.school"
-          @change="change('school', ...arguments)"
+          @change="(value, ack) => change('school', value, ack)"
         />
       </v-col>
       <v-col
@@ -125,7 +125,7 @@ const isAttack = computed(() =>
           label="Casting Time"
           :value="model.castingTime"
           :error-messages="errors.castingTime"
-          @change="change('castingTime', ...arguments)"
+          @change="(value, ack) => change('castingTime', value, ack)"
         />
       </v-col>
       <v-col
@@ -136,7 +136,7 @@ const isAttack = computed(() =>
           label="Range"
           :value="model.range"
           :error-messages="errors.range"
-          @change="change('range', ...arguments)"
+          @change="(value, ack) => change('range', value, ack)"
         />
       </v-col>
       <v-col
@@ -147,7 +147,7 @@ const isAttack = computed(() =>
           label="Duration"
           :value="model.duration"
           :error-messages="errors.duration"
-          @change="change('duration', ...arguments)"
+          @change="(value, ack) => change('duration', value, ack)"
         />
       </v-col>
     </v-row>
@@ -161,7 +161,7 @@ const isAttack = computed(() =>
           label="Verbal"
           :value="model.verbal"
           :error-messages="errors.verbal"
-          @change="change('verbal', ...arguments)"
+          @change="(value, ack) => change('verbal', value, ack)"
         />
       </v-col>
       <v-col
@@ -173,7 +173,7 @@ const isAttack = computed(() =>
           label="Somatic"
           :value="model.somatic"
           :error-messages="errors.somatic"
-          @change="change('somatic', ...arguments)"
+          @change="(value, ack) => change('somatic', value, ack)"
         />
       </v-col>
       <v-col
@@ -185,7 +185,7 @@ const isAttack = computed(() =>
           label="Concentration"
           :value="model.concentration"
           :error-messages="errors.concentration"
-          @change="change('concentration', ...arguments)"
+          @change="(value, ack) => change('concentration', value, ack)"
         />
       </v-col>
       <v-col
@@ -197,7 +197,7 @@ const isAttack = computed(() =>
           label="Ritual"
           :value="model.ritual"
           :error-messages="errors.ritual"
-          @change="change('ritual', ...arguments)"
+          @change="(value, ack) => change('ritual', value, ack)"
         />
       </v-col>
     </v-row>
@@ -207,7 +207,7 @@ const isAttack = computed(() =>
           label="Material"
           :value="model.material"
           :error-messages="errors.material"
-          @change="change('material', ...arguments)"
+          @change="(value, ack) => change('material', value, ack)"
         />
       </v-col>
     </v-row>
@@ -225,7 +225,7 @@ const isAttack = computed(() =>
             {name: 'Self', value: 'self'},
           ]"
           :error-messages="errors.target"
-          @change="change('target', ...arguments)"
+          @change="(value, ack) => change('target', value, ack)"
         />
       </v-col>
       <v-col
@@ -316,7 +316,7 @@ const isAttack = computed(() =>
               style="flex-basis: 300px;"
               :value="model.usesUsed"
               :error-messages="errors.uses"
-              @change="change('usesUsed', ...arguments)"
+              @change="(value, ack) => change('usesUsed', value, ack)"
             />
           </v-col>
         </v-row>
@@ -324,7 +324,7 @@ const isAttack = computed(() =>
           hint="When number of uses used should be reset to zero"
           :value="model.reset"
           :error-messages="errors.reset"
-          @change="change('reset', ...arguments)"
+          @change="(value, ack) => change('reset', value, ack)"
         />
       </form-section>
       <slot />

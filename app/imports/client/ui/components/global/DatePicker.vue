@@ -53,8 +53,7 @@ function dateInput(e: unknown) {
         :error-messages="errors"
         :disabled="isDisabled"
         variant="outlined"
-        @focus="focused = true"
-        @blur="focused = false"
+        @update:focused="focused = $event"
       />
     </template>
     <v-date-picker

@@ -249,12 +249,19 @@ function insertCustomFiller() {
     callback(result: any) {
       if (!result) return;
       if (Array.isArray(result)) {
-        insertPropertyFromLibraryNode.callAsync({ nodeIds: result, parentRef, order });
+        insertPropertyFromLibraryNode.callAsync({
+          nodeIds: result,
+          root: { collection: 'creatures' as const, id: props.creatureId },
+          parentId: props.slotId,
+          order,
+        });
         setTimeout(() => store.dispatch('popDialogStack'), 200);
       } else if (typeof result === 'object') {
         const creatureProperty = result;
+        creatureProperty.root = { collection: 'creatures' as const, id: props.creatureId };
+        creatureProperty.parentId = props.slotId;
         creatureProperty.order = order;
-        insertProperty.callAsync({ creatureProperty, parentRef });
+        insertProperty.callAsync({ creatureProperty });
         setTimeout(() => store.dispatch('popDialogStack'), 200);
       }
     },

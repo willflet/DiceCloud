@@ -25,7 +25,7 @@ function change(path: string | string[], value: any, ack?: Function) {
           style="flex-basis: 300px;"
           hint="This should be the same as the class's variable name"
           :error-messages="errors.variableName"
-          @change="change('variableName', ...arguments)"
+          @change="(value, ack) => change('variableName', value, ack)"
         />
       </v-col>
       <v-col
@@ -38,7 +38,7 @@ function change(path: string | string[], value: any, ack?: Function) {
           class="base-value-field text-center large-format no-flex"
           :value="model.level"
           :error-messages="errors.level"
-          @change="change('level', ...arguments)"
+          @change="(value, ack) => change('level', value, ack)"
         />
       </v-col>
     </v-row>

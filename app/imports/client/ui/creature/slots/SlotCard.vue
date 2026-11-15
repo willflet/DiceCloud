@@ -34,7 +34,8 @@ function fillSlot() {
       try {
         await insertPropertyFromLibraryNode.callAsync({
           nodeIds,
-          parentRef: { id: slotId, collection: 'creatureProperties' },
+          root: { collection: 'creatures' as const, id: context.creatureId },
+          parentId: slotId,
         });
       } catch (error: any) {
         console.error(error);

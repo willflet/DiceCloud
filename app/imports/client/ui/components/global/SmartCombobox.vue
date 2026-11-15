@@ -96,8 +96,7 @@ function customChange(val: unknown) {
     :multiple="multiple"
     variant="outlined"
     @update:model-value="customChange"
-    @focus="focused = true"
-    @blur="focused = false"
+    @update:focused="focused = $event"
   >
     <template #prepend>
       <slot name="prepend" />

@@ -91,7 +91,7 @@ const isAttack = computed(() =>
           :error-messages="errors.actionType"
           :menu-props="{auto: true, lazy: true}"
           :hint="actionTypeHints[model.actionType]"
-          @change="change('actionType', ...arguments)"
+          @change="(value, ack) => change('actionType', value, ack)"
         />
       </v-col>
     </v-row>
@@ -103,7 +103,7 @@ const isAttack = computed(() =>
         :value="model.variableName"
         hint="Variable name of the event that this action represents"
         :error-messages="errors.variableName"
-        @change="change('variableName', ...arguments)"
+        @change="(value, ack) => change('variableName', value, ack)"
       />
     </v-slide-x-transition>
 
@@ -116,7 +116,7 @@ const isAttack = computed(() =>
         {name: 'Self', value: 'self'},
       ]"
       :error-messages="errors.target"
-      @change="change('target', ...arguments)"
+      @change="(value, ack) => change('target', value, ack)"
     />
 
     <inline-computation-field
@@ -172,7 +172,7 @@ const isAttack = computed(() =>
               style="flex-basis: 300px;"
               :value="model.usesUsed"
               :error-messages="errors.uses"
-              @change="change('usesUsed', ...arguments)"
+              @change="(value, ack) => change('usesUsed', value, ack)"
             />
           </v-col>
         </v-row>
@@ -180,7 +180,7 @@ const isAttack = computed(() =>
           hint="When number of uses used should be reset to zero"
           :value="model.reset"
           :error-messages="errors.reset"
-          @change="change('reset', ...arguments)"
+          @change="(value, ack) => change('reset', value, ack)"
         />
       </form-section>
       <form-section name="Log">
@@ -189,7 +189,7 @@ const isAttack = computed(() =>
           class="ml-4 mt-0 mb-4"
           :value="model.silent"
           :error-messages="errors.silent"
-          @change="change('silent', ...arguments)"
+          @change="(value, ack) => change('silent', value, ack)"
         />
       </form-section>
       <slot />

@@ -36,7 +36,7 @@ const { result: attributeList } = autorun(() =>
           :items="attributeList"
           :value="model.stat"
           :error-messages="errors.stat"
-          @change="change('stat', ...arguments)"
+          @change="(value, ack) => change('stat', value, ack)"
         />
       </v-col>
       <v-col
@@ -67,7 +67,7 @@ const { result: attributeList } = autorun(() =>
             { name: 'Set', value: 'set' },
           ]"
           :error-messages="errors.operation"
-          @change="change('operation', ...arguments)"
+          @change="(value, ack) => change('operation', value, ack)"
         />
       </v-col>
       <v-col
@@ -82,7 +82,7 @@ const { result: attributeList } = autorun(() =>
             {name: 'Self', value: 'self'},
           ]"
           :error-messages="errors.target"
-          @change="change('target', ...arguments)"
+          @change="(value, ack) => change('target', value, ack)"
         />
       </v-col>
     </v-row>
@@ -92,7 +92,7 @@ const { result: attributeList } = autorun(() =>
           label="Don't show in log"
           :value="model.silent"
           :error-messages="errors.silent"
-          @change="change('silent', ...arguments)"
+          @change="(value, ack) => change('silent', value, ack)"
         />
       </form-section>
       <slot />

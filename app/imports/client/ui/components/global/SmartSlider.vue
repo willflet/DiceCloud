@@ -37,8 +37,7 @@ const { loading, errors, safeValue, isDisabled, focused, change } = useSmartInpu
     @end="e => { change(e); $emit('end', e) }"
     @update:model-value="e => $emit('input', e)"
     @start="e => $emit('start', e)"
-    @focus="focused = true"
-    @blur="focused = false"
+    @update:focused="focused = $event"
   >
     <template #prepend>
       <slot name="prepend" />

@@ -20,7 +20,7 @@ function change(path: string | string[], value: any, ack?: Function) {
           label="Equipped"
           :value="model.equipped"
           :error-messages="errors.equipped"
-          @change="change('equipped', ...arguments)"
+          @change="(value, ack) => change('equipped', value, ack)"
         />
       </div>
     </div>
@@ -36,7 +36,7 @@ function change(path: string | string[], value: any, ack?: Function) {
           prepend-inner-icon="$vuetify.icons.abacus"
           :value="model.quantity"
           :error-messages="errors.quantity"
-          @change="change('quantity', ...arguments)"
+          @change="(value, ack) => change('quantity', value, ack)"
         />
       </v-col>
       <v-col
@@ -48,7 +48,7 @@ function change(path: string | string[], value: any, ack?: Function) {
           :value="model.plural"
           :error-messages="errors.plural"
           hint="The plural name of your item. If your item's name is 'sword' plural name would be 'swords'"
-          @change="change('plural', ...arguments)"
+          @change="(value, ack) => change('plural', value, ack)"
         />
       </v-col>
 
@@ -65,7 +65,7 @@ function change(path: string | string[], value: any, ack?: Function) {
           prepend-inner-icon="$vuetify.icons.two_coins"
           :value="model.value"
           :error-messages="errors.value"
-          @change="change('value', ...arguments)"
+          @change="(value, ack) => change('value', value, ack)"
         />
       </v-col>
       <v-col
@@ -81,7 +81,7 @@ function change(path: string | string[], value: any, ack?: Function) {
           hint="The weight of a single item in lbs. Can be a decimal value"
           :value="model.weight"
           :error-messages="errors.weight"
-          @change="change('weight', ...arguments)"
+          @change="(value, ack) => change('weight', value, ack)"
         />
       </v-col>
     </v-row>
@@ -107,7 +107,7 @@ function change(path: string | string[], value: any, ack?: Function) {
               label="Show increment button"
               :value="model.showIncrement"
               :error-messages="errors.showIncrement"
-              @change="change('showIncrement', ...arguments)"
+              @change="(value, ack) => change('showIncrement', value, ack)"
             />
           </v-col>
           <v-col
@@ -118,7 +118,7 @@ function change(path: string | string[], value: any, ack?: Function) {
               label="Don't show in log"
               :value="model.silent"
               :error-messages="errors.silent"
-              @change="change('silent', ...arguments)"
+              @change="(value, ack) => change('silent', value, ack)"
             />
           </v-col>
         </v-row>
@@ -135,7 +135,7 @@ function change(path: string | string[], value: any, ack?: Function) {
               label="Requires attunement"
               :value="model.requiresAttunement"
               :error-messages="errors.requiresAttunement"
-              @change="change('requiresAttunement', ...arguments)"
+              @change="(value, ack) => change('requiresAttunement', value, ack)"
             />
           </v-col>
           <v-slide-x-transition>
@@ -148,7 +148,7 @@ function change(path: string | string[], value: any, ack?: Function) {
                 label="Attuned"
                 :value="model.attuned"
                 :error-messages="errors.attuned"
-                @change="change('attuned', ...arguments)"
+                @change="(value, ack) => change('attuned', value, ack)"
               />
             </v-col>
           </v-slide-x-transition>

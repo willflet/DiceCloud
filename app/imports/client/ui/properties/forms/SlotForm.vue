@@ -56,7 +56,7 @@ function testSlot() {
           :items="slotTypes"
           :value="model.slotType"
           :error-messages="errors.slotType"
-          @change="change('slotType', ...arguments)"
+          @change="(value, ack) => change('slotType', value, ack)"
         />
       </v-col>
       <v-col cols="12">
@@ -117,7 +117,7 @@ function testSlot() {
           :items="uniqueOptions"
           :value="model.unique"
           :error-messages="errors.unique"
-          @change="change('unique', ...arguments)"
+          @change="(value, ack) => change('unique', value, ack)"
         />
       </v-col>
       <v-col
@@ -164,7 +164,7 @@ function testSlot() {
               class="mx-2"
               :value="model.hideWhenFull"
               :error-messages="errors.hideWhenFull"
-              @change="change('hideWhenFull', ...arguments)"
+              @change="(value, ack) => change('hideWhenFull', value, ack)"
             />
           </v-col>
           -->
@@ -178,7 +178,7 @@ function testSlot() {
               class="mx-2"
               :value="model.ignored"
               :error-messages="errors.ignored"
-              @change="change('ignored', ...arguments)"
+              @change="(value, ack) => change('ignored', value, ack)"
             />
           </v-col>
         </v-row>

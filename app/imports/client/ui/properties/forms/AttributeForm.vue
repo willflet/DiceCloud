@@ -60,7 +60,7 @@ watch(() => props.model.attributeType, (newVal, oldVal) => {
           :value="model.variableName"
           hint="Use this name in calculations to reference this attribute"
           :error-messages="errors.variableName"
-          @change="change('variableName', ...arguments)"
+          @change="(value, ack) => change('variableName', value, ack)"
         />
       </v-col>
       <v-col
@@ -86,7 +86,7 @@ watch(() => props.model.attributeType, (newVal, oldVal) => {
           :error-messages="errors.attributeType"
           :menu-props="{auto: true, lazy: true}"
           :hint="attributeTypeHints[model.attributeType]"
-          @change="change('attributeType', ...arguments)"
+          @change="(value, ack) => change('attributeType', value, ack)"
         />
       </v-col>
       <v-expand-transition>
@@ -100,7 +100,7 @@ watch(() => props.model.attributeType, (newVal, oldVal) => {
             :value="model.hitDiceSize"
             :error-messages="errors.hitDiceSize"
             :menu-props="{auto: true, lazy: true}"
-            @change="change('hitDiceSize', ...arguments)"
+            @change="(value, ack) => change('hitDiceSize', value, ack)"
           />
         </v-col>
         <v-col
@@ -173,7 +173,7 @@ watch(() => props.model.attributeType, (newVal, oldVal) => {
                 :disabled="model.healthBarNoDamage"
                 :value="model.healthBarDamageOrder"
                 :error-messages="errors.healthBarDamageOrder"
-                @change="change('healthBarDamageOrder', ...arguments)"
+                @change="(value, ack) => change('healthBarDamageOrder', value, ack)"
               />
             </v-col>
             <v-col
@@ -185,7 +185,7 @@ watch(() => props.model.attributeType, (newVal, oldVal) => {
                 label="Ignore damage"
                 :value="model.healthBarNoDamage"
                 :error-messages="errors.healthBarNoDamage"
-                @change="change('healthBarNoDamage', ...arguments)"
+                @change="(value, ack) => change('healthBarNoDamage', value, ack)"
               />
             </v-col>
             <v-col
@@ -197,7 +197,7 @@ watch(() => props.model.attributeType, (newVal, oldVal) => {
                 label="Prevent damage overflow"
                 :value="model.healthBarNoDamageOverflow"
                 :error-messages="errors.healthBarNoDamageOverflow"
-                @change="change('healthBarNoDamageOverflow', ...arguments)"
+                @change="(value, ack) => change('healthBarNoDamageOverflow', value, ack)"
               />
             </v-col>
             <v-col
@@ -211,7 +211,7 @@ watch(() => props.model.attributeType, (newVal, oldVal) => {
                 :disabled="model.healthBarNoHealing"
                 :value="model.healthBarHealingOrder"
                 :error-messages="errors.healthBarHealingOrder"
-                @change="change('healthBarHealingOrder', ...arguments)"
+                @change="(value, ack) => change('healthBarHealingOrder', value, ack)"
               />
             </v-col>
             <v-col
@@ -223,7 +223,7 @@ watch(() => props.model.attributeType, (newVal, oldVal) => {
                 label="Ignore healing"
                 :value="model.healthBarNoHealing"
                 :error-messages="errors.healthBarNoHealing"
-                @change="change('healthBarNoHealing', ...arguments)"
+                @change="(value, ack) => change('healthBarNoHealing', value, ack)"
               />
             </v-col>
             <v-col
@@ -235,7 +235,7 @@ watch(() => props.model.attributeType, (newVal, oldVal) => {
                 label="Prevent healing overflow"
                 :value="model.healthBarNoHealingOverflow"
                 :error-messages="errors.healthBarNoHealingOverflow"
-                @change="change('healthBarNoHealingOverflow', ...arguments)"
+                @change="(value, ack) => change('healthBarNoHealingOverflow', value, ack)"
               />
             </v-col>
           </v-row>
@@ -255,7 +255,7 @@ watch(() => props.model.attributeType, (newVal, oldVal) => {
               :disabled="!context.isLibraryForm"
               :value="model.damage"
               :error-messages="errors.damage"
-              @change="change('damage', ...arguments)"
+              @change="(value, ack) => change('damage', value, ack)"
             />
           </v-col>
           <v-col
@@ -267,7 +267,7 @@ watch(() => props.model.attributeType, (newVal, oldVal) => {
               hint="When damage should be reset to zero"
               :value="model.reset"
               :error-messages="errors.reset"
-              @change="change('reset', ...arguments)"
+              @change="(value, ack) => change('reset', value, ack)"
             />
           </v-col>
         </v-row>
@@ -285,7 +285,7 @@ watch(() => props.model.attributeType, (newVal, oldVal) => {
               class="mx-4"
               :value="model.decimal"
               :error-messages="errors.decimal"
-              @change="change('decimal', ...arguments)"
+              @change="(value, ack) => change('decimal', value, ack)"
             />
           </v-col>
           <v-col
@@ -298,7 +298,7 @@ watch(() => props.model.attributeType, (newVal, oldVal) => {
               class="mx-4"
               :value="model.ignoreLowerLimit"
               :error-messages="errors.ignoreLowerLimit"
-              @change="change('ignoreLowerLimit', ...arguments)"
+              @change="(value, ack) => change('ignoreLowerLimit', value, ack)"
             />
           </v-col>
           <v-col
@@ -311,7 +311,7 @@ watch(() => props.model.attributeType, (newVal, oldVal) => {
               class="mx-4"
               :value="model.ignoreUpperLimit"
               :error-messages="errors.ignoreUpperLimit"
-              @change="change('ignoreUpperLimit', ...arguments)"
+              @change="(value, ack) => change('ignoreUpperLimit', value, ack)"
             />
           </v-col>
           <v-col
@@ -324,7 +324,7 @@ watch(() => props.model.attributeType, (newVal, oldVal) => {
               class="mx-4"
               :value="model.hideWhenTotalZero"
               :error-messages="errors.hideWhenTotalZero"
-              @change="change('hideWhenTotalZero', ...arguments)"
+              @change="(value, ack) => change('hideWhenTotalZero', value, ack)"
             />
           </v-col>
           <v-col
@@ -337,7 +337,7 @@ watch(() => props.model.attributeType, (newVal, oldVal) => {
               class="mx-4"
               :value="model.hideWhenValueZero"
               :error-messages="errors.hideWhenValueZero"
-              @change="change('hideWhenValueZero', ...arguments)"
+              @change="(value, ack) => change('hideWhenValueZero', value, ack)"
             />
           </v-col>
         </v-row>

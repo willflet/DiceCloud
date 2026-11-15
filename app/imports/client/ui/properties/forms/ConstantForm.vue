@@ -33,7 +33,7 @@ const clientErrors = computed(() => {
           style="flex-basis: 300px;"
           hint="Use this name in calculations to reference this attribute"
           :error-messages="errors.variableName"
-          @change="change('variableName', ...arguments)"
+          @change="(value, ack) => change('variableName', value, ack)"
         />
       </v-col>
       <v-col cols="12">
@@ -42,7 +42,7 @@ const clientErrors = computed(() => {
           hint="Calculation of the constant value, use 'text' for a string value, [1,2,3] for a matrix, or 123 for a number"
           :value="model.calculation"
           :error-messages="errors.calculation"
-          @change="change('calculation', ...arguments)"
+          @change="(value, ack) => change('calculation', value, ack)"
         />
         <calculation-error-list :errors="clientErrors" />
       </v-col>

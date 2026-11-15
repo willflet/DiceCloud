@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue';
+import { computed, inject, getCurrentInstance } from 'vue';
 import { useStore } from 'vuex';
 import { autorun } from 'vue-meteor-tracker';
 import isDarkColor from '/imports/client/ui/utility/isDarkColor';
@@ -35,6 +35,8 @@ const { result: userPaid } = autorun(() => getUserTier(Meteor.user()).paidBenefi
 
 const color = computed(() => props.model?.color || getThemeColor('secondary'));
 const isDark = computed(() => isDarkColor(color.value));
+// In Vue 3, declared emits are removed from $attrs, so check the vnode props.
+const passedHandlers = computed(() => (getCurrentInstance()?.vnode?.props as Record<string, unknown>) || {});
 
 const title = computed(() => {
   const model = props.model;
@@ -103,11 +105,9 @@ function helpDialog() {
       >
         <v-spacer />
         <v-menu
-          v-if="$attrs && (
-            $attrs.onMove ||
-            $attrs.onDuplicate ||
-            $attrs.onRemove
-          )"
+          v-if="passedHandlers.onMove ||
+            passedHandlers.onDuplicate ||
+            passedHandlers.onRemove"
           location="bottom left"
           
           transition="slide-y-transition"
@@ -134,7 +134,7 @@ function helpDialog() {
               </template>
             </v-list-item>
             <v-list-item
-              v-if="$attrs && $attrs.onDuplicate"
+              v-if="passedHandlers.onDuplicate"
               :disabled="context.editPermission === false"
               @click="$emit('duplicate')"
             >
@@ -146,7 +146,7 @@ function helpDialog() {
               </template>
             </v-list-item>
             <v-list-item
-              v-if="$attrs && $attrs.onCopy"
+              v-if="passedHandlers.onCopy"
               :disabled="context.copyPermission === false"
               @click="$emit('copy')"
             >
@@ -158,7 +158,7 @@ function helpDialog() {
               </template>
             </v-list-item>
             <v-list-item
-              v-if="$attrs && $attrs['onMake-reference']"
+              v-if="passedHandlers.onMakeReference"
               :disabled="context.editPermission === false"
               @click="$emit('make-reference')"
             >
@@ -170,7 +170,7 @@ function helpDialog() {
               </template>
             </v-list-item>
             <v-list-item
-              v-if="$attrs && $attrs.onMove"
+              v-if="passedHandlers.onMove"
               :disabled="context.editPermission === false"
               @click="$emit('move')"
             >
@@ -182,7 +182,7 @@ function helpDialog() {
               </template>
             </v-list-item>
             <v-list-item
-              v-if="$attrs && $attrs['onCopy-to-library'] && userPaid"
+              v-if="passedHandlers.onCopyToLibrary && userPaid"
               :disabled="context.editPermission === false"
               @click="$emit('copy-to-library')"
             >
@@ -194,7 +194,7 @@ function helpDialog() {
               </template>
             </v-list-item>
             <v-list-item
-              v-if="$attrs && $attrs.onRemove"
+              v-if="passedHandlers.onRemove"
               :disabled="context.editPermission === false"
               @click="$emit('remove')"
             >

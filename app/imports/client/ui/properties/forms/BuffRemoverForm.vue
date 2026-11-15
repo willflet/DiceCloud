@@ -64,7 +64,7 @@ function change(path: string | string[], value: any, ack?: Function) {
                 {name: 'Self', value: 'self'},
               ]"
               :error-messages="errors.target"
-              @change="change('target', ...arguments)"
+              @change="(value, ack) => change('target', value, ack)"
             />
           </v-col>
         </v-row>
@@ -85,7 +85,7 @@ function change(path: string | string[], value: any, ack?: Function) {
           label="Don't show in log"
           :value="model.silent"
           :error-messages="errors.silent"
-          @change="change('silent', ...arguments)"
+          @change="(value, ack) => change('silent', value, ack)"
         />
       </form-section>
       <slot />

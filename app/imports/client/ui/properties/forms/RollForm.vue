@@ -27,7 +27,7 @@ function change(path: string | string[], value: any, ack?: Function) {
           style="flex-basis: 300px;"
           hint="Use this name in action formulae to refer to the result of this roll"
           :error-messages="errors.variableName"
-          @change="change('variableName', ...arguments)"
+          @change="(value, ack) => change('variableName', value, ack)"
         />
       </v-col>
       <v-col
@@ -50,7 +50,7 @@ function change(path: string | string[], value: any, ack?: Function) {
           label="Don't show in log"
           :value="model.silent"
           :error-messages="errors.silent"
-          @change="change('silent', ...arguments)"
+          @change="(value, ack) => change('silent', value, ack)"
         />
       </form-section>
       <slot />

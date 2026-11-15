@@ -250,10 +250,8 @@ function levelUpDialog(classId: string) {
       if (!nodeIds || !nodeIds.length) return;
       const newPropertyId = await insertPropertyFromLibraryNode.callAsync({
         nodeIds,
-        parentRef: {
-          id: classId,
-          collection: 'creatureProperties',
-        },
+        root: { collection: 'creatures' as const, id: props.creatureId },
+        parentId: classId,
       });
       return `tree-node-${newPropertyId}`;
     },

@@ -134,7 +134,7 @@ function addRow() {
                     label="Row Name"
                     :value="row.name"
                     :error-messages="errors.values && errors.values[i] && errors.values[i].name"
-                    @change="change(['values', i, 'name'], ...arguments)"
+                    @change="(value, ack) => change(['values', i, 'name'], value, ack)"
                   />
                 </v-col>
                 <v-col
@@ -146,7 +146,7 @@ function addRow() {
                     :value="row.variableName"
                     hint="Use this name in calculations to reference this row of the table"
                     :error-messages="errors.values && errors.values[i] && errors.values[i].variableName"
-                    @change="change(['values', i, 'variableName'], ...arguments)"
+                    @change="(value, ack) => change(['values', i, 'variableName'], value, ack)"
                   />
                 </v-col>
                 <v-col
@@ -159,7 +159,7 @@ function addRow() {
                     :value="row.value"
                     hint="The starting value of the row"
                     :error-messages="errors.values && errors.values[i] && errors.values[i].value"
-                    @change="change(['values', i, 'value'], ...arguments)"
+                    @change="(value, ack) => change(['values', i, 'value'], value, ack)"
                   />
                 </v-col>
                 <v-col

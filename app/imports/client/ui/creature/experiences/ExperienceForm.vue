@@ -48,7 +48,7 @@ function makeMilestone(val: boolean, ack?: any) {
         class="base-value-field text-center large-format no-flex"
         :value="model.levels"
         :error-messages="errors.levels"
-        @change="change('levels', ...arguments)"
+        @change="(value, ack) => change('levels', value, ack)"
       />
       <text-field
         v-else
@@ -58,7 +58,7 @@ function makeMilestone(val: boolean, ack?: any) {
         autofocus
         :value="model.xp"
         :error-messages="errors.xp"
-        @change="change('xp', ...arguments)"
+        @change="(value, ack) => change('xp', value, ack)"
       />
     </div>
     <text-field
@@ -66,7 +66,7 @@ function makeMilestone(val: boolean, ack?: any) {
       :autofocus="milestone"
       :value="model.name"
       :error-messages="errors.name"
-      @change="change('name', ...arguments)"
+      @change="(value, ack) => change('name', value, ack)"
     />
   </div>
 </template>

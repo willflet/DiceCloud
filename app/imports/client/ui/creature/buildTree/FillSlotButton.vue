@@ -25,10 +25,8 @@ function fillSlot() {
       if (!nodeIds || !nodeIds.length) return;
       const newPropertyId = await insertPropertyFromLibraryNode.callAsync({
         nodeIds,
-        parentRef: {
-          'id': slotId,
-          'collection': 'creatureProperties',
-        },
+        root: { collection: 'creatures' as const, id: creatureId },
+        parentId: slotId,
       });
       return `slot-child-${newPropertyId}`;
     },

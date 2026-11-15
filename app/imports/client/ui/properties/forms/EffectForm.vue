@@ -118,7 +118,7 @@ function changeTargetByTags(value: string, ack?: Function) {
           :menu-props="{transition: 'slide-y-transition', lazy: true}"
           :items="operations"
           :value="model.operation"
-          @change="change('operation', ...arguments)"
+          @change="(value, ack) => change('operation', value, ack)"
         >
           <template #prepend-inner>
             <v-icon
@@ -148,7 +148,7 @@ function changeTargetByTags(value: string, ack?: Function) {
           hint="The text to display on the affected stats"
           :value="model.text"
           :error-messages="errors.text"
-          @change="change('text', ...arguments)"
+          @change="(value, ack) => change('text', value, ack)"
         />
         <computed-field
           v-else
@@ -186,7 +186,7 @@ function changeTargetByTags(value: string, ack?: Function) {
         :value="model.stats"
         :items="attributeList"
         :error-messages="errors.stats"
-        @change="change('stats', ...arguments)"
+        @change="(value, ack) => change('stats', value, ack)"
       />
       <tag-targeting
         v-if="model.targetByTags"
@@ -209,7 +209,7 @@ function changeTargetByTags(value: string, ack?: Function) {
           placeholder="Default field"
           persistent-placeholder
           :error-messages="errors.targetField"
-          @change="change('targetField', ...arguments)"
+          @change="(value, ack) => change('targetField', value, ack)"
         />
       </v-col>
     </v-expand-transition>

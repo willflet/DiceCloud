@@ -48,7 +48,7 @@ function radioChange(value: string, ack?: Function) {
           :value="model.variableName"
           hint="Use this name in calculations to reference this attribute"
           :error-messages="errors.variableName"
-          @change="change('variableName', ...arguments)"
+          @change="(value, ack) => change('variableName', value, ack)"
         />
       </v-col>
 
@@ -91,7 +91,7 @@ function radioChange(value: string, ack?: Function) {
             {name: 'Descendants', value: false},
             {name: 'By target tags', value: true},
           ]"
-          @change="change('targetByTags', ...arguments)"
+          @change="(value, ack) => change('targetByTags', value, ack)"
         />
       </v-col>
       <v-col cols="12">
@@ -119,7 +119,7 @@ function radioChange(value: string, ack?: Function) {
             label="Show on character sheet"
             :value="model.showUI"
             :error-messages="errors.showUI"
-            @change="change('showUI', ...arguments)"
+            @change="(value, ack) => change('showUI', value, ack)"
           />
         </v-col>
       </form-section>

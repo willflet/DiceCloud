@@ -30,7 +30,7 @@ function change(path: string | string[], value: any, ack?: Function) {
           prepend-inner-icon="$vuetify.icons.two_coins"
           :value="model.value"
           :error-messages="errors.value"
-          @change="change('value', ...arguments)"
+          @change="(value, ack) => change('value', value, ack)"
         />
       </v-col>
       <v-col
@@ -47,7 +47,7 @@ function change(path: string | string[], value: any, ack?: Function) {
           prepend-inner-icon="$vuetify.icons.weight"
           :value="model.weight"
           :error-messages="errors.weight"
-          @change="change('weight', ...arguments)"
+          @change="(value, ack) => change('weight', value, ack)"
         />
       </v-col>
       <v-col
@@ -60,7 +60,7 @@ function change(path: string | string[], value: any, ack?: Function) {
           hint="Whether this container and its contents count towards the creature's weight carried"
           :value="model.carried"
           :error-messages="errors.carried"
-          @change="change('carried', ...arguments)"
+          @change="(value, ack) => change('carried', value, ack)"
         />
       </v-col>
       <v-col
@@ -71,7 +71,7 @@ function change(path: string | string[], value: any, ack?: Function) {
           label="Contents are weightless"
           :value="model.contentsWeightless"
           :error-messages="errors.contentsWeightless"
-          @change="change('contentsWeightless', ...arguments)"
+          @change="(value, ack) => change('contentsWeightless', value, ack)"
         />
       </v-col>
     </v-row>

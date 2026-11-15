@@ -31,8 +31,7 @@ const { loading, errors, safeValue, isDisabled, focused, change } = useSmartInpu
     :disabled="isDisabled"
     variant="outlined"
     @update:model-value="change"
-    @focus="focused = true"
-    @blur="focused = false"
+    @update:focused="focused = $event"
   >
     <template #prepend>
       <slot name="prepend" />

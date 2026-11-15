@@ -43,7 +43,7 @@ function change(path: string | string[], value: any, ack?: Function) {
         {name: 'Self', value: 'self'},
       ]"
       :error-messages="errors.target"
-      @change="change('target', ...arguments)"
+      @change="(value, ack) => change('target', value, ack)"
     />
     <form-sections type="buff">
       <form-section
@@ -64,7 +64,7 @@ function change(path: string | string[], value: any, ack?: Function) {
               label="Hide remove button"
               :value="model.hideRemoveButton"
               :error-messages="errors.hideRemoveButton"
-              @change="change('hideRemoveButton', ...arguments)"
+              @change="(value, ack) => change('hideRemoveButton', value, ack)"
             />
           </v-col>
           <v-col
@@ -76,7 +76,7 @@ function change(path: string | string[], value: any, ack?: Function) {
               label="Don't freeze variables"
               :value="model.skipCrystalization"
               :error-messages="errors.skipCrystalization"
-              @change="change('skipCrystalization', ...arguments)"
+              @change="(value, ack) => change('skipCrystalization', value, ack)"
             />
           </v-col>
         </v-row>
@@ -86,7 +86,7 @@ function change(path: string | string[], value: any, ack?: Function) {
           label="Don't show in log"
           :value="model.silent"
           :error-messages="errors.silent"
-          @change="change('silent', ...arguments)"
+          @change="(value, ack) => change('silent', value, ack)"
         />
       </form-section>
       <slot />

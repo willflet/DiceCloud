@@ -83,7 +83,7 @@ function saveChange({ path, value, ack }: { path: string[]; value: any; ack?: Fu
           :value="model.damageType"
           :error-messages="errors.damageType"
           :menu-props="{auto: true}"
-          @change="change('damageType', ...arguments)"
+          @change="(value, ack) => change('damageType', value, ack)"
         />
       </v-col>
       <v-col cols="12">
@@ -95,7 +95,7 @@ function saveChange({ path, value, ack }: { path: string[]; value: any; ack?: Fu
             {name: 'Self', value: 'self'},
           ]"
           :error-messages="errors.target"
-          @change="change('target', ...arguments)"
+          @change="(value, ack) => change('target', value, ack)"
         />
       </v-col>
       <v-col cols="12">
@@ -167,7 +167,7 @@ function saveChange({ path, value, ack }: { path: string[]; value: any; ack?: Fu
               label="Don't show in log"
               :value="model.silent"
               :error-messages="errors.silent"
-              @change="change('silent', ...arguments)"
+              @change="(value, ack) => change('silent', value, ack)"
             />
           </v-col>
         </v-row>

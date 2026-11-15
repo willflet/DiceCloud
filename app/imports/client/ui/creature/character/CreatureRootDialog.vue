@@ -72,17 +72,14 @@ function addProperty() {
     },
     async callback(result: any) {
       if (!result) return;
-      const parentRef = {
-        id: parentPropertyId,
-        collection: 'creatures',
-      };
+      const root = { collection: 'creatures' as const, id: parentPropertyId };
       if (Array.isArray(result)) {
         const nodeIds = result;
-        const id = await insertPropertyFromLibraryNode.callAsync({ nodeIds, parentRef });
+        const id = await insertPropertyFromLibraryNode.callAsync({ nodeIds, root, parentId: undefined });
         return `tree-node-${id}`;
       } else {
-        const creatureProperty = result;
-        const id = await insertProperty.callAsync({ creatureProperty, parentRef });
+        const creatureProperty = { ...result, root };
+        const id = await insertProperty.callAsync({ creatureProperty });
         return `tree-node-${id}`;
       }
     },

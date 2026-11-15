@@ -32,7 +32,6 @@ const { loading, errors, safeValue, isDisabled, focused, input } = useSmartInput
     :auto-grow="autoGrow"
     variant="outlined"
     @update:model-value="input"
-    @focus="focused = true"
-    @blur="focused = false"
+    @update:focused="focused = $event"
   />
 </template>

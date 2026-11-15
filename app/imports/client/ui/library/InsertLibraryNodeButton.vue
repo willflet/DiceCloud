@@ -24,7 +24,6 @@ function insertNode() {
     });
     return;
   }
-  const parentRef = { id: libraryId, collection: 'libraries' };
   store.commit('pushDialogStack', {
     component: 'insert-property-dialog',
     elementId: 'insert-library-node-button',
@@ -37,7 +36,8 @@ function insertNode() {
     async callback(libraryNode: any) {
       if (!libraryNode) return;
       libraryNode.order = -1;
-      const libraryNodeId = await insertLibraryNode.callAsync({ libraryNode, parentRef });
+      libraryNode.root = { collection: 'libraries', id: libraryId };
+      const libraryNodeId = await insertLibraryNode.callAsync({ libraryNode });
       emit('selected', libraryNodeId);
       return `tree-node-${libraryNodeId}`;
     },

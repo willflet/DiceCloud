@@ -76,7 +76,7 @@ function addExtraTags() {
           :items="timingOptions"
           :value="model.timing"
           :error-messages="errors.timing"
-          @change="change('timing', ...arguments)"
+          @change="(value, ack) => change('timing', value, ack)"
         />
       </v-col>
       <v-col
@@ -90,7 +90,7 @@ function addExtraTags() {
           :items="eventOptions"
           :value="model.event"
           :error-messages="errors.event"
-          @change="change('event', ...arguments)"
+          @change="(value, ack) => change('event', value, ack)"
         />
       </v-col>
       <v-col
@@ -121,7 +121,7 @@ function addExtraTags() {
             :items="actionPropertyTypeOptions"
             :value="model.actionPropertyType"
             :error-messages="errors.actionPropertyType"
-            @change="change('actionPropertyType', ...arguments)"
+            @change="(value, ack) => change('actionPropertyType', value, ack)"
           />
         </v-col>
       </v-expand-transition>
@@ -154,7 +154,7 @@ function addExtraTags() {
           label="Don't show in log"
           :value="model.silent"
           :error-messages="errors.silent"
-          @change="change('silent', ...arguments)"
+          @change="(value, ack) => change('silent', value, ack)"
         />
       </form-section>
       <slot />

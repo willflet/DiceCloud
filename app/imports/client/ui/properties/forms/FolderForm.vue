@@ -61,7 +61,7 @@ function changeTab(path: string | string[], value: any, ack?: Function) {
           label="Group children on a card"
           :value="model.groupStats"
           :error-messages="errors.groupStats"
-          @change="change('groupStats', ...arguments)"
+          @change="(value, ack) => change('groupStats', value, ack)"
         />
         <v-expand-transition>
           <div v-if="model.groupStats">
@@ -69,7 +69,7 @@ function changeTab(path: string | string[], value: any, ack?: Function) {
               label="Hide children from their default locations"
               :value="model.hideStatsGroup"
               :error-messages="errors.hideStatsGroup"
-              @change="change('hideStatsGroup', ...arguments)"
+              @change="(value, ack) => change('hideStatsGroup', value, ack)"
             />
             <smart-select
               clearable
@@ -86,7 +86,7 @@ function changeTab(path: string | string[], value: any, ack?: Function) {
               :value="model.tab"
               :error-messages="errors.tab"
               :menu-props="{auto: true, lazy: true}"
-              @change="changeTab('tab', ...arguments)"
+              @change="(value, ack) => changeTab('tab', value, ack)"
             />
             <smart-select
               clearable
@@ -95,7 +95,7 @@ function changeTab(path: string | string[], value: any, ack?: Function) {
               :value="model.location"
               :error-messages="errors.location"
               :menu-props="{auto: true, lazy: true}"
-              @change="change('location', ...arguments)"
+              @change="(value, ack) => change('location', value, ack)"
             />
           </div>
         </v-expand-transition>

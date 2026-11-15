@@ -54,7 +54,7 @@ const typeHint = computed(() => {
       :value="model.branchType"
       :error-messages="errors.branchType"
       :menu-props="{auto: true, lazy: true}"
-      @change="change('branchType', ...arguments)"
+      @change="(value, ack) => change('branchType', value, ack)"
     />
     <v-expand-transition>
       <computed-field
@@ -82,7 +82,7 @@ const typeHint = computed(() => {
           label="Don't show in log"
           :value="model.silent"
           :error-messages="errors.silent"
-          @change="change('silent', ...arguments)"
+          @change="(value, ack) => change('silent', value, ack)"
         />
       </form-section>
       <slot />

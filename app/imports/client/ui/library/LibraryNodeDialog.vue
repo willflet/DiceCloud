@@ -111,8 +111,9 @@ async function makeReference() {
           collection: 'libraryNodes',
           id: model.value._id,
         },
+        root: model.value.root,
+        parentId: model.value.parentId,
       },
-      parentId: model.value.parentId,
     });
     if (props.embedded) {
       emit('duplicated', docId);
@@ -243,9 +244,10 @@ function addLibraryNode({ elementId, suggestedType }: { elementId: string; sugge
     },
     async callback(result: any) {
       if (!result) return;
-      const parentRef = { id: parentPropertyId, collection: 'libraryNodes' };
       const libraryNode = result;
-      const id = await insertNode.callAsync({ libraryNode, parentRef });
+      libraryNode.root = model.value.root;
+      libraryNode.parentId = parentPropertyId;
+      const id = await insertNode.callAsync({ libraryNode });
       return `tree-node-${id}`;
     },
   });

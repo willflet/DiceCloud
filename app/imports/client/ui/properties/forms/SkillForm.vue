@@ -56,7 +56,7 @@ const { result: abilityScoreList } = autorun(() =>
           style="flex-basis: 300px;"
           hint="Use this name in formulae to reference this skill"
           :error-messages="errors.variableName"
-          @change="change('variableName', ...arguments)"
+          @change="(value, ack) => change('variableName', value, ack)"
         />
       </v-col>
       <v-col
@@ -70,7 +70,7 @@ const { result: abilityScoreList } = autorun(() =>
           hint="Which ability is this skill based off of"
           :items="abilityScoreList"
           :error-messages="errors.ability"
-          @change="change('ability', ...arguments)"
+          @change="(value, ack) => change('ability', value, ack)"
         />
       </v-col>
       <v-col
@@ -85,7 +85,7 @@ const { result: abilityScoreList } = autorun(() =>
           :error-messages="errors.skillType"
           :menu-props="{auto: true, lazy: true}"
           :hint="skillTypeHints[model.skillType]"
-          @change="change('skillType', ...arguments)"
+          @change="(value, ack) => change('skillType', value, ack)"
         />
       </v-col>
     </v-row>
@@ -108,7 +108,7 @@ const { result: abilityScoreList } = autorun(() =>
               label="Base Proficiency"
               :value="model.baseProficiency"
               :error-messages="errors.baseProficiency"
-              @change="change('baseProficiency', ...arguments)"
+              @change="(value, ack) => change('baseProficiency', value, ack)"
             />
           </v-col>
           <v-col
@@ -131,7 +131,7 @@ const { result: abilityScoreList } = autorun(() =>
           label="Apply skill to targeted tags"
           :value="model.targetByTags"
           :error-messages="errors.targetByTags"
-          @change="change('targetByTags', ...arguments)"
+          @change="(value, ack) => change('targetByTags', value, ack)"
         />
         <v-expand-transition>
           <tag-targeting

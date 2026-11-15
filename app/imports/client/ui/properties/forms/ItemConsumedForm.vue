@@ -24,7 +24,7 @@ function change(path: string | string[], value: any, ack?: Function) {
         style="flex-basis: 300px;"
         :value="model.tag"
         :error-messages="errors.tag"
-        @change="change('tag', ...arguments)"
+        @change="(value, ack) => change('tag', value, ack)"
       />
     </v-col>
     <v-col
