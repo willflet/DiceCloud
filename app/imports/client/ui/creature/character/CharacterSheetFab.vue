@@ -165,7 +165,7 @@ async function addProperty(forcedType: string | null) {
         variant="text"
         class="character-add-menu-item"
         :data-id="`insert-creature-property-type-${type}`"
-        :prepend-icon="type ? properties[type].icon : 'mdi-plus'"
+        :append-icon="type ? properties[type].icon : 'mdi-plus'"
         :disabled="!editPermission"
         @click="addProperty(type)"
       >
@@ -194,22 +194,23 @@ async function addProperty(forcedType: string | null) {
 }
 .character-add-menu {
   min-width: 240px;
+  max-width: calc(100vw - 32px);
   padding: 12px;
   background: #25324a;
   color: #fff8e9;
   border: 1px solid #b99b64;
   border-radius: 8px;
   box-shadow: 0 8px 24px #00000055;
-  /* The menu is wider than the button: anchor it on the button's right edge
-   * so it never overflows the right side of the screen */
   right: 0;
   left: auto;
   width: auto;
+  align-items: flex-end;
 }
 .character-add-menu-item {
   width: 100%;
   min-height: 40px;
-  justify-content: flex-start;
+  justify-content: flex-end;
+  text-align: right;
   color: inherit;
   font-weight: 600;
   text-transform: none;

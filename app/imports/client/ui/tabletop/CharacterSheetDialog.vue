@@ -41,32 +41,32 @@ const { result: creature } = autorun(() => {
         )"
       >
         <v-btn>
-          <span>Stats</span>
           <v-icon>mdi-chart-box</v-icon>
+          <span>Stats</span>
         </v-btn>
         <v-btn>
-          <span>Actions</span>
           <v-icon>mdi-lightning-bolt</v-icon>
+          <span>Actions</span>
         </v-btn>
         <v-btn v-if="!creature.settings.hideSpellsTab">
-          <span>Spells</span>
           <v-icon>mdi-fire</v-icon>
+          <span>Spells</span>
         </v-btn>
         <v-btn>
-          <span>Inventory</span>
           <v-icon>mdi-cube</v-icon>
+          <span>Inventory</span>
         </v-btn>
         <v-btn>
-          <span>Features</span>
           <v-icon>mdi-text</v-icon>
+          <span>Features</span>
         </v-btn>
         <v-btn>
-          <span>Journal</span>
           <v-icon>mdi-book-open-variant</v-icon>
+          <span>Journal</span>
         </v-btn>
         <v-btn>
-          <span>Build</span>
           <v-icon>mdi-wrench</v-icon>
+          <span>Build</span>
         </v-btn>
       </v-bottom-navigation>
     </template>
@@ -85,5 +85,9 @@ const { result: creature } = autorun(() => {
   padding: 0 !important;
   flex: 1 1 0 !important;
   font-size: 0.6rem !important;
+}
+
+.bottom-nav-btns .v-btn--stacked .v-icon {
+  margin-bottom: 8px !important;
 }
 </style>
