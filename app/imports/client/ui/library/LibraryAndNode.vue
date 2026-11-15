@@ -82,7 +82,7 @@ function editLibraryNode() {
 }
 
 function clickNode(id: string) {
-  if (display.mdAndUp) {
+  if (display.mdAndUp.value) {
     selectedNodeId.value = id;
   } else {
     store.commit('pushDialogStack', {
