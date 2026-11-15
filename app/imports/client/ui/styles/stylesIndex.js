@@ -11,4 +11,5 @@ import './markdown.css';
 import './speedDial.css';
 import './toolbarFlex.css';
 import './vIconCompat.css';
+import './textAlignmentCompat.css';
 import './lanceChronicle.css';

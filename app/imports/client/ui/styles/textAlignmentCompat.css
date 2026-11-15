@@ -1,0 +1,28 @@
+/*
+ * Vuetify 3 migrated several components (notably list items and buttons) to
+ * CSS grid / flex layouts whose default item alignment differs from Vuetify 2.
+ * These rules restore the previous vertical centering so text and icons line up
+ * consistently across property displays, list tiles and buttons.
+ */
+.v-list-item {
+  align-items: center;
+}
+
+.v-list-item-title,
+.v-list-item-subtitle {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.v-btn {
+  align-items: center;
+  justify-content: center;
+}
+
+/* Custom outlined property fields use a zero-height legend to sit on the
+   border; keep its glyphs vertically centered. */
+legend {
+  line-height: 1;
+  vertical-align: middle;
+}
