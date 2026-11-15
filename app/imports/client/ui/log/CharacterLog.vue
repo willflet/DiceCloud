@@ -124,9 +124,7 @@ function decrementHistory() {
     style="height: 100%; overflow: hidden;"
     class="character-log layout column justify-end"
   >
-    <v-slide-y-reverse-transition
-      group
-      hide-on-leave
+    <div
       class="card-raised-background flex layout column reverse align-end pa-3"
       style="overflow: auto;"
     >
@@ -135,7 +133,7 @@ function decrementHistory() {
         :key="log._id"
         :model="log"
       />
-    </v-slide-y-reverse-transition>
+    </div>
     <v-card>
       <v-text-field
         v-model="input"
@@ -155,5 +153,19 @@ function decrementHistory() {
     </v-card>
   </div>
 </template>
+
+<style lang="css" scoped>
+.character-log .log-entry .v-card-title {
+  font-size: 1rem;
+}
+
+.character-log .content-name {
+  font-size: 0.875rem;
+}
+
+.character-log .content-value {
+  font-size: 0.875rem;
+}
+</style>
 
 resolveimport { toString } from '/imports/parser/toString';

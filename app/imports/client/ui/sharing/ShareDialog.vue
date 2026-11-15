@@ -22,7 +22,8 @@ const userId = ref<string | undefined>(undefined);
 
 const { result: model } = autorun(() => {
   if (!props.docRef || !props.docRef.id) return undefined;
-  return fetchDocByRef<Shared & { _id: string }>(props.docRef);
+  const collection = Mongo.getCollection(props.docRef.collection);
+  return collection?.findOne(props.docRef.id) as (Shared & { _id: string }) | undefined;
 });
 
 const { ready: userProfilesReady } = subscribe(() => {
