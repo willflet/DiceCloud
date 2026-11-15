@@ -169,7 +169,7 @@ onBeforeUnmount(() => {
     <v-bottom-navigation
       v-if="!embedded && $vuetify.display.xs && creature && creature.settings"
       app
-      shift
+      mode="shift"
       mandatory
       class="bottom-nav-btns"
       :model-value="$store.getters.tabById(creatureId)"
@@ -215,10 +215,10 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-.bottom-nav-btns > .v-btn {
+.bottom-nav-btns .v-bottom-navigation__content > .v-btn {
   min-width: 0 !important;
   padding: 0 !important;
-  flex: 1 1 auto !important;
+  flex: 1 1 0 !important;
   font-size: 0.6rem !important;
 }
 

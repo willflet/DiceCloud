@@ -30,7 +30,7 @@ const { result: creature } = autorun(() => {
     </template>
     <template #actions>
       <v-bottom-navigation
-        shift
+        mode="shift"
         mandatory
         class="bottom-nav-btns"
         style="position: relative;"
@@ -80,10 +80,10 @@ const { result: creature } = autorun(() => {
   flex-grow: 1;
   max-width: unset !important;
 }
-.bottom-nav-btns > .v-btn{
+.bottom-nav-btns .v-bottom-navigation__content > .v-btn{
   min-width: 0 !important;
   padding: 0 !important;
-  flex: 1 1 auto !important;
+  flex: 1 1 0 !important;
   font-size: 0.6rem !important;
 }
 </style>
