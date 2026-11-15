@@ -9,7 +9,7 @@ const artwork = appPath('images/themes/lance-chronicle/banner.png');
     <img :src="artwork" alt="" aria-hidden="true" class="chronicle-banner__art" decoding="async" fetchpriority="high">
     <div class="chronicle-banner__veil" aria-hidden="true" />
     <div class="chronicle-banner__copy">
-      <p class="chronicle-banner__eyebrow">Will's self-hosted</p>
+      <p class="chronicle-banner__eyebrow">Hosted by Will</p>
       <h1>{{ title }}</h1>
       <p class="chronicle-banner__subtitle">{{ subtitle }}</p>
     </div>
