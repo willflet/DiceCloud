@@ -25,6 +25,17 @@ const dialogStackStore: Module<DialogStackStoreState, unknown> = {
   }),
   mutations: {
     pushDialogStack(state, { component, data, elementId, callback }: Dialog<Record<string, unknown>, unknown>) {
+      // Avoid opening the same dialog twice when a single tap/click is
+      // delivered more than once (common on mobile and during animations).
+      const last = state.dialogs[state.dialogs.length - 1];
+      if (
+        last &&
+        last.component === component &&
+        data !== undefined &&
+        JSON.stringify(last.data) === JSON.stringify(data)
+      ) {
+        return;
+      }
       // Generate a new _id so that Vue knows how to shuffle the array
       const _id = Random.id();
       state.dialogs.push({
@@ -78,7 +89,7 @@ const dialogStackStore: Module<DialogStackStoreState, unknown> = {
       const intervalId = setInterval(() => {
         if (history && history.state && history.state.openDialogs) {
           context.commit('setCurrentResult');
-          history.back();
+          setTimeout(() => history.back(), 0);
         } else {
           context.commit('popDialogStackMutation');
         }

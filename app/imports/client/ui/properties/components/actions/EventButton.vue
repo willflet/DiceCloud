@@ -43,7 +43,7 @@ async function doActionClick() {
     class="event-button"
     style="min-width: 160px; max-width: 100%;"
     :color="model.color"
-    @click="doActionClick"
+    @click.stop="doActionClick"
   >
     <property-icon
       style="margin-left: -4px; margin-right: 8px;"

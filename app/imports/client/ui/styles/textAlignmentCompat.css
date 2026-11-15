@@ -26,3 +26,11 @@ legend {
   line-height: 1;
   vertical-align: middle;
 }
+
+/* Improve tap responsiveness on mobile for clickable non-button elements */
+.tree-node-title,
+.v-list-item,
+.v-card {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
