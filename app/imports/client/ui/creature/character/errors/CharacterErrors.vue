@@ -96,7 +96,7 @@ onMounted(() => {
             elevation="2"
             type="error"
           >
-            {{ error.type }}
+            {{ error.details?.error || error.type }}
           </v-alert>
         </template>
       </div>
