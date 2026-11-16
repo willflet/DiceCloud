@@ -8,6 +8,7 @@ const SIZE_MAP: Record<string, string> = {
   medium: '28px',
   large: '36px',
   xLarge: '40px',
+  xxLarge: '80px',
 };
 
 const theme = inject<{ isDark: boolean }>('theme', { isDark: false });
@@ -20,6 +21,7 @@ const props = defineProps<{
   medium?: boolean;
   large?: boolean;
   xLarge?: boolean;
+  xxLarge?: boolean;
 }>();
 
 const icon = ref<HTMLElement | null>(null);
@@ -39,6 +41,7 @@ const size = computed(() => {
   if (props.medium) return SIZE_MAP['medium'];
   if (props.large) return SIZE_MAP['large'];
   if (props.xLarge) return SIZE_MAP['xLarge'];
+  if (props.xxLarge) return SIZE_MAP['xxLarge'];
   return '1.5em';
 });
 

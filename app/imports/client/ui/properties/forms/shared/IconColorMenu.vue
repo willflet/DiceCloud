@@ -17,8 +17,8 @@ defineProps<{
     >
       <icon-picker
         :value="model.icon"
-        :width="54"
-        :height="54"
+        :width="96"
+        :height="96"
         @change="(value, ack) =>$emit('change', {path: ['icon'], value, ack})"
       />
     </outlined-input>

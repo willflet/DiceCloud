@@ -87,7 +87,7 @@ function select(icon?: unknown) {
           right
           :class="{'ml-2': !!label}"
           :shape="safeValue.shape"
-          large
+          xx-large
         />
         <v-icon
           v-else
@@ -129,12 +129,13 @@ function select(icon?: unknown) {
               v-for="icon in icons"
               :key="icon._id"
               icon
-              size="x-large"
+              :width="96"
+              :height="96"
               @click="select(icon)"
             >
               <svg-icon
                 :shape="icon.shape"
-                x-large
+                xx-large
               />
             </v-btn>
           </v-scale-transition>
