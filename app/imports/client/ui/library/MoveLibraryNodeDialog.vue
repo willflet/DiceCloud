@@ -27,7 +27,7 @@ const node = ref<any>(undefined);
       <v-btn
         variant="text"
         color="primary"
-        @click="$store.dispatch('popDialogStack', node._id)"
+        @click="$store.dispatch('popDialogStack', node && node._id)"
       >
         {{ action || 'Move' }}
       </v-btn>

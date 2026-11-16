@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, inject, useAttrs, onBeforeUnmount } from 'vue';
+import { ref, computed, inject, useAttrs, onBeforeUnmount, watch } from 'vue';
 import { debounce } from 'lodash';
 
 defineOptions({ inheritAttrs: false });
@@ -29,6 +29,9 @@ const focused = ref(false);
 const loading = ref(false);
 const dirty = ref(false);
 const safeValue = ref(props.value);
+watch(() => props.value, (v) => {
+  if (!dirty.value) safeValue.value = v;
+}, { deep: true });
 const searchInput = ref('');
 
 const errors = computed(() => {
@@ -91,7 +94,6 @@ function customChange(val: unknown) {
     :loading="loading"
     :error-messages="errors"
     :model-value="safeValue"
-    :menu-props="{}"
     :disabled="isDisabled"
     :multiple="multiple"
     :chips="multiple"

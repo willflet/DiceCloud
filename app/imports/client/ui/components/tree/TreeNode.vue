@@ -18,7 +18,7 @@ const props = defineProps<{
     _ancestorOfMatchedDocument?: boolean;
     _matchedDocumentFilter?: boolean;
   };
-  group?: string;
+  group?: string | { name: string; pull?: boolean | string | Function; put?: boolean | string | Function | Array<any> };
   organize?: boolean;
   children?: TreeNodeType<TreeDoc>[];
   getChildren?: () => TreeNodeType<TreeDoc>[];

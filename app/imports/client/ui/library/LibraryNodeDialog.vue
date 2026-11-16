@@ -45,9 +45,7 @@ const currentId = ref<string | undefined>(undefined);
 const isLibraryForm = true;
 
 watch(() => props._id, (newId) => {
-  nextTick(() => {
-    currentId.value = newId;
-  });
+  currentId.value = newId;
 }, { immediate: true });
 
 const { ready } = subscribe(() => ['libraryNode', props._id]);

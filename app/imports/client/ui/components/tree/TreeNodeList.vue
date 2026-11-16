@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted, computed } from 'vue';
 import { type DraggableEvent, VueDraggable } from 'vue-draggable-plus';
 import TreeNode from '/imports/client/ui/components/tree/TreeNode.vue';
 import type { TreeNode as TreeNodeType } from '/imports/api/parenting/parentingFunctions';
@@ -8,7 +8,7 @@ import type { TreeDoc } from '/imports/api/parenting/ChildSchema';
 const props = defineProps<{
   node?: TreeDoc;
   root: Record<string, any>;
-  group?: string;
+  group?: string | { name: string; pull?: boolean | string | Function; put?: boolean | string | Function | Array<any> };
   organize?: boolean;
   lazy?: boolean;
   children?: TreeNodeType<TreeDoc>[];
@@ -24,9 +24,17 @@ const emit = defineEmits<{
 }>();
 
 const displayedChildren = ref<any[]>([]);
+const isDragging = ref(false);
+
+const resolvedGroup = computed(() => {
+  if (props.group) return props.group;
+  return { name: 'tree', pull: true, put: true };
+});
 
 watch(() => props.children, (value) => {
-  displayedChildren.value = value ?? [];
+  if (!isDragging.value) {
+    displayedChildren.value = value ?? [];
+  }
 });
 
 onMounted(() => {
@@ -76,13 +84,15 @@ function handleDrag(element: any, newIndex: number | undefined, oldIndex: number
   <VueDraggable
     v-model="displayedChildren"
     class="drag-area"
-    :group="group"
+    :group="resolvedGroup"
     :animation="200"
     ghost-class="ghost"
     draggable=".item"
     handle=".handle"
     @update="onSorted"
     @add="onAdded"
+    @start="isDragging = true"
+    @end="isDragging = false"
   >
     <tree-node
       v-for="child in displayedChildren"
@@ -90,7 +100,7 @@ function handleDrag(element: any, newIndex: number | undefined, oldIndex: number
       class="item"
       :node="child.doc"
       :children="child.children"
-      :group="group"
+      :group="resolvedGroup"
       :selected-node="selectedNode"
       :selected="selectedNode && selectedNode._id === child.doc._id"
       :ancestors-of-selected-node="ancestorsOfSelectedNode"

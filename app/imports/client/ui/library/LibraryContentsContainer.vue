@@ -54,19 +54,27 @@ const { result: libraryChildren } = autorun(() => {
   );
 });
 
-function moveWithinRoot({ doc, newPosition }: any) {
-  moveWithinRootMethod.callAsync({
-    nodeId: doc._id,
-    newPosition,
-  });
+async function moveWithinRoot({ doc, newPosition }: any) {
+  try {
+    await moveWithinRootMethod.callAsync({
+      nodeId: doc._id,
+      newPosition,
+    });
+  } catch (e: any) {
+    console.error('moveWithinRoot failed', e);
+  }
 }
 
-function moveBetweenRoots({ doc, newPosition, newRootRef }: any) {
-  moveBetweenRootsMethod.callAsync({
-    nodeId: doc._id,
-    left: newPosition,
-    newRoot: newRootRef,
-  });
+async function moveBetweenRoots({ doc, newPosition, newRootRef }: any) {
+  try {
+    await moveBetweenRootsMethod.callAsync({
+      nodeId: doc._id,
+      left: newPosition,
+      newRoot: newRootRef,
+    });
+  } catch (e: any) {
+    console.error('moveBetweenRoots failed', e);
+  }
 }
 </script>
 
@@ -74,7 +82,7 @@ function moveBetweenRoots({ doc, newPosition, newRootRef }: any) {
   <v-fade-transition hide-on-leave>
     <tree-node-list
       v-if="slowShouldSubscribe && libraryNodesReady"
-      group="library"
+      :group="{ name: 'library-tree', pull: true, put: true }"
       :children="libraryChildren"
       :organize="organizeMode"
       :selected-node="selectedNode"
