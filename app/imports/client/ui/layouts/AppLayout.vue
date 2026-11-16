@@ -49,6 +49,9 @@ watch(darkMode, applyDarkMode, { immediate: true });
 
 watch(route, (to) => {
   store.commit('setPageTitle', (to.meta && to.meta.title) || 'DiceCloud');
+  if (store.state.dialogStack.dialogs.length) {
+    store.commit('clearDialogStack');
+  }
 });
 
 onMounted(() => {

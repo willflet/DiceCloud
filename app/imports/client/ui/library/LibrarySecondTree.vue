@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { autorun, subscribe } from 'vue-meteor-tracker';
 import { Meteor } from 'meteor/meteor';
 import LibraryList from '/imports/client/ui/library/LibraryList.vue';
@@ -9,7 +10,16 @@ import { assertEditPermission } from '/imports/client/permissions/sharingPermiss
 
 defineProps<{ selectedNode?: Record<string, any> }>();
 
+const router = useRouter();
 const libraryId = ref<string | undefined>(undefined);
+
+function openSelectedLibrary() {
+  const selectedId = library.value?._id;
+  libraryId.value = undefined;
+  if (selectedId) {
+    router.push({ name: 'singleLibrary', params: { id: selectedId } });
+  }
+}
 
 const { result: library } = autorun(() => Libraries.findOne(libraryId.value));
 
@@ -53,7 +63,7 @@ subscribe(() => libraryId.value ? ['library', libraryId.value] : false);
         <v-btn
           v-if="library && ($route.params.id !== library._id)"
           icon
-          @click="libraryId = undefined; $router.push({ name: 'singleLibrary', params: { id: library._id }})"
+          @click="openSelectedLibrary"
         >
           <v-icon>mdi-arrow-right-bold</v-icon>
         </v-btn>

@@ -64,10 +64,18 @@ const dialogStackStore: Module<DialogStackStoreState, unknown> = {
         },
       };
     },
+    clearDialogStack(state) {
+      state.dialogs = [];
+      state.currentResult = null;
+      state.currentReturnElement = null;
+      state.replacingDialog = null;
+    },
     popDialogStackMutation(state, result) {
       const dialog = state.dialogs.pop();
       state.currentResult = null;
-      updateHistory(state);
+      if (!(window as any).__dialogHistoryPop) {
+        updateHistory(state);
+      }
       state.currentReturnElement = dialog?.callback?.(result) ?? null;
     },
     setCurrentResult(state, result) {
