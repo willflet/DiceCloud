@@ -44,6 +44,7 @@ const pushToProperty = new ValidatedMethod({
       $set: { dirty: true },
     }, {
       selector: { type: property.type },
+      getAutoValues: false,
     });
   }
 });

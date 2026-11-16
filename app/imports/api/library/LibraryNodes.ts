@@ -155,6 +155,7 @@ const pushToLibraryNode = new ValidatedMethod({
       $push: { [path.join('.')]: value },
     }, {
       selector: { type: node!.type },
+      getAutoValues: false,
     });
   }
 });
