@@ -94,6 +94,8 @@ function customChange(val: unknown) {
     :menu-props="{}"
     :disabled="isDisabled"
     :multiple="multiple"
+    :chips="multiple"
+    :closable-chips="multiple"
     variant="outlined"
     @update:model-value="customChange"
     @update:focused="focused = $event"

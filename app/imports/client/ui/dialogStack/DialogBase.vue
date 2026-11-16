@@ -13,10 +13,24 @@ const props = defineProps<{
   darkBody?: boolean;
 }>();
 
+const bodyRef = ref<any>(null);
+
+function getBodyEl(): HTMLElement | null {
+  const r = bodyRef.value;
+  if (!r) return null;
+  return (r instanceof HTMLElement) ? r : (r.$el ?? null);
+}
+
+function resetScroll() {
+  const el = getBodyEl();
+  if (el) el.scrollTop = 0;
+}
+
 onMounted(() => {
   nextTick(() => {
-    const body = document.getElementById('base-dialog-body');
-    if (body) body.scrollTop = 0;
+    resetScroll();
+    setTimeout(resetScroll, 50);
+    setTimeout(resetScroll, 200);
   });
 });
 
@@ -71,6 +85,7 @@ function close() {
     </v-toolbar>
     <div
       v-if="$slots['unwrapped-content']"
+      ref="bodyRef"
       id="base-dialog-body"
       class="unwrapped-content"
       @scroll.passive="onScroll"
@@ -79,6 +94,7 @@ function close() {
     </div>
     <v-card-text
       v-else
+      ref="bodyRef"
       id="base-dialog-body"
       :class="{ 'dark-body': darkBody }"
       @scroll.passive="onScroll"
