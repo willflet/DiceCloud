@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, inject } from 'vue';
 import useHasEventListener from '/imports/client/ui/utility/useHasEventListener';
+import CardHighlight from '/imports/client/ui/components/CardHighlight.vue';
 import numberToSignedString from '/imports/api/utility/numberToSignedString';
 
 const props = defineProps<{
@@ -25,10 +26,11 @@ function increment(value: number) {
 </script>
 
 <template lang="html">
-  <v-list-item
+  <v-card
     class="hit-dice-list-tile"
-    :class="{hover}"
-    v-on="hasClickListener ? { click } : {}"
+    :class="hover ? 'elevation-8': ''"
+    @mouseover="hover = true"
+    @mouseleave="hover = false"
   >
     <div class="d-flex">
       <div class="buttons layout column justify-center pl-3">
@@ -68,12 +70,18 @@ function increment(value: number) {
         </div>
       </div>
     </div>
-  </v-list-item>
+    <card-highlight :active="hover" />
+  </v-card>
 </template>
 
 <style lang="css" scoped>
 .hit-dice-list-tile {
-  background: inherit;
+  transition: box-shadow .4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.hit-dice-list-tile > div {
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 
 .buttons,
@@ -90,11 +98,7 @@ function increment(value: number) {
   cursor: pointer;
 }
 
-.max-value {
-  color: rgba(0, 0, 0, .54);
-}
-
-.v-theme--dark .max-value {
-  color: rgba(255, 255, 0.54);
+.hit-dice-list-tile .max-value {
+  color: inherit;
 }
 </style>

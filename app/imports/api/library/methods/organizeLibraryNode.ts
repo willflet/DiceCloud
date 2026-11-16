@@ -14,10 +14,6 @@ const moveBetweenRoots = new ValidatedMethod({
       type: String,
       max: 32,
     },
-    newParentId: {
-      type: String,
-      max: 32,
-    },
     left: {
       type: Number, // Must end in .5
     },

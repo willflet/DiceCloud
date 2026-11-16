@@ -137,6 +137,11 @@ function clickRootCreature() {
   margin-bottom: 16px;
   opacity: 0.8;
 }
+
+.breadcrumbs a {
+  cursor: pointer;
+  text-decoration: none;
+}
 </style>
 
 <style lang="css">

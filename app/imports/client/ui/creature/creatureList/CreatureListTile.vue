@@ -18,15 +18,14 @@ const dragover = ref(false);
 async function dropItem(event: any) {
   const item = event.data;
   if (!item?._id) return;
-  const docRef = { collection: 'creatureProperties', id: item._id };
   const oldRoot = item.root;
   const oldOrder = item.left;
   const undo = async () => {
     try {
       await moveBetweenRoots.callAsync({
-        docRef,
-        newRootRef: oldRoot,
-        newPosition: (oldOrder || 1) - 0.5,
+        propId: item._id,
+        newRoot: oldRoot,
+        left: (oldOrder || 1) - 0.5,
         skipClient: true,
       });
     } catch (e: any) {
@@ -36,9 +35,9 @@ async function dropItem(event: any) {
   };
   try {
     await moveBetweenRoots.callAsync({
-      docRef,
-      newRootRef: { collection: 'creatures', id: props.model._id },
-      newPosition: 0.5,
+      propId: item._id,
+      newRoot: { collection: 'creatures', id: props.model._id },
+      left: 0.5,
     });
     snackbar({
       text: `Moved ${item.name || 'item'} to ${props.model.name || 'another character'}`,

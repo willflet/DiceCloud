@@ -34,6 +34,11 @@ legend {
   --indent-padding: 0px;
 }
 
+.v-list-subheader:not(.v-list-subheader--inset) {
+  padding-inline-start: 16px !important;
+  padding-inline-end: 16px !important;
+}
+
 /* Improve tap responsiveness on mobile for clickable non-button elements */
 .tree-node-title,
 .v-list-item,

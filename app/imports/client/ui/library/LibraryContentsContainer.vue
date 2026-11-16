@@ -4,7 +4,7 @@ import { autorun, subscribe } from 'vue-meteor-tracker';
 import Libraries from '/imports/api/library/Libraries';
 import LibraryNodes from '/imports/api/library/LibraryNodes';
 import { filterToForest } from '/imports/api/parenting/parentingFunctions';
-import { moveBetweenRoots as moveBetweenRootsMethod, moveWithinRoot as moveWithinRootMethod } from '../../../api/creature/creatureProperties/methods/organizeProperty';
+import { moveBetweenRoots as moveBetweenRootsMethod, moveWithinRoot as moveWithinRootMethod } from '../../../api/library/methods/organizeLibraryNode';
 import TreeNodeList from '/imports/client/ui/components/tree/TreeNodeList.vue';
 
 const props = defineProps<{
@@ -56,16 +56,16 @@ const { result: libraryChildren } = autorun(() => {
 
 function moveWithinRoot({ doc, newPosition }: any) {
   moveWithinRootMethod.callAsync({
-    docRef: { id: doc._id, collection: 'libraryNodes' },
+    nodeId: doc._id,
     newPosition,
   });
 }
 
 function moveBetweenRoots({ doc, newPosition, newRootRef }: any) {
   moveBetweenRootsMethod.callAsync({
-    docRef: { id: doc._id, collection: 'libraryNodes' },
-    newPosition,
-    newRootRef,
+    nodeId: doc._id,
+    left: newPosition,
+    newRoot: newRootRef,
   });
 }
 </script>

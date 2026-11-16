@@ -121,17 +121,18 @@ function decrementHistory() {
 
 <template lang="html">
   <div
-    style="height: 100%; overflow: hidden;"
-    class="character-log layout column justify-end"
+    class="character-log"
+    style="height: 100%; display: flex; flex-direction: column; overflow: hidden;"
   >
     <div
-      class="card-raised-background flex layout column reverse align-stretch pa-3"
-      style="overflow: auto;"
+      class="card-raised-background"
+      style="flex: 1 1 auto; overflow: auto; padding: 12px; display: flex; flex-direction: column-reverse; gap: 8px;"
     >
       <log-entry
         v-for="log in logs"
         :key="log._id"
         :model="log"
+        style="width: 100%;"
       />
     </div>
     <v-card>
@@ -156,15 +157,15 @@ function decrementHistory() {
 
 <style lang="css" scoped>
 .character-log .log-entry .v-card-title {
-  font-size: 1rem;
+  font-size: 0.875rem;
 }
 
 .character-log .content-name {
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
 }
 
 .character-log .content-value {
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
 }
 </style>
 

@@ -31,16 +31,16 @@ const { result: children } = autorun(() => {
 
 function moveWithinRoot({ doc, newPosition }: any) {
   moveWithinRootMethod.callAsync({
-    docRef: { id: doc._id, collection: props.collection ?? 'creatureProperties' },
+    propId: doc._id,
     newPosition,
   });
 }
 
 function moveBetweenRoots({ doc, newPosition, newRootRef }: any) {
   moveBetweenRootsMethod.callAsync({
-    docRef: { id: doc._id, collection: props.collection ?? 'creatureProperties' },
-    newPosition,
-    newRootRef,
+    propId: doc._id,
+    left: newPosition,
+    newRoot: newRootRef,
   });
 }
 </script>

@@ -63,10 +63,7 @@ async function change(event: any) {
   if (!doc) return;
   try {
     await moveWithinRoot.callAsync({
-      docRef: {
-        id: docId,
-        collection: 'creatureProperties',
-      },
+      propId: docId,
       newPosition: order,
     });
   } catch (e: any) {
