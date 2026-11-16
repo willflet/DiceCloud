@@ -31,6 +31,7 @@ Meteor.startup(async () => {
   await import('/imports/api/engine/computation/test/tagTargetBaseValue.test');
   await import('/imports/api/engine/computation/utility/applyFnToKey.test');
   await import('/imports/api/library/Libraries.test');
+  await import('/imports/server/testPushExtraTags.test');
   await import('/imports/api/parenting/parentingFunctions.test');
   await import('/imports/migrations/server/dbv1/dbv1.test');
   await import('/imports/migrations/server/dbv2/dbv2.test');

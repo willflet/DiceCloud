@@ -80,8 +80,8 @@ function change(path: string | string[], value: any, ack?: Function) {
       group
     >
       <div
-        v-for="(extras, i) in model[extraTagsField]"
-        :key="extras._id"
+        v-for="(extras, i) in (model[extraTagsField] || [])"
+        :key="extras && extras._id ? extras._id : i"
         class="target-tags layout align-center justify-space-between"
       >
         <smart-select

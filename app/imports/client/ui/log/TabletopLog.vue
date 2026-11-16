@@ -135,7 +135,7 @@ function decrementHistory() {
       group
       hide-on-leave
       class="card-raised-background flex layout column reverse align-end py-3 px-1"
-      style="overflow: auto;"
+      style="min-height: 0; overflow: auto;"
     >
       <tabletop-log-entry
         v-for="log in logs"
