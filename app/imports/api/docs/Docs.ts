@@ -89,11 +89,10 @@ if (Meteor.isClient) {
   }
 } else if (Meteor.isServer) {
   Meteor.startup(async () => {
-    return;
-    // TODO this is not working in current meteor
+    // Seed documentation from defaults if the collection is empty
     if (!await Docs.findOneAsync()) {
       console.info('No docs found, filling documentation with defaults');
-      const string = Assets.getText('docs/defaultDocs.json') ?? '[]';
+      const string = await Assets.getTextAsync('docs/defaultDocs.json') ?? '[]';
       const docs = JSON.parse(string) as Doc[];
       for (const doc of docs) {
         await Docs.insertAsync(doc);

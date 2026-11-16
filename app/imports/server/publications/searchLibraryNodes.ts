@@ -24,7 +24,7 @@ Meteor.publish('selectedLibraryNodes', async function (selectedNodeIds: string[]
     if (libraryViewPermissions[id]) {
       continue;
     } else {
-      const library = Libraries.findOne(libraryId, {
+      const library = await Libraries.findOneAsync(libraryId, {
         fields: {
           owner: 1,
           readers: 1,

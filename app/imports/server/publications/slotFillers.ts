@@ -67,9 +67,9 @@ Meteor.publish('slotFillers', async function (slotId: string, searchTerm: string
   // Get the slot from the right collection
   let slot;
   if (isDummySlot) {
-    slot = LibraryNodes.findOne(slotId);
+    slot = await LibraryNodes.findOneAsync(slotId);
   } else {
-    slot = CreatureProperties.findOne(slotId);
+    slot = await CreatureProperties.findOneAsync(slotId);
   }
 
 
@@ -139,7 +139,7 @@ Meteor.publish('slotFillers', async function (slotId: string, searchTerm: string
   Mongo.Collection._publishCursor(libraries, self, 'libraries');
 
   const cursor = LibraryNodes.find(filter, options);
-  const observeHandle = cursor.observeChanges({
+  const observeHandle = await cursor.observeChangesAsync({
     added: function (id, fields: Partial<LibraryNode> & { _slotFillerResult?: boolean }) {
       fields._slotFillerResult = true;
       self.added('libraryNodes', id, fields);
@@ -171,7 +171,7 @@ Meteor.publish('classFillers', async function (classId: string, searchTerm: stri
     return [];
   }
   // Get the class
-  const classProp = CreatureProperties.findOne(classId);
+  const classProp = await CreatureProperties.findOneAsync(classId);
   if (!classProp) {
     return [];
   }
@@ -213,7 +213,7 @@ Meteor.publish('classFillers', async function (classId: string, searchTerm: stri
   Mongo.Collection._publishCursor(libraries, self, 'libraries');
 
   const cursor = LibraryNodes.find(filter, options);
-  const observeHandle = cursor.observeChanges({
+  const observeHandle = await cursor.observeChangesAsync({
     added: function (id, fields: Partial<LibraryNode> & { _classFillerResult?: boolean }) {
       fields._classFillerResult = true;
       self.added('libraryNodes', id, fields);

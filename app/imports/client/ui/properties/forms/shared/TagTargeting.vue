@@ -16,15 +16,19 @@ const emit = defineEmits(['change', 'push']);
 
 const addExtraTagsLoading = ref(false);
 
+const resolvedExtraTagsField = computed(() => props.extraTagsField ?? 'extraTags');
+
 const maxTags = computed(() => {
   if (!props.model?.type) return 0;
   const schema = (propertySchemasIndex as any)[props.model.type];
-  return schema.get(props.extraTagsField ?? 'extraTags', 'maxCount');
+  if (!schema || typeof schema.get !== 'function') return 0;
+  return schema.get(resolvedExtraTagsField.value, 'maxCount') ?? 0;
 });
 
 const extraTagsFull = computed(() => {
-  const field = props.extraTagsField ?? 'extraTags';
+  const field = resolvedExtraTagsField.value;
   if (!props.model[field]) return false;
+  if (!maxTags.value) return false;
   return props.model[field].length >= maxTags.value;
 });
 
@@ -80,7 +84,7 @@ function change(path: string | string[], value: any, ack?: Function) {
       group
     >
       <div
-        v-for="(extras, i) in (model[extraTagsField] || [])"
+        v-for="(extras, i) in (model[extraTagsField ?? 'extraTags'] || [])"
         :key="extras && extras._id ? extras._id : i"
         class="target-tags layout align-center justify-space-between"
       >
@@ -89,8 +93,8 @@ function change(path: string | string[], value: any, ack?: Function) {
           style="width: 90px; flex-grow: 0;"
           :items="['OR', 'NOT']"
           :value="extras.operation"
-          :error-messages="errors[extraTagsField] && errors[extraTagsField][i]"
-          @change="(value, ack) => change([extraTagsField, i, 'operation'], value, ack)"
+          :error-messages="errors[(extraTagsField ?? 'extraTags')] && errors[(extraTagsField ?? 'extraTags')][i]"
+          @change="(value, ack) => change([(extraTagsField ?? 'extraTags'), i, 'operation'], value, ack)"
         />
         <smart-combobox
           label="Tags"
@@ -101,12 +105,12 @@ function change(path: string | string[], value: any, ack?: Function) {
           deletable-chips
           persistent-hint
           :value="extras.tags"
-          @change="(value, ack) => change([extraTagsField, i, 'tags'], value, ack)"
+          @change="(value, ack) => change([(extraTagsField ?? 'extraTags'), i, 'tags'], value, ack)"
         />
         <v-btn
           icon
           style="margin-top: -30px;"
-          @click="$emit('pull', {path: [extraTagsField, i]})"
+          @click="$emit('pull', {path: [(extraTagsField ?? 'extraTags'), i]})"
         >
           <v-icon>mdi-delete</v-icon>
         </v-btn>
