@@ -88,6 +88,7 @@ watch(() => props.selectedNode?.parentId, () => {
         v-if="!startExpanded"
         size="small"
         icon
+        variant="text"
         :class="showExpanded ? 'rotate-90' : null"
         :disabled="!hasChildren && !organize || !canExpand"
         @click.stop="expanded = !expanded"
@@ -162,6 +163,11 @@ watch(() => props.selectedNode?.parentId, () => {
 
 .empty .v-btn {
   opacity: 0.4;
+}
+
+.tree-node .v-btn {
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 .found {

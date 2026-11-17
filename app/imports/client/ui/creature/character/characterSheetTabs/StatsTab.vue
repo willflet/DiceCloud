@@ -378,17 +378,14 @@ async function softRemove(_id: string) {
         v-if="properties.attribute.hitDice && properties.attribute.hitDice.length"
         class="hit-dice"
       >
-        <v-card class="pa-2">
-          <div class="text-subtitle-1 px-2">Hit Dice</div>
-          <hit-dice-list-tile
-            v-for="hitDie in properties.attribute.hitDice"
-            :key="hitDie._id"
-            :model="hitDie"
-            :data-id="hitDie._id"
-            @click="clickProperty({ _id: hitDie._id })"
-            @change="e => incrementChange(hitDie._id, e)"
-          />
-        </v-card>
+        <hit-dice-list-tile
+          v-for="hitDie in properties.attribute.hitDice"
+          :key="hitDie._id"
+          :model="hitDie"
+          :data-id="hitDie._id"
+          @click="clickProperty({ _id: hitDie._id })"
+          @change="e => incrementChange(hitDie._id, e)"
+        />
       </div>
 
       <div

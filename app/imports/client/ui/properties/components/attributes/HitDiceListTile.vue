@@ -98,7 +98,10 @@ function increment(value: number) {
   cursor: pointer;
 }
 
-.hit-dice-list-tile .max-value {
-  color: inherit;
+.max-value {
+  color: rgba(0, 0, 0, .54);
+}
+.v-theme--dark .max-value {
+  color: rgba(255, 255, 255, 0.54);
 }
 </style>
