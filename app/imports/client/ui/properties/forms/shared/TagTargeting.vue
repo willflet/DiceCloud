@@ -90,7 +90,7 @@ function change(path: string | string[], value: any, ack?: Function) {
       >
         <smart-select
           label="Operation"
-          style="width: 90px; flex-grow: 0;"
+          style="width: 120px; flex-grow: 0;"
           :items="['OR', 'NOT']"
           :value="extras.operation"
           :error-messages="errors[(extraTagsField ?? 'extraTags')] && errors[(extraTagsField ?? 'extraTags')][i]"

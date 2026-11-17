@@ -196,7 +196,6 @@ async function addProperty(forcedType: string | null) {
   min-width: 240px;
   max-width: calc(100vw - 32px);
   padding: 12px 0;
-  color: #fff8e9;
   background: transparent;
   border: none;
   box-shadow: none;
@@ -211,29 +210,45 @@ async function addProperty(forcedType: string | null) {
   min-height: 40px;
   justify-content: flex-end;
   text-align: right;
-  color: #fff8e9;
   font-weight: 600;
   text-transform: none;
   background: transparent;
 }
 
-.character-add-menu-item .v-btn__content {
-  background: #25324a;
+.v-theme--dark .character-add-menu,
+.v-theme--dark .character-add-menu-item {
   color: #fff8e9;
+}
+.v-theme--light .character-add-menu,
+.v-theme--light .character-add-menu-item {
+  color: #1a1a1a;
+}
+
+.character-add-menu-item .v-btn__content {
   padding: 4px 10px;
   border-radius: 4px;
   margin-right: 8px;
 }
 
 .character-add-menu-item .v-icon {
-  background: #25324a;
-  color: #fff8e9;
   border-radius: 50%;
   width: 32px;
   height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Unobtrusive, theme-aware backgrounds for legibility */
+.v-theme--dark .character-add-menu-item .v-btn__content,
+.v-theme--dark .character-add-menu-item .v-icon {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff8e9;
+}
+.v-theme--light .character-add-menu-item .v-btn__content,
+.v-theme--light .character-add-menu-item .v-icon {
+  background: rgba(0, 0, 0, 0.08);
+  color: #1a1a1a;
 }
 .character-add-menu-item:focus-visible {
   outline: 2px solid currentColor;

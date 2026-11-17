@@ -131,18 +131,17 @@ function decrementHistory() {
     style="height: 100%; overflow: hidden;"
     class="character-log layout column justify-end"
   >
-    <v-slide-y-reverse-transition
-      group
-      hide-on-leave
-      class="card-raised-background flex layout column reverse align-end py-3 px-1"
-      style="min-height: 0; overflow: auto;"
+    <div
+      class="card-raised-background"
+      style="min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 12px; display: flex; flex-direction: column; gap: 8px;"
     >
       <tabletop-log-entry
         v-for="log in logs"
         :key="log._id"
         :model="log"
+        style="width: 100%; max-width: 100%;"
       />
-    </v-slide-y-reverse-transition>
+    </div>
     <v-card>
       <v-text-field
         v-model="input"

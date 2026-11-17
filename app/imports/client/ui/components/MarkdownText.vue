@@ -34,3 +34,11 @@ const compiledMarkdown = computed(() => {
     v-html="compiledMarkdown"
   />
 </template>
+
+<style lang="css" scoped>
+.markdown {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 100%;
+}
+</style>

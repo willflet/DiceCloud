@@ -126,13 +126,13 @@ function decrementHistory() {
   >
     <div
       class="card-raised-background"
-      style="flex: 1 1 auto; min-height: 0; overflow: auto; padding: 12px; display: flex; flex-direction: column-reverse; gap: 8px;"
+      style="flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 12px; display: flex; flex-direction: column; gap: 8px;"
     >
       <log-entry
         v-for="log in logs"
         :key="log._id"
         :model="log"
-        style="width: 100%;"
+        style="width: 100%; max-width: 100%;"
       />
     </div>
     <v-card>

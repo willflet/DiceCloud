@@ -91,7 +91,8 @@ function helpDialog() {
     </v-btn>
     <property-icon
       :model="model"
-      class="mr-2"
+      class="mr-2 align-self-center"
+      style="overflow: visible;"
     />
     <v-toolbar-title v-if="model">
       {{ title }}
