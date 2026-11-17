@@ -51,11 +51,12 @@ async function toggleToggle(value: boolean, ack?: Function) {
         <smart-checkbox
           :value="toggleValue"
           :disabled="toggleDisabled"
+          color="secondary"
           @change="(val, ack) => toggleToggle(val, ack)"
           @click.stop=""
         />
       </div>
-      <v-card-title class="name text-subtitle-1 text-truncate d-block pl-0">
+      <v-card-title class="name text-subtitle-1 text-truncate pl-0 pt-0 pb-0 align-self-center">
         {{ model.name }}
       </v-card-title>
     </div>

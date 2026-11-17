@@ -55,8 +55,7 @@ function clickProperty({ _id }: { _id: string }) {
     >
       <v-btn
         color="accent"
-        style="width: 100%;"
-        variant="outlined"
+        style="width: 100%; font-weight: 700; color: rgb(var(--v-theme-surface));"
         data-id="cast-spell-btn"
         @click="castSpell"
       >

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, onMounted, computed } from 'vue';
+import { ref, watch, onMounted, computed, nextTick } from 'vue';
 import { type DraggableEvent, VueDraggable } from 'vue-draggable-plus';
 import TreeNode from '/imports/client/ui/components/tree/TreeNode.vue';
 import type { TreeNode as TreeNodeType } from '/imports/api/parenting/parentingFunctions';
@@ -27,9 +27,19 @@ const displayedChildren = ref<any[]>([]);
 const isDragging = ref(false);
 
 const resolvedGroup = computed(() => {
+  if (!props.organize) {
+    if (typeof props.group === 'object') {
+      return { ...props.group, pull: false, put: false };
+    }
+    return { name: props.group ?? 'tree', pull: false, put: false };
+  }
   if (props.group) return props.group;
   return { name: 'tree', pull: true, put: true };
 });
+
+function syncDisplayedChildren() {
+  displayedChildren.value = props.children ?? [];
+}
 
 watch(() => props.children, (value) => {
   if (!isDragging.value) {
@@ -47,6 +57,14 @@ function onSorted(event: DraggableEvent<any>) {
 
 function onAdded(event: DraggableEvent<any>) {
   handleDrag(event.data, event.newIndex, undefined);
+}
+
+function onDragEnd() {
+  isDragging.value = false;
+  // Sortable mutates displayedChildren locally. Once the drop is finished,
+  // restore the database-derived tree so a failed or rejected move cannot
+  // leave a phantom nesting change on screen.
+  void nextTick(syncDisplayedChildren);
 }
 
 function handleDrag(element: any, newIndex: number | undefined, oldIndex: number | undefined) {
@@ -71,7 +89,9 @@ function handleDrag(element: any, newIndex: number | undefined, oldIndex: number
     const childBeforeNewIndex = children[newIndex - 1];
     newPosition = childBeforeNewIndex.doc.right + 0.5;
   }
-  if (doc.root.id === props.root.id) {
+  const sameRoot = doc.root.id === props.root.id
+    && doc.root.collection === props.root.collection;
+  if (sameRoot) {
     emit('move-within-root', { doc, newPosition });
   } else {
     emit('move-between-roots', { doc, newPosition, newRootRef: props.root });
@@ -92,7 +112,7 @@ function handleDrag(element: any, newIndex: number | undefined, oldIndex: number
     @update="onSorted"
     @add="onAdded"
     @start="isDragging = true"
-    @end="isDragging = false"
+    @end="onDragEnd"
   >
     <tree-node
       v-for="child in displayedChildren"

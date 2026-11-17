@@ -123,7 +123,7 @@ async function doActionClick() {
         <v-btn
           icon
           variant="outlined"
-          style="font-size: 24px; letter-spacing: normal;"
+          style="font-size: 20px; letter-spacing: normal;"
           class="mr-2"
           :data-id="`${model._id}-do-action-button`"
           :color="model.color || 'primary'"
@@ -260,6 +260,10 @@ async function doActionClick() {
 
 .action-card {
   transition: transform 0.15s cubic;
+}
+
+.action-card .v-btn .v-icon {
+  font-size: 20px !important;
 }
 </style>
 

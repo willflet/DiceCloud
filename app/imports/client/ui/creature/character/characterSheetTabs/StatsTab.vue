@@ -378,6 +378,7 @@ async function softRemove(_id: string) {
         v-if="properties.attribute.hitDice && properties.attribute.hitDice.length"
         class="hit-dice"
       >
+        <div class="text-subtitle-1 px-2">Hit Dice</div>
         <hit-dice-list-tile
           v-for="hitDie in properties.attribute.hitDice"
           :key="hitDie._id"

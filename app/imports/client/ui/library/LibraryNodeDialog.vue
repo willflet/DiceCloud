@@ -21,6 +21,7 @@ import {
 import { snackbar } from '/imports/client/ui/components/snackbars/SnackbarQueue';
 import getPropertyTitle from '/imports/client/ui/properties/shared/getPropertyTitle';
 import copyLibraryNodeTo from '/imports/api/library/methods/copyLibraryNodeTo';
+import { moveToParent } from '/imports/api/library/methods/organizeLibraryNode';
 import { getUserTier } from '/imports/api/users/patreon/tiers';
 import PropertyForm from '/imports/client/ui/properties/PropertyForm.vue';
 import PropertyViewer from '/imports/client/ui/properties/shared/PropertyViewer.vue';
@@ -145,13 +146,15 @@ function move() {
     elementId: 'property-toolbar-menu-button',
     async callback(parentId: string) {
       if (!parentId) return;
+      if (parentId === id) {
+        snackbar({ text: 'A node cannot be moved inside itself' });
+        return;
+      }
       try {
-        await organizeDoc.callAsync({
-          docRef: { collection: 'libraryNodes', id },
-          parentRef: { collection: 'libraryNodes', id: parentId },
-        });
+        await moveToParent.callAsync({ nodeId: id, parentId });
+        snackbar({ text: 'Moved successfully' });
       } catch (error) {
-        console.error(error);
+        snackbar({ text: errorToString(error) });
       }
     },
   });

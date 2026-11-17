@@ -8,6 +8,8 @@ import { docsToForest } from '/imports/api/parenting/parentingFunctions';
 import { useRouter } from 'vue-router';
 import TreeNodeList from '/imports/client/ui/components/tree/TreeNodeList.vue';
 import { key } from '/imports/client/ui/vuexStore';
+import { snackbar } from '/imports/client/ui/components/snackbars/SnackbarQueue';
+import errorToString from '/imports/api/utility/errorToString';
 
 const store = useStore(key);
 const router = useRouter();
@@ -34,11 +36,15 @@ function selected(docId: string) {
   router.push(doc.href);
 }
 
-function moveWithinRoot({ doc, newPosition }: { doc: any; newPosition: number }) {
-  organizeDoc.callAsync({
-    docId: doc._id,
-    newPosition,
-  });
+async function moveWithinRoot({ doc, newPosition }: { doc: any; newPosition: number }) {
+  try {
+    await organizeDoc.callAsync({
+      docId: doc._id,
+      newPosition,
+    });
+  } catch (error) {
+    snackbar({ text: errorToString(error) });
+  }
 }
 </script>
 

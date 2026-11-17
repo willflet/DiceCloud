@@ -32,6 +32,7 @@ function change(path: string | string[], value: any, ack?: Function) {
         <tag-targeting
           :model="model"
           :errors="errors"
+          tag-field="targetTags"
           @change="e => $emit('change', e)"
           @push="e => $emit('push', e)"
           @pull="e => $emit('pull', e)"

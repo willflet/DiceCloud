@@ -446,11 +446,15 @@ export async function moveDocWithinRoot(doc: TreeDoc, collection: Mongo.Collecti
   });
 
   await writeBulkOperations(collection, bulkOps);
-  return rebuildNestedSets(collection, doc.root.id);
+  return rebuildNestedSets(collection, doc.root);
 }
 
 export async function moveDocBetweenRoots(doc: TreeDoc, collection: Mongo.Collection<TreeDoc>, newRoot: Reference, newPosition: number) {
-  if (newRoot.id === doc.root.id) {
+  // Ensure the destination is at a midway point, matching moveDocWithinRoot
+  if (newPosition % 1 !== 0.5) {
+    throw new Meteor.Error('invalid-move', 'Destination must be halfway between two positions (n.5)');
+  }
+  if (newRoot.id === doc.root.id && newRoot.collection === doc.root.collection) {
     throw new Meteor.Error('invalid-move', 'Document is already in the given root')
   }
 
@@ -559,7 +563,39 @@ export async function moveDocBetweenRoots(doc: TreeDoc, collection: Mongo.Collec
     });
   });
 
-  return writeBulkOperations(collection, bulkOps);
+  await writeBulkOperations(collection, bulkOps);
+  // Unlike within-root moves, this changes two roots. Rebuild both so an existing
+  // inconsistency in either nested set cannot survive the move.
+  await Promise.all([
+    rebuildNestedSets(collection, doc.root),
+    rebuildNestedSets(collection, newRoot),
+  ]);
+}
+
+/**
+ * Moves a document so it becomes the first child of the given parent.
+ * The parent is resolved on the server so callers do not have to calculate a
+ * nested-set position from a possibly filtered view of the tree.
+ */
+export async function moveDocToParent(
+  doc: TreeDoc,
+  parent: TreeDoc,
+  collection: Mongo.Collection<TreeDoc>,
+) {
+  if (doc._id === parent._id) {
+    throw new Meteor.Error('invalid-move', 'A doc cannot be moved inside itself');
+  }
+
+  const sameRoot = doc.root.id === parent.root.id
+    && doc.root.collection === parent.root.collection;
+  if (sameRoot) {
+    // isAncestor(doc, parent) means parent is already a descendant of doc
+    if (isAncestor(doc, parent)) {
+      throw new Meteor.Error('invalid-move', 'A doc cannot be moved inside its own descendant');
+    }
+    return moveDocWithinRoot(doc, collection, parent.left + 0.5);
+  }
+  return moveDocBetweenRoots(doc, collection, parent.root, parent.left + 0.5);
 }
 
 /**
@@ -576,10 +612,13 @@ export async function changeParent(doc: TreeDoc, parent: TreeDoc | null, collect
   if (doc.parentId === parent?._id) return;
 
   // Store the original roots
-  const rootChange = parent && doc.root.id !== parent.root?.id;
+  const rootChange = parent && (
+    doc.root.id !== parent.root?.id ||
+    doc.root.collection !== parent.root?.collection
+  );
 
   // Check that the doc isn't becoming its own ancestor
-  if (parent && parent.left > doc.left && parent.right < doc.right) {
+  if (parent && !rootChange && parent.left > doc.left && parent.right < doc.right) {
     throw new Meteor.Error('invalid parenting', 'A doc can\'t be its own ancestor');
   }
 
@@ -605,9 +644,9 @@ export async function changeParent(doc: TreeDoc, parent: TreeDoc | null, collect
   await collection.updateAsync(doc._id, update);
 
   // Rebuild the nested sets of everything on the root document(s)
-  await rebuildNestedSets(collection, doc.root.id);
+  await rebuildNestedSets(collection, doc.root);
   if (rootChange) {
-    await rebuildNestedSets(collection, parent.root.id);
+    await rebuildNestedSets(collection, parent.root);
   }
 }
 
@@ -656,9 +695,15 @@ export function setDocToLastOrder(collection: Mongo.Collection<TreeDoc>, doc: Tr
   doc.left = Number.MAX_SAFE_INTEGER;
 }
 
-export async function rebuildNestedSets(collection: Mongo.Collection<TreeDoc>, rootId: string) {
+export async function rebuildNestedSets(
+  collection: Mongo.Collection<TreeDoc>,
+  root: Reference | string,
+) {
+  const rootFilter = typeof root === 'string'
+    ? { 'root.id': root }
+    : { 'root.id': root.id, 'root.collection': root.collection };
   const docs = await collection.find({
-    'root.id': rootId,
+    ...rootFilter,
     removed: { $ne: true }
   }, {
     fields: treeDocFields,

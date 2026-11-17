@@ -129,12 +129,12 @@ function select(icon?: unknown) {
               v-for="icon in icons"
               :key="icon._id"
               icon
-              size="x-large"
+              size="large"
               @click="select(icon)"
             >
               <svg-icon
                 :shape="icon.shape"
-                x-large
+                large
               />
             </v-btn>
           </v-scale-transition>

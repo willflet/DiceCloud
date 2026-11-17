@@ -42,7 +42,7 @@ function click(val: unknown) {
       rounded="0"
       group
       :model-value="safeValue"
-      color="accent"
+      color="primary"
       style="flex-wrap: wrap;"
     >
       <v-btn

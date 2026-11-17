@@ -35,6 +35,7 @@ const LibraryCollectionEditDialog = defineAsyncComponent(() => import('/imports/
 const LibraryCreationDialog = defineAsyncComponent(() => import('/imports/client/ui/library/LibraryCreationDialog.vue'));
 const LibraryEditDialog = defineAsyncComponent(() => import('/imports/client/ui/library/LibraryEditDialog.vue'));
 const LibraryNodeDialog = defineAsyncComponent(() => import('/imports/client/ui/library/LibraryNodeDialog.vue'));
+const MoveCreaturePropertyDialog = defineAsyncComponent(() => import('/imports/client/ui/creature/creatureProperties/MoveCreaturePropertyDialog.vue'));
 const MoveLibraryNodeDialog = defineAsyncComponent(() => import('/imports/client/ui/library/MoveLibraryNodeDialog.vue'));
 const SelectCreaturesDialog = defineAsyncComponent(() => import('/imports/client/ui/tabletop/SelectCreaturesDialog.vue'));
 const ShareDialog = defineAsyncComponent(() => import('/imports/client/ui/sharing/ShareDialog.vue'));
@@ -71,6 +72,7 @@ export default {
   LibraryCreationDialog,
   LibraryEditDialog,
   LibraryNodeDialog,
+  MoveCreaturePropertyDialog,
   MoveLibraryNodeDialog,
   SelectCreaturesDialog,
   SelectLibraryNodeDialog,

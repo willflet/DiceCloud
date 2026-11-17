@@ -25,6 +25,7 @@ import Breadcrumbs from '/imports/client/ui/creature/creatureProperties/Breadcru
 import insertPropertyFromLibraryNode from '/imports/api/creature/creatureProperties/methods/insertPropertyFromLibraryNode';
 import PropertyViewer from '/imports/client/ui/properties/shared/PropertyViewer.vue';
 import copyPropertyToLibrary from '/imports/api/creature/creatureProperties/methods/copyPropertyToLibrary';
+import { moveToParent } from '/imports/api/creature/creatureProperties/methods/organizeProperty';
 import doAction from '/imports/client/ui/creature/actions/doAction';
 import { key } from '/imports/client/ui/vuexStore';
 
@@ -188,6 +189,30 @@ function selectSubProperty(_id: string) {
   });
 }
 
+function move() {
+  const id = currentId.value;
+  const rootId = creatureId.value;
+  if (!id || !rootId) return;
+  store.commit('pushDialogStack', {
+    component: 'move-creature-property-dialog',
+    elementId: 'property-toolbar-menu-button',
+    data: { creatureId: rootId },
+    async callback(parentId: string) {
+      if (!parentId) return;
+      if (parentId === id) {
+        snackbar({ text: 'A property cannot be moved inside itself' });
+        return;
+      }
+      try {
+        await moveToParent.callAsync({ propId: id, parentId });
+        snackbar({ text: 'Moved successfully' });
+      } catch (error: any) {
+        snackbar({ text: error.reason || error.message || error.toString() });
+      }
+    },
+  });
+}
+
 function copyToLibrary() {
   const thisId = props._id;
   store.commit('pushDialogStack', {
@@ -248,6 +273,7 @@ function addProperty({ elementId, suggestedType }: any) {
         :embedded="embedded"
         style="flex-grow: 0;"
         @duplicate="duplicate"
+        @move="move"
         @remove="remove"
         @copy-to-library="copyToLibrary"
         @toggle-editing="editing = !editing"

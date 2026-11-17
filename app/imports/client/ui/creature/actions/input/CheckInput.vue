@@ -37,7 +37,7 @@ function change(key: string, value: any, ack: Function) {
     <div class="d-flex flex-column justify-center align-center ma-2">
       <v-btn-toggle
         :model-value="value.advantage"
-        color="accent"
+        color="primary"
         @update:model-value="changeAdvantage"
       >
         <v-btn :value="-1">

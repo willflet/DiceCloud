@@ -14,8 +14,8 @@ const props = withDefaults(defineProps<{
 
 const textValue = computed(() => {
   if (!props.model) return undefined;
-  if (typeof props.model.value === 'string') {
-    return props.model.value;
+  if (props.model.value !== undefined && props.model.value !== null) {
+    return String(props.model.value);
   } else {
     return props.model.text;
   }

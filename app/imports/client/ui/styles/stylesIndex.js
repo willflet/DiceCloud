@@ -12,4 +12,6 @@ import './speedDial.css';
 import './toolbarFlex.css';
 import './vIconCompat.css';
 import './textAlignmentCompat.css';
+import './textSecondary.css';
+import './switchSecondary.css';
 import './lanceChronicle.css';

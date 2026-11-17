@@ -19,7 +19,7 @@ function emitInput(e: number) {
   <div class="d-flex flex-column justify-center align-center">
     <v-btn-toggle
       :model-value="value"
-      color="accent"
+      color="primary"
       @update:model-value="emitInput"
     >
       <v-btn :value="-1">

@@ -62,6 +62,7 @@ const { result: skillList } = autorun(() =>
             v-if="model.targetByTags"
             :model="model"
             :errors="errors"
+            tag-field="targetTags"
             @change="e => $emit('change', e)"
             @push="e => $emit('push', e)"
             @pull="e => $emit('pull', e)"

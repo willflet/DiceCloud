@@ -16,6 +16,7 @@ const emit = defineEmits(['change', 'push']);
 
 const addExtraTagsLoading = ref(false);
 
+const resolvedTagField = computed(() => props.tagField ?? 'targetTags');
 const resolvedExtraTagsField = computed(() => props.extraTagsField ?? 'extraTags');
 
 const maxTags = computed(() => {
@@ -34,7 +35,7 @@ const extraTagsFull = computed(() => {
 
 function addExtraTags() {
   addExtraTagsLoading.value = true;
-  const field = props.extraTagsField ?? 'extraTags';
+  const field = resolvedExtraTagsField.value;
   emit('push', {
     path: [field],
     value: {
@@ -75,16 +76,16 @@ function change(path: string | string[], value: any, ack?: Function) {
         small-chips
         deletable-chips
         persistent-hint
-        :value="model[tagField]"
-        :error-messages="errors[tagField]"
-        @change="(value, ack) => change(tagField, value, ack)"
+        :value="model[resolvedTagField]"
+        :error-messages="errors[resolvedTagField]"
+        @change="(value, ack) => change(resolvedTagField, value, ack)"
       />
     </div>
     <v-slide-x-transition
       group
     >
       <div
-        v-for="(extras, i) in (model[extraTagsField ?? 'extraTags'] || [])"
+        v-for="(extras, i) in (model[resolvedExtraTagsField] || [])"
         :key="extras && extras._id ? extras._id : i"
         class="target-tags layout align-center justify-space-between"
       >
@@ -93,8 +94,8 @@ function change(path: string | string[], value: any, ack?: Function) {
           style="width: 120px; flex-grow: 0;"
           :items="['OR', 'NOT']"
           :value="extras.operation"
-          :error-messages="errors[(extraTagsField ?? 'extraTags')] && errors[(extraTagsField ?? 'extraTags')][i]"
-          @change="(value, ack) => change([(extraTagsField ?? 'extraTags'), i, 'operation'], value, ack)"
+          :error-messages="errors[resolvedExtraTagsField] && errors[resolvedExtraTagsField][i]"
+          @change="(value, ack) => change([resolvedExtraTagsField, i, 'operation'], value, ack)"
         />
         <smart-combobox
           label="Tags"
@@ -105,12 +106,12 @@ function change(path: string | string[], value: any, ack?: Function) {
           deletable-chips
           persistent-hint
           :value="extras.tags"
-          @change="(value, ack) => change([(extraTagsField ?? 'extraTags'), i, 'tags'], value, ack)"
+          @change="(value, ack) => change([resolvedExtraTagsField, i, 'tags'], value, ack)"
         />
         <v-btn
           icon
           style="margin-top: -30px;"
-          @click="$emit('pull', {path: [(extraTagsField ?? 'extraTags'), i]})"
+          @click="$emit('pull', {path: [resolvedExtraTagsField, i]})"
         >
           <v-icon>mdi-delete</v-icon>
         </v-btn>

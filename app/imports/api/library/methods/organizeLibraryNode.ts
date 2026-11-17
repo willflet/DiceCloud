@@ -1,7 +1,7 @@
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { RateLimiterMixin } from 'ddp-rate-limiter-mixin';
 import { assertDocEditPermission, assertDocExists, assertEditPermission } from '/imports/api/sharing/sharingPermissions';
-import { moveDocBetweenRoots, moveDocWithinRoot } from '/imports/api/parenting/parentingFunctions';
+import { moveDocBetweenRoots, moveDocToParent, moveDocWithinRoot } from '/imports/api/parenting/parentingFunctions';
 import { TypedSimpleSchema } from '/imports/api/utility/TypedSimpleSchema';
 import STORAGE_LIMITS from '/imports/constants/STORAGE_LIMITS';
 import { getDocByRefAsync } from '/imports/api/parenting/reference';
@@ -88,4 +88,40 @@ const moveWithinRoot = new ValidatedMethod({
   },
 });
 
-export { moveBetweenRoots, moveWithinRoot };
+const moveToParent = new ValidatedMethod({
+  name: 'libraryNodes.organize.moveToParent',
+  validate: TypedSimpleSchema.from({
+    nodeId: {
+      type: String,
+      max: 32,
+    },
+    parentId: {
+      type: String,
+      max: 32,
+    },
+    skipClient: {
+      type: Boolean,
+      optional: true,
+    },
+  }).validator(),
+  mixins: [RateLimiterMixin],
+  rateLimit: {
+    numRequests: 5,
+    timeInterval: 5000,
+  },
+  async run({ nodeId, parentId, skipClient }) {
+    if (skipClient && this.isSimulation) {
+      return;
+    }
+    const node = await LibraryNodes.findOneAsync(nodeId);
+    assertDocExists(node);
+    await assertDocEditPermission(node, this.userId);
+    const parent = await LibraryNodes.findOneAsync(parentId);
+    assertDocExists(parent);
+    await assertDocEditPermission(parent, this.userId);
+
+    await moveDocToParent(node, parent, LibraryNodes);
+  },
+});
+
+export { moveBetweenRoots, moveToParent, moveWithinRoot };

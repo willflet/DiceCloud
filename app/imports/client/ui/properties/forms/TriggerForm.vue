@@ -19,17 +19,17 @@ function change(path: string | string[], value: any, ack?: Function) {
 
 const eventOptionsList = Object.keys(eventOptions).map(value => ({
   value,
-  text: (eventOptions as Record<string, string>)[value],
+  title: (eventOptions as Record<string, string>)[value],
 }));
 
 const timingOptionsList = Object.keys(timingOptions).map(value => ({
   value,
-  text: (timingOptions as Record<string, string>)[value],
+  title: (timingOptions as Record<string, string>)[value],
 }));
 
 const actionPropertyTypeOptionsList = Object.keys(actionPropertyTypeOptions).map(value => ({
   value,
-  text: (actionPropertyTypeOptions as Record<string, string>)[value],
+  title: (actionPropertyTypeOptions as Record<string, string>)[value],
 }));
 
 const addExtraTagsLoading = ref(false);
@@ -73,7 +73,7 @@ function addExtraTags() {
           label="Timing"
           style="flex-basis: 300px;"
           hint="When this trigger will fire"
-          :items="timingOptions"
+          :items="timingOptionsList"
           :value="model.timing"
           :error-messages="errors.timing"
           @change="(value, ack) => change('timing', value, ack)"
@@ -87,7 +87,7 @@ function addExtraTags() {
           label="Event"
           style="flex-basis: 300px;"
           hint="What causes this trigger to fire"
-          :items="eventOptions"
+          :items="eventOptionsList"
           :value="model.event"
           :error-messages="errors.event"
           @change="(value, ack) => change('event', value, ack)"
@@ -118,7 +118,7 @@ function addExtraTags() {
             label="Event Type"
             style="flex-basis: 300px;"
             hint="Which action event causes this trigger to fire"
-            :items="actionPropertyTypeOptions"
+            :items="actionPropertyTypeOptionsList"
             :value="model.actionPropertyType"
             :error-messages="errors.actionPropertyType"
             @change="(value, ack) => change('actionPropertyType', value, ack)"
@@ -129,6 +129,7 @@ function addExtraTags() {
         <tag-targeting
           :model="model"
           :errors="errors"
+          tag-field="targetTags"
           @change="e => $emit('change', e)"
           @push="e => $emit('push', e)"
           @pull="e => $emit('pull', e)"

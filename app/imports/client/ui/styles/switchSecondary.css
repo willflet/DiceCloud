@@ -1,0 +1,11 @@
+.v-switch.v-switch--checked .v-selection-control__input .v-switch__thumb,
+.v-switch--checked .v-switch__thumb {
+  background-color: rgb(var(--v-theme-secondary)) !important;
+  border-color: rgb(var(--v-theme-secondary)) !important;
+}
+
+.v-switch.v-switch--checked .v-switch__track,
+.v-switch--checked .v-switch__track {
+  background-color: rgba(var(--v-theme-secondary), 0.5) !important;
+  opacity: 1 !important;
+}

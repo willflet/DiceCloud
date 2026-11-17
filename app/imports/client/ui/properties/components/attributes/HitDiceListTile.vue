@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, inject } from 'vue';
 import useHasEventListener from '/imports/client/ui/utility/useHasEventListener';
+import SmartBtn from '/imports/client/ui/components/global/SmartBtn.vue';
 import CardHighlight from '/imports/client/ui/components/CardHighlight.vue';
 import numberToSignedString from '/imports/api/utility/numberToSignedString';
 
@@ -34,24 +35,26 @@ function increment(value: number) {
   >
     <div class="d-flex">
       <div class="buttons layout column justify-center pl-3">
-        <v-btn
+        <smart-btn
           icon
           variant="text"
-          size="small"
+          small
+          single-click
           :disabled="model.value >= model.total || context.editPermission === false"
           @click="increment(1)"
         >
           <v-icon>mdi-chevron-up</v-icon>
-        </v-btn>
-        <v-btn
+        </smart-btn>
+        <smart-btn
           icon
           variant="text"
-          size="small"
+          small
+          single-click
           :disabled="model.value <= 0 || context.editPermission === false"
           @click="increment(-1)"
         >
           <v-icon>mdi-chevron-down</v-icon>
-        </v-btn>
+        </smart-btn>
       </div>
       <div class="d-flex align-center value pl-2 pr-3">
         <div class="text-h4">

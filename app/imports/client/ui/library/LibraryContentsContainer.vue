@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { autorun, subscribe } from 'vue-meteor-tracker';
 import Libraries from '/imports/api/library/Libraries';
 import LibraryNodes from '/imports/api/library/LibraryNodes';
 import { filterToForest } from '/imports/api/parenting/parentingFunctions';
 import { moveBetweenRoots as moveBetweenRootsMethod, moveWithinRoot as moveWithinRootMethod } from '../../../api/library/methods/organizeLibraryNode';
 import TreeNodeList from '/imports/client/ui/components/tree/TreeNodeList.vue';
+import { snackbar } from '/imports/client/ui/components/snackbars/SnackbarQueue';
+import errorToString from '/imports/api/utility/errorToString';
 
 const props = defineProps<{
   libraryId?: string;
@@ -17,6 +19,7 @@ const props = defineProps<{
 }>();
 
 const slowShouldSubscribe = ref(props.shouldSubscribe ?? false);
+const hasFilter = computed(() => !!props.filter && Object.keys(props.filter).length > 0);
 let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
 watch(() => props.shouldSubscribe, (newValue) => {
@@ -60,8 +63,8 @@ async function moveWithinRoot({ doc, newPosition }: any) {
       nodeId: doc._id,
       newPosition,
     });
-  } catch (e: any) {
-    console.error('moveWithinRoot failed', e);
+  } catch (error) {
+    snackbar({ text: errorToString(error) });
   }
 }
 
@@ -72,8 +75,8 @@ async function moveBetweenRoots({ doc, newPosition, newRootRef }: any) {
       left: newPosition,
       newRoot: newRootRef,
     });
-  } catch (e: any) {
-    console.error('moveBetweenRoots failed', e);
+  } catch (error) {
+    snackbar({ text: errorToString(error) });
   }
 }
 </script>
@@ -84,7 +87,7 @@ async function moveBetweenRoots({ doc, newPosition, newRootRef }: any) {
       v-if="slowShouldSubscribe && libraryNodesReady"
       :group="{ name: 'library-tree', pull: true, put: true }"
       :children="libraryChildren"
-      :organize="organizeMode"
+      :organize="organizeMode && !hasFilter"
       :selected-node="selectedNode"
       :root="{collection: 'libraries', id: libraryId}"
       @selected="e => $emit('selected', e)"

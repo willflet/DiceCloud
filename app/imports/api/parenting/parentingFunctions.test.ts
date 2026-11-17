@@ -1,6 +1,14 @@
 import '/imports/api/simpleSchemaConfig';
-import { docsToForest, calculateNestedSetOperations, getFilter, moveDocWithinRoot, moveDocBetweenRoots } from '/imports/api/parenting/parentingFunctions'
+import {
+  docsToForest,
+  calculateNestedSetOperations,
+  getFilter,
+  moveDocWithinRoot,
+  moveDocBetweenRoots,
+  moveDocToParent,
+} from '/imports/api/parenting/parentingFunctions'
 import { TreeDoc } from '/imports/api/parenting/ChildSchema';
+import type { Reference } from '/imports/api/parenting/reference';
 import { assert } from 'chai';
 
 function doc(_id, left, right, parentId?): TreeDoc {
@@ -343,6 +351,7 @@ describe('Documents can be moved between roots without breaking the trees', func
     if (!parentId) delete doc.parentId;
     return doc;
   }
+  const root1Ref = { id: 'root1', collection: 'someCol' } as unknown as Reference;
   beforeEach(async function () {
     await treeCollection.removeAsync({});
     await Promise.all([
@@ -378,7 +387,7 @@ describe('Documents can be moved between roots without breaking the trees', func
       */
     const vegDoc = await treeCollection.findOneAsync({ _id: 'Vegetarian' });
     if (!vegDoc) throw new Error('Vegetarian doc not found');
-    await moveDocBetweenRoots(vegDoc, treeCollection, { id: 'root1', collection: 'someCol' }, 3.5);
+    await moveDocBetweenRoots(vegDoc, treeCollection, root1Ref, 3.5);
     const docs = await treeCollection.find({}, { sort: { 'root.id': 1, left: 1 } }).fetchAsync();
     assert.deepEqual(docs, [
       doc('Books', 1, 18, undefined, 'root1'),
@@ -394,5 +403,86 @@ describe('Documents can be moved between roots without breaking the trees', func
       doc('Cooking', 2, 5, 'Videos', 'root2'),
       doc('Meat', 3, 4, 'Cooking', 'root2'),
     ]);
+  });
+
+  it('rebuilds both roots after a cross-root move', async function () {
+    // Simulate pre-existing nested-set drift in both roots. parentId remains
+    // canonical, so the rebuilds should normalise the left/right values.
+    await treeCollection.updateAsync({ _id: 'Books' }, { $set: { right: 99 } });
+    await treeCollection.updateAsync({ _id: 'Videos' }, { $set: { right: 99 } });
+
+    const vegDoc = await treeCollection.findOneAsync({ _id: 'Vegetarian' });
+    if (!vegDoc) throw new Error('Vegetarian doc not found');
+    await moveDocBetweenRoots(vegDoc, treeCollection, root1Ref, 3.5);
+
+    const docs = await treeCollection.find({}, { sort: { 'root.id': 1, left: 1 } }).fetchAsync();
+    assert.deepEqual(docs, [
+      doc('Books', 1, 18, undefined, 'root1'),
+      doc('Programming', 2, 17, 'Books', 'root1'),
+      doc('Languages', 3, 10, 'Programming', 'root1'),
+      doc('Vegetarian', 4, 9, 'Languages', 'root1'),
+      doc('Pasta', 5, 6, 'Vegetarian', 'root1'),
+      doc('Mains', 7, 8, 'Vegetarian', 'root1'),
+      doc('Databases', 11, 16, 'Programming', 'root1'),
+      doc('MongoDB', 12, 13, 'Databases', 'root1'),
+      doc('dbm', 14, 15, 'Databases', 'root1'),
+      doc('Videos', 1, 6, undefined, 'root2'),
+      doc('Cooking', 2, 5, 'Videos', 'root2'),
+      doc('Meat', 3, 4, 'Cooking', 'root2'),
+    ]);
+  });
+
+  it('rejects cross-root moves to non-midway positions', async function () {
+    const vegDoc = await treeCollection.findOneAsync({ _id: 'Vegetarian' });
+    if (!vegDoc) throw new Error('Vegetarian doc not found');
+    let error: Meteor.Error | undefined;
+    try {
+      await moveDocBetweenRoots(vegDoc, treeCollection, root1Ref, 4);
+    } catch (e) {
+      error = e as Meteor.Error;
+    }
+    assert.ok(error);
+    assert.equal(error?.error, 'invalid-move');
+  });
+
+  it('moves a document to the first child of a chosen parent', async function () {
+    const vegDoc = await treeCollection.findOneAsync({ _id: 'Vegetarian' });
+    const languagesDoc = await treeCollection.findOneAsync({ _id: 'Languages' });
+    if (!vegDoc || !languagesDoc) throw new Error('Document not found');
+
+    await moveDocToParent(vegDoc, languagesDoc, treeCollection);
+
+    const movedDoc = await treeCollection.findOneAsync({ _id: 'Vegetarian' });
+    assert.equal(movedDoc?.parentId, 'Languages');
+    assert.deepEqual(movedDoc?.root, root1Ref);
+    assert.equal(movedDoc?.left, 4);
+
+    // The source root must have been rebuilt after the move
+    const root2Docs = await treeCollection.find(
+      { 'root.id': 'root2' },
+      { sort: { left: 1 } },
+    ).fetchAsync();
+    assert.deepEqual(root2Docs, [
+      doc('Videos', 1, 6, undefined, 'root2'),
+      doc('Cooking', 2, 5, 'Videos', 'root2'),
+      doc('Meat', 3, 4, 'Cooking', 'root2'),
+    ]);
+  });
+
+  it('will not move a document inside itself or its descendants', async function () {
+    const booksDoc = await treeCollection.findOneAsync({ _id: 'Books' });
+    const mongoDBDoc = await treeCollection.findOneAsync({ _id: 'MongoDB' });
+    if (!booksDoc || !mongoDBDoc) throw new Error('Document not found');
+
+    for (const parent of [booksDoc, mongoDBDoc]) {
+      let error: Meteor.Error | undefined;
+      try {
+        await moveDocToParent(booksDoc, parent, treeCollection);
+      } catch (e) {
+        error = e as Meteor.Error;
+      }
+      assert.ok(error);
+      assert.equal(error?.error, 'invalid-move');
+    }
   });
 });

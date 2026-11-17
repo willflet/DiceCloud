@@ -3,7 +3,7 @@ import { RateLimiterMixin } from 'ddp-rate-limiter-mixin';
 import { assertDocEditPermission, assertDocExists, assertEditPermission } from '/imports/api/sharing/sharingPermissions';
 import { compact } from 'lodash';
 import Creatures from '/imports/api/creature/creatures/Creatures';
-import { moveDocBetweenRoots, moveDocWithinRoot } from '/imports/api/parenting/parentingFunctions';
+import { moveDocBetweenRoots, moveDocToParent, moveDocWithinRoot } from '/imports/api/parenting/parentingFunctions';
 import { TypedSimpleSchema } from '/imports/api/utility/TypedSimpleSchema';
 import STORAGE_LIMITS from '/imports/constants/STORAGE_LIMITS';
 import { getDocByRefAsync } from '/imports/api/parenting/reference';
@@ -122,4 +122,58 @@ const moveWithinRoot = new ValidatedMethod({
   },
 });
 
-export { moveBetweenRoots, moveWithinRoot };
+const moveToParent = new ValidatedMethod({
+  name: 'creatureProperties.organize.moveToParent',
+  validate: TypedSimpleSchema.from({
+    propId: {
+      type: String,
+      max: 32,
+    },
+    parentId: {
+      type: String,
+      max: 32,
+    },
+    skipRecompute: {
+      type: Boolean,
+      optional: true,
+    },
+    skipClient: {
+      type: Boolean,
+      optional: true,
+    },
+  }).validator(),
+  mixins: [RateLimiterMixin],
+  rateLimit: {
+    numRequests: 5,
+    timeInterval: 5000,
+  },
+  async run({ propId, parentId, skipRecompute, skipClient }) {
+    if (skipClient && this.isSimulation) {
+      return;
+    }
+    const prop = await CreatureProperties.findOneAsync(propId);
+    assertDocExists(prop);
+    await assertDocEditPermission(prop, this.userId);
+    const parent = await CreatureProperties.findOneAsync(parentId);
+    assertDocExists(parent);
+    await assertDocEditPermission(parent, this.userId);
+
+    const sourceRoot = prop.root;
+    const destinationRoot = parent.root;
+    await moveDocToParent(prop, parent, CreatureProperties);
+
+    if (!skipRecompute) {
+      const creatureIdsToRecalculate = compact([
+        ...destinationRoot.collection === 'creatures' ? [destinationRoot.id] : [],
+        ...sourceRoot.collection === 'creatures' ? [sourceRoot.id] : [],
+      ]);
+      await Creatures.updateAsync({
+        _id: { $in: creatureIdsToRecalculate },
+      }, {
+        $set: { dirty: true },
+      });
+    }
+  },
+});
+
+export { moveBetweenRoots, moveToParent, moveWithinRoot };

@@ -69,6 +69,7 @@ const { result: properties } = autorun(() => {
 .folder-group-card .v-card {
   box-shadow: none !important;
   border-radius: 0 !important;
+  border: none !important;
 }
 .folder-group-card .drag-handle {
   display: none !important;

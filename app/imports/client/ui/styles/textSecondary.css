@@ -1,0 +1,7 @@
+.text-secondary {
+  color: rgba(0, 0, 0, .54) !important;
+}
+
+.v-theme--dark .text-secondary {
+  color: rgba(255, 255, 255, 0.54) !important;
+}

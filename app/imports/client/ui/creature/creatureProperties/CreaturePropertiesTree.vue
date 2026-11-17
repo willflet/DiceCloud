@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { autorun } from 'vue-meteor-tracker';
 import { filterToForest, getCollectionByName } from '/imports/api/parenting/parentingFunctions';
 import TreeNodeList from '/imports/client/ui/components/tree/TreeNodeList.vue';
 import { moveBetweenRoots as moveBetweenRootsMethod, moveWithinRoot as moveWithinRootMethod } from '../../../../api/creature/creatureProperties/methods/organizeProperty';
+import { snackbar } from '/imports/client/ui/components/snackbars/SnackbarQueue';
+import errorToString from '/imports/api/utility/errorToString';
 
 const props = defineProps<{
   root?: Record<string, any>;
@@ -19,6 +22,10 @@ const emit = defineEmits<{
   (e: 'length', n: number): void;
 }>();
 
+// Filtered forests contain ancestors and descendants, but omit siblings, so
+// their visible order cannot be used to calculate a reliable nested-set move.
+const hasFilter = computed(() => !!props.filter && Object.keys(props.filter).length > 0);
+
 const { result: children } = autorun(() => {
   const result = filterToForest?.(
     getCollectionByName(props.collection ?? 'creatureProperties'),
@@ -33,19 +40,27 @@ const { result: children } = autorun(() => {
   return result;
 });
 
-function moveWithinRoot({ doc, newPosition }: any) {
-  moveWithinRootMethod.callAsync({
-    propId: doc._id,
-    newPosition,
-  });
+async function moveWithinRoot({ doc, newPosition }: any) {
+  try {
+    await moveWithinRootMethod.callAsync({
+      propId: doc._id,
+      newPosition,
+    });
+  } catch (error) {
+    snackbar({ text: errorToString(error) });
+  }
 }
 
-function moveBetweenRoots({ doc, newPosition, newRootRef }: any) {
-  moveBetweenRootsMethod.callAsync({
-    propId: doc._id,
-    left: newPosition,
-    newRoot: newRootRef,
-  });
+async function moveBetweenRoots({ doc, newPosition, newRootRef }: any) {
+  try {
+    await moveBetweenRootsMethod.callAsync({
+      propId: doc._id,
+      left: newPosition,
+      newRoot: newRootRef,
+    });
+  } catch (error) {
+    snackbar({ text: errorToString(error) });
+  }
 }
 </script>
 
@@ -54,7 +69,7 @@ function moveBetweenRoots({ doc, newPosition, newRootRef }: any) {
     v-if="root"
     :children="children"
     :group="group"
-    :organize="organize"
+    :organize="organize && !hasFilter"
     :selected-node="selectedNode"
     :start-expanded="expanded"
     :root="root"
